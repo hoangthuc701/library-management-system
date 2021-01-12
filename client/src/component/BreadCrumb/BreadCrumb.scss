@@ -1,0 +1,23 @@
+.breadcrumb {
+   padding: 1.5rem 0;
+   &__list {
+      display: flex;
+   }
+   &__item {
+      &-link {
+         color: #33b5e5;
+         font-size: 1.4rem;
+         font-family: "Open Sans", sans-serif;
+         font-weight: 600;
+      }
+      p {
+         font-size: 1.4rem;
+         font-family: "Open Sans", sans-serif;
+         color: rgb(132, 134, 145);
+      }
+      span {
+         margin: 0 0.5rem;
+         color: rgb(132, 134, 145);
+      }
+   }
+}

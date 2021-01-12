@@ -1,0 +1,13 @@
+.staffs-form {
+   &__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0 1.5rem;
+   }
+   &__actions {
+      text-align: right;
+      .btn {
+         margin-left: 1rem;
+      }
+   }
+}

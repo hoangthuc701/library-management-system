@@ -1,0 +1,16 @@
+.sidebar {
+   z-index: 1;
+   top: 0;
+   background: #2f323a;
+   margin-top: 58px;
+   position: fixed;
+   left: -250px;
+   width: 250px;
+   height: calc(100% - 9%);
+   overflow-y: auto;
+   transition: all 0.35s ease;
+   &.open {
+      transition: all 0.35s ease;
+      left: 0;
+   }
+}

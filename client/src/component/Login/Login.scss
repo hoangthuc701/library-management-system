@@ -1,0 +1,37 @@
+.login {
+   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+   border-radius: 1px;
+   width: 35rem;
+   &__header {
+      padding: 2rem 1.5rem;
+      background-color: #33b5e5;
+      font-size: 1.8rem;
+      font-family: "Open Sans", sans-serif;
+      color: #fff;
+      border-top-left-radius: 1px;
+      border-top-right-radius: 1px;
+   }
+   &__form {
+      padding: 4rem 1.5rem 1rem;
+   }
+   &__submit {
+      margin-top: 3rem;
+   }
+   &__bottom {
+      margin-top: 3rem;
+      text-align: center;
+      a {
+         color: #33b5e5;
+         margin-left: 0;
+      }
+   }
+   &__link {
+      margin-left: 2rem;
+      color: rgb(206, 204, 205);
+      transition: all 0.25s ease;
+      &:hover {
+         color: #33b5e5;
+         text-decoration: underline;
+      }
+   }
+}

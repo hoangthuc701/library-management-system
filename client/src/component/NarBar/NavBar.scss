@@ -1,0 +1,49 @@
+.navbar {
+   &__item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      &:first-child {
+         border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+   }
+   &__link {
+      position: relative;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      width: 100%;
+      border: none;
+      transition: all 0.25s linear;
+      font-family: "Roboto Condensed", sans-serif;
+      font-size: 1.5rem;
+      background-color: rgb(34, 36, 42);
+      &:hover {
+         background-color: #33b5e5;
+      }
+      &:focus {
+         outline: 0;
+         border: none;
+         -moz-outline-style: none;
+      }
+      i {
+         margin-right: 1rem;
+      }
+      &::before {
+         content: "";
+         position: absolute;
+         left: 0;
+         top: 0;
+         background-color: transparent;
+         width: 3px;
+         height: 100%;
+         transition: all 0.25s linear;
+      }
+      &.active {
+         &::before {
+            background-color: #33b5e5;
+            transition: all 0.25s linear;
+         }
+      }
+   }
+}

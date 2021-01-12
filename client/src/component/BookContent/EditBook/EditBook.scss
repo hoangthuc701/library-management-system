@@ -1,0 +1,17 @@
+.edit-book {
+   &__actions {
+      margin-top: 2rem;
+      .btn {
+         margin-right: 1rem;
+      }
+   }
+   &-form {
+      &__list {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         grid-gap: 0 1.5rem;
+      }
+      &__item {
+      }
+   }
+}

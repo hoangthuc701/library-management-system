@@ -1,0 +1,16 @@
+.import-book {
+   &__info {
+      margin: 2rem 0;
+      max-width: 95%;
+      display: flex;
+      justify-content: space-between;
+   }
+   &__actions {
+      .btn {
+         margin-right: 1rem;
+      }
+   }
+   &__form {
+      margin-bottom: 2rem;
+   }
+}

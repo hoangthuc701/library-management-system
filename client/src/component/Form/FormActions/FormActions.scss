@@ -1,0 +1,9 @@
+.form-actions {
+   &__detail,
+   &__save {
+      text-align: right;
+      .btn {
+         margin-left: 1rem;
+      }
+   }
+}

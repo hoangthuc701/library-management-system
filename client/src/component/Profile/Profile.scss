@@ -1,0 +1,33 @@
+.profile {
+   &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      &-box {
+         width: 15rem;
+         height: 15rem;
+         margin-bottom: 2rem;
+      }
+   }
+   &__top {
+      display: flex;
+   }
+   &__info {
+      margin-left: 4rem;
+      flex-grow: 1;
+      &__bottom {
+         display: flex;
+         .info-group {
+            width: 33.33%;
+         }
+      }
+   }
+   &__actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      .btn {
+         margin-left: 1rem;
+      }
+   }
+}
