@@ -1,6 +1,9 @@
 const router = require('express').Router();
-//controller
-//...
-router.get('admin/book/all', bookController.getAll);
+const accountController = require('../controllers/account.controller');
+const bookController = require('../controllers/book.controller');
+
+
+router.get('/admin/Books', bookController.getByOffset);
+
 
 module.exports = router;

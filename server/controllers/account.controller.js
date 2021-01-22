@@ -1,4 +1,4 @@
-const Book = require('../models/book.model');
+const accoun = require('../models/account.model');
 
 
 exports.getByOffset = async (req, res) => {
@@ -7,7 +7,7 @@ exports.getByOffset = async (req, res) => {
     if (req.query.p)
         p = req.query.p;
 
-	var listBook = await Book.loadByOffset((p - 1) * 10);
+	var listBook = await.loadByOffset((p - 1) * 10);
 	console.log(p);
 	res.json(listBook);
 };
