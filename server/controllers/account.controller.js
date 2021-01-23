@@ -1,5 +1,5 @@
 const Account = require('../models/account.model');
-
+const dateUtils = require('../middlewares/dateUtils')
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -9,8 +9,13 @@ module.exports = {
 			p = req.query.p;
 
 		var listAccount = await Account.loadByOffset((p - 1) * 10);
-		console.log('heelo');
+		//hien thi vai tro
+		//write something here
+
 		res.json(listAccount);
+	},
+	add: async (req, res) => {
+		console.log(dateUtils.getCurrentDateTime());
 	}
 };
 
