@@ -23,6 +23,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(require('./routes/book.route'));
+app.use(require('./routes/admin.route'));
+app.use(require('./routes/account.route'));
 
 // catch 404 and forward to error handler
 // eslint-disable-next-line no-unused-vars
