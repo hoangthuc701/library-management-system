@@ -7,5 +7,5 @@ router.get('/admin/Books', bookController.getByOffset);
 
 router.get('/admin/Accounts', accountController.getByOffset);
 router.get('/admin/Accounts/add',accountController.add)
-
+router.get('/admin/Accounts/edit/:id',accountController.update)
 module.exports = router;

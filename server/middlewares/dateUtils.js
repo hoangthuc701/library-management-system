@@ -4,9 +4,9 @@ module.exports = {
     getCurrentDateTime: ()=>{
         return new moment();
     },
-    formatDateTime: function (value) {
+    formatDateTimeSQL: function (value) {
         const sqlDate = new Date(value);
     
-        return moment(sqlDate).format("Y-MM-DD\Thh:mm:ss.ms");
+        return moment(sqlDate).format("YYYY-MM-DD hh:mm:ss");
     }
 }
