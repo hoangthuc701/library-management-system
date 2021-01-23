@@ -16,7 +16,7 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.username = 'test11';
+		req.body.username = 'test19';
 		req.body.password = 'test';
 		req.body.name = 'test';
 		req.body.email = 'test';

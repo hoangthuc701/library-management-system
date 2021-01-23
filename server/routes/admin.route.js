@@ -6,8 +6,10 @@ const bookTitleController = require('../controllers/book_title.controller');
 router.get('/admin/Books', bookController.getByOffset);
 
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
-router.get('/admin/BookTitles/:id', bookTitleController.getByID);
+router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
+router.get('/admin/BookTitles/add',bookTitleController.add);
 router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
+router.get('/admin/BookTitles/edit/:id',bookTitleController.update);
 
 
 router.get('/admin/Accounts', accountController.getByOffset);
