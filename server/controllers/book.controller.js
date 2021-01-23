@@ -10,6 +10,6 @@ module.exports = {
 	
 		var listBook = await Book.loadByOffset((p - 1) * 10);
 		console.log(p);
-		res.json(listBook);
+		res.json({list: listBook, quantity: quantity, rangeOfPages:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
 	}
 };

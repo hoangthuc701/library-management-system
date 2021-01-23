@@ -9,10 +9,10 @@ module.exports = {
 			p = req.query.p;
 		//modify lis cho hien thi vai tro
 		var listAccount = await Account.loadByOffset((p - 1) * 10);
-
+		var quantity = await Account.quantity();
 		//write something here
-
-		res.json(listAccount);
+		console.log(Math.ceil(quantity["quantity"] / 10));
+		res.json({list: listAccount, quantity: quantity, rangeOfPages:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
 	},
 	add: async (req, res) => {
 		//test data

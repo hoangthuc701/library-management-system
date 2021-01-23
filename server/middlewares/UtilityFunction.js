@@ -1,10 +1,21 @@
 const Account = require('../models/account.model');
 module.exports = {
-    isUniqueUsername: async (req, res) => {
-        var list = await Account.loadUser('test');
-        if (list.length != 0) {
-            return res.json(list);
+    rangeOfPagination: function (numOfPages, current) {
+        if (numOfPages <= 5) {
+            return new Array(5)
+                .fill()
+                .map((d, i) => Object({ value: i + 1 <= numOfPages ? i + 1 : -1 }));
         }
-        
+        let start = current - 3;
+        let end = current + 1;
+
+        if (start < 0) {
+            start = 0;
+            end = 4;
+        } else if (end >= numOfPages) {
+            end = numOfPages - 1;
+            start = end - 4;
+        }
+        return new Array(5).fill().map((d, i) => Object({ value: i + start + 1 }));
     }
 }
