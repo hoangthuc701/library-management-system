@@ -1,40 +1,40 @@
 const db = require('../utils/db');
 
-const TBL_RETURNING_CARD = 'returning_card';
+const TBL_BOOK_STATUS = 'book_status';
 
 module.exports = {
     load: function () {
-        return db.load(`select * from ${TBL_RETURNING_CARD}`);
+        return db.load(`select * from ${TBL_BOOK_STATUS}`);
     },
     loadByID: function (id) {
-        return db.load(`select * from ${TBL_RETURNING_CARD} where id = ${id}`);
+        return db.load(`select * from ${TBL_BOOK_STATUS} where id = ${id}`);
     },
    
     insert: function (entity) {
-        return db.add(TBL_RETURNING_CARD, entity);
+        return db.add(TBL_BOOK_STATUS, entity);
     },
     update: function (entity) {
         const condition = {
             id: entity.id
         }
         delete entity.id;
-        return db.patch(TBL_RETURNING_CARD, entity, condition);
+        return db.patch(TBL_BOOK_STATUS, entity, condition);
     },
     delete: function (id) {
         const condition = { id }
-        return db.del(TBL_RETURNING_CARD, condition);
+        return db.del(TBL_BOOK_STATUS, condition);
     },
 
     getNextAutoIncrement: () => {
         return db.load(`SELECT AUTO_INCREMENT
         FROM information_schema.TABLES
         WHERE TABLE_SCHEMA = "${databaseName}"
-        AND TABLE_NAME = "${TBL_RETURNING_CARD}"`)
+        AND TABLE_NAME = "${TBL_BOOK_STATUS}"`)
     },
     quantity: () =>{
-        return db.load(`select count(*) as quantity from ${TBL_RETURNING_CARD}`)
+        return db.load(`select count(*) as quantity from ${TBL_BOOK_STATUS}`)
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT * FROM ${TBL_RETURNING_CARD} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT * FROM ${TBL_BOOK_STATUS} LIMIT 10 OFFSET ${offset}`)
     }
 }
