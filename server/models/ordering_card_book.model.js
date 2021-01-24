@@ -1,6 +1,6 @@
 const db = require('../utils/db');
 
-const c = 'ordering_card_book';
+const TBL_ORDERING_CARD_BOOK = 'ordering_card_book';
 
 module.exports = {
     load: function () {

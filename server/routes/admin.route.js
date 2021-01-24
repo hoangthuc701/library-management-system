@@ -5,6 +5,9 @@ const bookTitleController = require('../controllers/book_title.controller');
 const borrowingCardController = require('../controllers/borrowing_card.controller');
 const borrowingCardBookController = require('../controllers/borrowing_card_book.controller');
 const readerCardController = require('../controllers/reader_card.controller');
+const CategoryController = require('../controllers/category.controller');
+const orderingCardController = require('../controllers/ordering_card.controller');
+const orderingCardBookController = require('../controllers/ordering_card_book.controller');
 
 router.get('/admin/Books', bookController.getByOffset);
 
@@ -31,6 +34,24 @@ router.get('/admin/readerCard/getinfo/:id', readerCardController.getByID);
 router.get('/admin/readerCard/add',readerCardController.add);
 router.get('/admin/readerCard/del/:id', readerCardController.delete);
 router.get('/admin/readerCard/edit/:id',readerCardController.update);
+
+router.get('/admin/category', CategoryController.getByOffset);
+router.get('/admin/category/getinfo/:id', CategoryController.getByID);
+router.get('/admin/category/add',CategoryController.add);
+router.get('/admin/category/del/:id', CategoryController.delete);
+router.get('/admin/category/edit/:id',CategoryController.update);
+
+router.get('/admin/orderingCard', orderingCardController.getByOffset);
+router.get('/admin/orderingCard/getinfo/:id', orderingCardController.getByID);
+router.get('/admin/orderingCard/add',orderingCardController.add);
+router.get('/admin/orderingCard/del/:id', orderingCardController.delete);
+router.get('/admin/orderingCard/edit/:id',orderingCardController.update);
+
+router.get('/admin/orderingCardBook', orderingCardBookController.getByOffset);
+router.get('/admin/orderingCardBook/getinfo/:id', orderingCardBookController.getByID);
+router.get('/admin/orderingCardBook/add',orderingCardBookController.add);
+router.get('/admin/orderingCardBook/del/:id', orderingCardBookController.delete);
+router.get('/admin/orderingCardBook/edit/:id',orderingCardBookController.update);
 
 router.get('/admin/Accounts', accountController.getByOffset);
 router.get('/admin/Accounts/add',accountController.add)

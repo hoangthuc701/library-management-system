@@ -9,7 +9,9 @@ module.exports = {
     loadByID: function (id) {
         return db.load(`select * from ${TBL_CATEGORY} where id = ${id}`);
     },
-   
+    loadName: function (name) {
+        return db.load(`select * from ${TBL_CATEGORY} where name = '${name}'`)
+    },
     insert: function (entity) {
         return db.add(TBL_CATEGORY, entity);
     },
