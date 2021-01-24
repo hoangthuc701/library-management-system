@@ -2,6 +2,9 @@ const router = require('express').Router();
 const bookController = require('../controllers/book.controller');
 const accountController = require('../controllers/account.controller');
 const bookTitleController = require('../controllers/book_title.controller');
+const borrowingCardController = require('../controllers/borrowing_card.controller');
+const borrowingCardBookController = require('../controllers/borrowing_card_book.controller');
+const readerCardController = require('../controllers/reader_card.controller');
 
 router.get('/admin/Books', bookController.getByOffset);
 
@@ -11,6 +14,23 @@ router.get('/admin/BookTitles/add',bookTitleController.add);
 router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
 router.get('/admin/BookTitles/edit/:id',bookTitleController.update);
 
+router.get('/admin/BorrowingCard', borrowingCardController.getByOffset);
+router.get('/admin/BorrowingCard/getinfo/:id', borrowingCardController.getByID);
+router.get('/admin/BorrowingCard/add',borrowingCardController.add);
+router.get('/admin/BorrowingCard/del/:id', borrowingCardController.delete);
+router.get('/admin/BorrowingCard/edit/:id',borrowingCardController.update);
+
+router.get('/admin/borrowingCardBook', borrowingCardBookController.getByOffset);
+router.get('/admin/borrowingCardBook/getinfo/:id', borrowingCardBookController.getByID);
+router.get('/admin/borrowingCardBook/add',borrowingCardBookController.add);
+router.get('/admin/borrowingCardBook/del/:id', borrowingCardBookController.delete);
+router.get('/admin/borrowingCardBook/edit/:id',borrowingCardBookController.update);
+
+router.get('/admin/readerCard', readerCardController.getByOffset);
+router.get('/admin/readerCard/getinfo/:id', readerCardController.getByID);
+router.get('/admin/readerCard/add',readerCardController.add);
+router.get('/admin/readerCard/del/:id', readerCardController.delete);
+router.get('/admin/readerCard/edit/:id',readerCardController.update);
 
 router.get('/admin/Accounts', accountController.getByOffset);
 router.get('/admin/Accounts/add',accountController.add)
