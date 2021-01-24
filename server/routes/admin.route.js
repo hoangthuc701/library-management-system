@@ -11,6 +11,10 @@ const orderingCardBookController = require('../controllers/ordering_card_book.co
 const returningCardController = require('../controllers/returning_card.controller');
 
 router.get('/admin/Books', bookController.getByOffset);
+router.get('/admin/Books/getinfo/:id', bookController.getByID);
+router.get('/admin/Books/add',bookController.add);
+router.get('/admin/Books/del/:id', bookController.delete);
+router.get('/admin/Books/edit/:id',bookController.update);
 
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
@@ -61,6 +65,7 @@ router.get('/admin/returningCard/del/:id', returningCardController.delete);
 router.get('/admin/returningCard/edit/:id',returningCardController.update);
 
 router.get('/admin/Accounts', accountController.getByOffset);
-router.get('/admin/Accounts/add',accountController.add)
-router.get('/admin/Accounts/edit/:id',accountController.update)
+router.get('/admin/Accounts/getinfo/:id',accountController.getByID);
+router.get('/admin/Accounts/add',accountController.add);
+router.get('/admin/Accounts/edit/:id',accountController.update);
 module.exports = router;

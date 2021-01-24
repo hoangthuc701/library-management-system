@@ -14,6 +14,10 @@ module.exports = {
 		console.log(Math.ceil(quantity["quantity"] / 10));
 		res.json({list: listAccount, quantity: quantity, rangeOfPages:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
 	},
+	getByID: async(req,res) => {
+		var id = req.params.id;
+		res.json(await Account.loadByID(id))
+	},
 	add: async (req, res) => {
 		//test data
 		req.body.username = 'test19';
