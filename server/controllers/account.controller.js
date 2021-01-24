@@ -1,6 +1,8 @@
 const Account = require('../models/account.model');
 const dateUtils = require('../middlewares/dateUtils')
-const funcUtils = require('../middlewares/UtilityFunction')
+const funcUtils = require('../middlewares/UtilityFunction');
+const passport = require("passport");
+const md5 = require('md5');
 module.exports = {
 	getByOffset: async (req, res) => {
 		var p = 1;
@@ -12,16 +14,16 @@ module.exports = {
 		var quantity = await Account.quantity();
 		//write something here
 		console.log(Math.ceil(quantity["quantity"] / 10));
-		res.json({list: listAccount, quantity: quantity, rangeOfPages:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+		res.json({ list: listAccount, quantity: quantity, rangeOfPages: funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p) });
 	},
-	getByID: async(req,res) => {
+	getByID: async (req, res) => {
 		var id = req.params.id;
 		res.json(await Account.loadByID(id))
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.username = 'test19';
-		req.body.password = 'test';
+		req.body.username = 'test20';
+		req.body.password = '123';
 		req.body.name = 'test';
 		req.body.email = 'test';
 		req.body.phone = 'test';
@@ -34,7 +36,7 @@ module.exports = {
 
 		var accountEntity = {
 			username: req.body.username,
-			password: req.body.password,
+			password: md5(req.body.password),
 			name: req.body.name,
 			email: req.body.email,
 			phone: req.body.phone,
@@ -49,8 +51,8 @@ module.exports = {
 	update: async (req, res) => {
 		const id = +req.params.id || -1;
 		//test 
-		req.body.username = 'test11111';
-		req.body.password = 'test';
+		req.body.username = 'test1234';
+		req.body.password = '123';
 		req.body.name = 'test';
 		req.body.email = 'test';
 		req.body.phone = 'test';
@@ -63,9 +65,9 @@ module.exports = {
 			return res.json(false);
 		}
 		var accountEntity = {
-			id : id,
+			id: id,
 			username: req.body.username,
-			password: req.body.password,
+			password: md5(req.body.password),
 			name: req.body.name,
 			email: req.body.email,
 			phone: req.body.phone,
@@ -78,5 +80,30 @@ module.exports = {
 		return res.json(true);
 	},
 
+	login: async (req, res) => {
+		req.body.username = 'test20';
+		req.body.password = '123';
+		pass = md5(req.body.password);
+		const acc = await Account.loadUser(req.body.username);
+
+		if (acc.length === 0) {
+			return res.json(false);
+		}
+		if (acc[0]["password"] != pass) {
+			return res.json(false);
+		}
+
+		req.session.isAuthenticated = true;
+		req.session.authUser = {
+			username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
+			role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
+		};
+		return res.json(true);
+	},
+	logout: async (req, res) => {
+		req.session.authUser = null;
+		req.session.isAuthenticated = false;
+		return res.json(true);
+	},
 };
 

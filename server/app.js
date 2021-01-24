@@ -7,6 +7,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+require("./middlewares/session")(app);
+require("./middlewares/passport")(app);
+require("./middlewares/locals")(app);
 
 // middleware
 if (process.env.NODE_ENV === 'production') {
@@ -25,6 +28,7 @@ app.use(cors());
 app.use(require('./routes/book.route'));
 app.use(require('./routes/admin.route'));
 app.use(require('./routes/account.route'));
+app.use(require('./routes/user.route'));
 
 // catch 404 and forward to error handler
 // eslint-disable-next-line no-unused-vars
