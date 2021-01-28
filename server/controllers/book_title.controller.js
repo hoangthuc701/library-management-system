@@ -19,12 +19,12 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.name = 'Title 13';
-		req.body.author = 'author 12';
+		req.body.name = 'Title run go';
+		req.body.author = 'author out fly';
 		req.body.quantity = 3;
 		req.body.category_id = 1;
 		req.body.image='';
-		req.body.description='sach test 1';
+		req.body.description='sach test mid';
 		//validation -- check duplicate user
 		var list = await BookTitle.loadName(req.body.name);
 		if (list.length != 0) {
@@ -73,4 +73,10 @@ module.exports = {
 		await BookTitle.update(book_titleEntity);
 		return res.json(true);
 	},
+	search: async (req, res) => {
+		req.body.keyword = 'author why';
+		var list = []
+		list = await BookTitle.fulltextsearch(req.body.keyword, 0);
+		res.json(list);
+	}
 };

@@ -38,5 +38,8 @@ module.exports = {
     },
     loadByOffset: (offset) =>{
         return db.load(`SELECT * FROM ${TBL_TITLE} LIMIT 10 OFFSET ${offset}`)
+    },
+    fulltextsearch: (keyword, offset) =>{
+        return db.load(`select b.* from book_title b where match(b.name, b.author) against ('${keyword}') limit 10 offset ${offset}`)
     }
 }
