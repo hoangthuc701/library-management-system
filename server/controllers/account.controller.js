@@ -3,6 +3,14 @@ const dateUtils = require('../middlewares/dateUtils')
 const funcUtils = require('../middlewares/UtilityFunction');
 const passport = require("passport");
 const md5 = require('md5');
+const shoppingCart = require('../controllers/shopping_cart.controller');
+class Cart {
+	constructor() {
+	   this.data = {};
+	   this.data.items = [];
+	   this.data.totals = 0;
+	}
+ }
 module.exports = {
 	getByOffset: async (req, res) => {
 		var p = 1;
@@ -92,7 +100,8 @@ module.exports = {
 		if (acc[0]["password"] != pass) {
 			return res.json(false);
 		}
-
+		cart = new Cart();
+		req.session.cart = cart.data;
 		req.session.isAuthenticated = true;
 		req.session.authUser = {
 			username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],

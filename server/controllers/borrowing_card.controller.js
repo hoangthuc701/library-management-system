@@ -60,4 +60,5 @@ module.exports = {
 		await BorrwingCard.update(Borrowing_cardEntity);
 		return res.json(true);
 	},
+	
 };

@@ -1,13 +1,14 @@
 const db = require('../utils/db');
 
 const TBL_TITLE = 'book_title';
+const TBL_BOOK = 'book';
 
 module.exports = {
     load: function () {
         return db.load(`select * from ${TBL_TITLE}`);
     },
     loadByID: function (id) {
-        return db.load(`select * from ${TBL_TITLE} where id = ${id}`);
+        return db.load(`select bt.*, b.status from ${TBL_TITLE} bt join ${TBL_BOOK} b on bt.id = b.book_title_id where bt.id = ${id}`);
     },
     loadName: function (name) {
         return db.load(`select * from ${TBL_TITLE} where name = '${name}'`)
