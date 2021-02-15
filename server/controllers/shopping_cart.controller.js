@@ -10,7 +10,7 @@ const BookTitle = require('../models/book_title.model');
 			}
 		 });
 		const listBook = await BookTitle.loadByID(id);
-		if (listBook[0]["quantity"] === 0 || listBook[0]["status"] === 1 || found === true){
+		if (listBook[0]["quantity"] === 0 || found === true){
 			res.json(false);
 		}
 		else{

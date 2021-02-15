@@ -10,12 +10,6 @@ const orderingCardController = require('../controllers/ordering_card.controller'
 const orderingCardBookController = require('../controllers/ordering_card_book.controller');
 const returningCardController = require('../controllers/returning_card.controller');
 
-router.get('/admin/Books', bookController.getByOffset);
-router.get('/admin/Books/getinfo/:id', bookController.getByID);
-router.get('/admin/Books/add',bookController.add);
-router.get('/admin/Books/del/:id', bookController.delete);
-router.get('/admin/Books/edit/:id',bookController.update);
-
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
 router.get('/admin/BookTitles/add',bookTitleController.add);
@@ -45,18 +39,6 @@ router.get('/admin/category/getinfo/:id', CategoryController.getByID);
 router.get('/admin/category/add',CategoryController.add);
 router.get('/admin/category/del/:id', CategoryController.delete);
 router.get('/admin/category/edit/:id',CategoryController.update);
-
-router.get('/admin/orderingCard', orderingCardController.getByOffset);
-router.get('/admin/orderingCard/getinfo/:id', orderingCardController.getByID);
-router.get('/admin/orderingCard/add',orderingCardController.add);
-router.get('/admin/orderingCard/del/:id', orderingCardController.delete);
-router.get('/admin/orderingCard/edit/:id',orderingCardController.update);
-
-router.get('/admin/orderingCardBook', orderingCardBookController.getByOffset);
-router.get('/admin/orderingCardBook/getinfo/:id', orderingCardBookController.getByID);
-router.get('/admin/orderingCardBook/add',orderingCardBookController.add);
-router.get('/admin/orderingCardBook/del/:id', orderingCardBookController.delete);
-router.get('/admin/orderingCardBook/edit/:id',orderingCardBookController.update);
 
 router.get('/admin/returningCard', returningCardController.getByOffset);
 router.get('/admin/returningCard/getinfo/:id', returningCardController.getByID);
