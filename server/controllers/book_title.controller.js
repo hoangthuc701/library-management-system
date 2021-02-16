@@ -39,7 +39,13 @@ module.exports = {
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;
-		res.json(await BookTitle.loadByID(id))
+		var list = await BookTitle.loadByID(id);
+		var book_titleEntity = {
+			id: id,
+			view: list[0]["view"] + 1
+		}
+		await BookTitle.update(book_titleEntity);
+		res.json(list);
 	},
 	add: async (req, res) => {
 		//test data
