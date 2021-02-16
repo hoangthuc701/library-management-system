@@ -1,8 +1,19 @@
 const BookTitle = require('../models/book_title.model');
+const Account = require('../models/account.model');
+const dateUtils = require('../middlewares/dateUtils')
+const funcUtils = require('../middlewares/UtilityFunction');
+const readerCard = require('../models/reader.model');
+const BorrowingCard = require('../models/borrowing_card.model')
+const BorrowingCardBook = require('../models/borrowing_card_book.model')
+const passport = require("passport");
+const md5 = require('md5');
+const shoppingCart = require('../controllers/shopping_cart.controller');
+const accountModel = require('../models/account.model');
+const book_titleModel = require('../models/book_title.model');
  module.exports = {
 	
 	addcart: async (req, res) => {
-		var id = req.params.id;
+		const id = +req.params.id || -1;
 		var found = false;
 		req.session.cart.items.forEach(item => {
 			if(item.id === id) {
@@ -10,7 +21,7 @@ const BookTitle = require('../models/book_title.model');
 			}
 		 });
 		const listBook = await BookTitle.loadByID(id);
-		if (listBook[0]["quantity"] === 0 || listBook[0]["status"] === 1 || found === true){
+		if (listBook[0]["quantity"] == 0 || found === true){
 			res.json(false);
 		}
 		else{
@@ -36,5 +47,5 @@ const BookTitle = require('../models/book_title.model');
 				req.session.totals -= 1;
 			}
 		}
-	},
+	}
  };

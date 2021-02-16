@@ -1,7 +1,7 @@
 const db = require('../utils/db');
 
 const TBL_BORROWING_CARD = 'borrowing_card';
-
+const databaseName = 'qltv'
 module.exports = {
     load: function () {
         return db.load(`select * from ${TBL_BORROWING_CARD}`);

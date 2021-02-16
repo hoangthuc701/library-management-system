@@ -26,7 +26,9 @@ module.exports = {
         const condition = { id }
         return db.del(TBL_ACCOUNT, condition);
     },
-
+    awaiting: function(){
+        return db.load(`select * from ${TBL_ACCOUNT} where role_id = 6`);
+    },
     getNextAutoIncrement: () => {
         return db.load(`SELECT AUTO_INCREMENT
         FROM information_schema.TABLES

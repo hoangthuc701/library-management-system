@@ -25,9 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(require('./routes/book.route'));
+app.use(require('./routes/home.route'));
 app.use(require('./routes/admin.route'));
-app.use(require('./routes/account.route'));
 app.use(require('./routes/user.route'));
 app.use(require('./routes/librarian.route'));
 app.use(require('./routes/stockkeeper.route'));

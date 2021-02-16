@@ -32,13 +32,9 @@ module.exports = {
         }
 
 		var Reader_cardEntity = {
-            card_id: req.body.card_id,
-            identity_number: req.body.identity_number,
             account_id: req.body.account_id,
-            created_date: req.body.created_date,
+            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
             expirated_date: req.body.expirated_date,
-			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-			updated_at: ''
 		}
 		await ReaderCard.insert(Reader_cardEntity);
 		return res.json(true);
@@ -65,15 +61,38 @@ module.exports = {
         
 		var Reader_cardEntity = {
 			id : id,
-			card_id: req.body.card_id,
-            identity_number: req.body.identity_number,
             account_id: req.body.account_id,
-            created_date: req.body.created_date,
+            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
             expirated_date: req.body.expirated_date,
-			created_at: req.body.created_at,
-			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await ReaderCard.update(Reader_cardEntity);
 		return res.json(true);
 	},
+	accept: async (req,res) => {
+		const userID = +req.params.userID || -1;
+		//change user role into reader after librarian accepted
+		var accountEntity = {
+			id: userID,
+			role_id: 5
+		}
+		await Account.update(accountEntity);
+		var expiredDate = new Date(dateUtils.getCurrentDateTime())
+		expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
+		//create new reader card
+		var Reader_cardEntity = {
+            account_id: userID,
+            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            expirated_date: expiredDate,
+		}
+		await ReaderCard.insert(Reader_cardEntity);
+		return res.json(true);
+	},
+	reject: async(req,res) => {
+		const userID = +req.params.userID || -1;
+		//change user role into user after librarian rejected
+		var accountEntity = {
+			id: userID,
+			role_id: 1
+		}
+	}
 };
