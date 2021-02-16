@@ -47,9 +47,6 @@ module.exports = {
 			
 		}
 
-		req.body.penalty_cost = 3;
-
-
 		let date_ob = new Date();
 		let date_ob2 = new Date(list[0]["returned_date"]);
 		let date = ("0" + date_ob.getDate()).slice(-2);
