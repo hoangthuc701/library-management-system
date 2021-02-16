@@ -6,12 +6,37 @@ const borrowingCardBookController = require('../controllers/borrowing_card_book.
 const readerCardController = require('../controllers/reader_card.controller');
 const CategoryController = require('../controllers/category.controller');
 const returningCardController = require('../controllers/returning_card.controller');
+const multer = require('multer');
+var path = require('path');
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/bookTitleImage')
+    },
+
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    }
+});
+
+
+var upload = multer({
+    storage: storage,
+    limits: {
+        files: 1,
+        fileSize: 2048 * 2048
+    }
+});
+
+const directory = '/public/bookTitleImage/';
 
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
-router.get('/admin/BookTitles/add',bookTitleController.add);
+router.get('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
 router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
-router.post('/admin/BookTitles/edit/:id',bookTitleController.update);
+router.post('/admin/BookTitles/edit/:id', upload.single('urlImage'), bookTitleController.update);
 
 router.get('/admin/BorrowingCard', borrowingCardController.getByOffset);
 router.get('/admin/BorrowingCard/getinfo/:id', borrowingCardController.getByID);

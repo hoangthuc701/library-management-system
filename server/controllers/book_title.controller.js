@@ -1,29 +1,7 @@
 const BookTitle = require('../models/book_title.model');
 const functUtils = require('../middlewares/UtilityFunction')
 const dateUtils = require('../middlewares/dateUtils')
-const multer = require('multer');
-var path = require('path');
 
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/bookTitleImage')
-    },
-
-    filename: function (req, file, cb) {
-        var datetimestamp = Date.now();
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
-    }
-});
-
-
-var upload = multer({
-    storage: storage,
-    limits: {
-        files: 1,
-        fileSize: 2048 * 2048
-    }
-});
 
 
 module.exports = {
@@ -66,7 +44,7 @@ module.exports = {
 			author: req.body.author,
 			quantity: req.body.quantity,
 			category_id: req.body.category_id,
-			image: req.body.image,
+			image: "/public/bookTitleImage/" + req.file.filename,
 			description: req.body.description,
 			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 			updated_at: '',
