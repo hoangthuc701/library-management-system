@@ -60,7 +60,7 @@ router.get('/admin/orderingCardBook/edit/:id',orderingCardBookController.update)
 
 router.get('/admin/returningCard', returningCardController.getByOffset);
 router.get('/admin/returningCard/getinfo/:id', returningCardController.getByID);
-router.get('/admin/returningCard/add',returningCardController.add);
+router.get('/admin/returningCard/add/:id',returningCardController.add);
 router.get('/admin/returningCard/del/:id', returningCardController.delete);
 router.get('/admin/returningCard/edit/:id',returningCardController.update);
 

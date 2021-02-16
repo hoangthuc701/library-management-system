@@ -2,6 +2,9 @@ const ReturningCard = require('../models/returning_card.model');
 const functUtils = require('../middlewares/UtilityFunction');
 const dateUtils = require('../middlewares/dateUtils');
 const BorrwingCard = require('../models/borrowing_card.model');
+const BorrwingCardBook = require('../models/borrowing_card_book.model');
+const Book = require('../models/book.model');
+const { months } = require('moment');
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -20,17 +23,50 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.borrowing_card_id = 1;
-        req.body.penalty_cost = 1;
-        req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		var id = req.params.id;
+		req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
-        var list = await BorrwingCard.loadByID(req.body.borrowing_card_id);
-		if (list.length == 0) {
+		var list = await BorrwingCard.loadByID(id);
+		var list2 = await BorrwingCardBook.loadByBorrowingCardID(id);//load danh sach
+
+		if (list.length == 0 || list2.length == 0) {
 			return res.json(false);
-        }
-        
+		}
+
+		for(var i = 0; i < list2.length; i++){
+			var tempid = list2[i]["book_id"];
+			var list3 = await Book.loadByBookTitleID(tempid);
+			var bookEntity = {
+				id : list3[0]["id"],
+				book_title_id: list3[0]["book_title_id"],
+				status: 0,
+				created_at: list3[0]["created_at"],
+				updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+			}
+			await Book.update(bookEntity);
+			
+		}
+
+		req.body.penalty_cost = 3;
+
+
+		let date_ob = new Date();
+		let date_ob2 = new Date(list[0]["returned_date"]);
+		let date = ("0" + date_ob.getDate()).slice(-2);
+		let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+		let year = date_ob.getFullYear();
+		let date2 = ("0" + date_ob2.getDate()).slice(-2);
+		let month2 = ("0" + (date_ob2.getMonth() + 1)).slice(-2);
+		let year2 = date_ob2.getFullYear();
+		const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+		const firstDate = new Date(year2, month2, date2);
+		const secondDate = new Date(year, month, date);
+
+		const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+		
+		req.body.penalty_cost = diffDays * 10000;
 		var returning_cardEntity = {
-            borrowing_card_id: req.body.borrowing_card_id,
+            borrowing_card_id: id,
             penalty_cost: req.body.penalty_cost,
             returned_at: req.body.returned_at,
 			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),

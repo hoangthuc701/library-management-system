@@ -9,7 +9,9 @@ module.exports = {
     loadByID: function (id) {
         return db.load(`select * from ${TBL_BOOK} where id = ${id}`);
     },
-   
+    loadByBookTitleID: function (id) {
+        return db.load(`select * from ${TBL_BOOK} where book_title_id = ${id} and status = 1`);
+    },
     insert: function (entity) {
         return db.add(TBL_BOOK, entity);
     },

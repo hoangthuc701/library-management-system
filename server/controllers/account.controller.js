@@ -112,6 +112,7 @@ module.exports = {
 	logout: async (req, res) => {
 		req.session.authUser = null;
 		req.session.isAuthenticated = false;
+		req.session.cart = null;
 		return res.json(true);
 	},
 };
