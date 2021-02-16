@@ -1,4 +1,4 @@
-const BorrwingCard = require('../models/borrowing_card.model');
+const BorrowingCard = require('../models/borrowing_card.model');
 const functUtils = require('../middlewares/UtilityFunction')
 const dateUtils = require('../middlewares/dateUtils')
 
@@ -9,13 +9,13 @@ module.exports = {
 		if (req.query.p)
 			p = req.query.p;
 	
-        var listBorrwingCard = await BorrwingCard.loadByOffset((p - 1) * 10);
-        var quantity = await BorrwingCard.quantity();
-		res.json({list: listBorrwingCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+        var listBorrowingCard = await BorrowingCard.loadByOffset((p - 1) * 10);
+        var quantity = await BorrowingCard.quantity();
+		res.json({list: BorrowingCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;
-		res.json(await BorrwingCard.loadByID(id))
+		res.json(await BorrowingCard.loadByID(id))
 	},
 	add: async (req, res) => {
 		//test data
@@ -32,12 +32,12 @@ module.exports = {
 			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 			updated_at: ''
 		}
-		await BorrwingCard.insert(Borrowing_cardEntity);
+		await BorrowingCard.insert(Borrowing_cardEntity);
 		return res.json(true);
 	},
 	delete: async(req,res) => {
 		var id = req.params.id;
-		await BorrwingCard.delete(id);
+		await BorrowingCard.delete(id);
 		res.json(true);
 	},
 	update: async (req, res) => {
@@ -57,7 +57,7 @@ module.exports = {
 			created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
-		await BorrwingCard.update(Borrowing_cardEntity);
+		await BorrowingCard.update(Borrowing_cardEntity);
 		return res.json(true);
 	},
 	

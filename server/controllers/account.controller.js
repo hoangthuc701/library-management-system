@@ -1,16 +1,20 @@
 const Account = require('../models/account.model');
 const dateUtils = require('../middlewares/dateUtils')
 const funcUtils = require('../middlewares/UtilityFunction');
+const readerCard = require('../models/reader.model');
+const borrowingCard = require('../models/borrowing_card.model')
+const borrowingCardBook = require('../models/borrowing_card_book.model')
 const passport = require("passport");
 const md5 = require('md5');
 const shoppingCart = require('../controllers/shopping_cart.controller');
+const accountModel = require('../models/account.model');
 class Cart {
 	constructor() {
-	   this.data = {};
-	   this.data.items = [];
-	   this.data.totals = 0;
+		this.data = {};
+		this.data.items = [];
+		this.data.totals = 0;
 	}
- }
+}
 module.exports = {
 	getByOffset: async (req, res) => {
 		var p = 1;
@@ -59,12 +63,6 @@ module.exports = {
 	update: async (req, res) => {
 		const id = +req.params.id || -1;
 		//test 
-		req.body.username = 'test1234';
-		req.body.password = '123';
-		req.body.name = 'test';
-		req.body.email = 'test';
-		req.body.phone = 'test';
-		req.body.role_id = 1;
 		req.body.block = 0;
 		req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
 		//validation -- check duplicate user
@@ -87,7 +85,23 @@ module.exports = {
 		await Account.update(accountEntity);
 		return res.json(true);
 	},
+	readerCard: async (req, res) => {
 
+		const id = +req.params.id || -1;
+		if (req.session.authUser.role_id != 1)
+			res.json(false);
+		req.session.authUser.role_id = 6;
+		var accountEntity = {
+			id: id,
+			role_id: 6//change role into awaiting for approval
+		}
+		await Account.update(accountEntity);
+		res.json(true);
+	},
+	awaiting: async(req,res) => {
+		var list = await accountModel.awaiting();
+		res.json(list);
+	},
 	login: async (req, res) => {
 		req.body.username = 'test20';
 		req.body.password = '123';
@@ -100,6 +114,23 @@ module.exports = {
 		if (acc[0]["password"] != pass) {
 			return res.json(false);
 		}
+		//update reader card
+		if (acc[0]["role_id"] == 5) {
+			const card = await readerCard.loadByUserID(acc[0]["id"]);
+			var cardDate = new date(readerCard[0]["expirated_date"]);
+			var currentDate = new date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
+			if (currentDate > cardDate) {
+				//change role into user
+				acc[0]["role_id"] = 1;
+				var accountEntity = {
+					id: id,
+					role_id: 1
+				}
+				await Account.update(accountEntity);
+				//remove reader card
+				await readerCard.delete(card[0]["id"]);
+			}
+		}
 		cart = new Cart();
 		req.session.cart = cart.data;
 		req.session.isAuthenticated = true;
@@ -107,12 +138,30 @@ module.exports = {
 			username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
 			role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
 		};
+
+
 		return res.json(true);
 	},
 	logout: async (req, res) => {
 		req.session.authUser = null;
+		req.session.cart = null;
 		req.session.isAuthenticated = false;
 		return res.json(true);
 	},
+	processCart: async (req,res) => {
+		//create borrowing card
+		req.body.returned_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+
+		var Borrowing_cardEntity = {
+            card_id: 	'BR' + getNextAutoIncrement,
+            reader_id: req.session.authUser,
+            returned_date: req.body.returned_date,
+            borrowed_date: req.body.borrowed_date,
+			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+			updated_at: ''
+		}
+		await BorrowingCard.insert(Borrowing_cardEntity);
+	}
 };
 

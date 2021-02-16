@@ -63,7 +63,8 @@ module.exports = {
 			image: req.body.image,
 			description: req.body.description,
 			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-			updated_at: ''
+			updated_at: '',
+			view:0
 		}
 		await BookTitle.insert(book_titleEntity);
 		return res.json(true);
