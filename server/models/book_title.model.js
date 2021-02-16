@@ -8,7 +8,7 @@ module.exports = {
         return db.load(`select * from ${TBL_TITLE}`);
     },
     loadByID: function (id) {
-        return db.load(`select bt.* from ${TBL_TITLE} bt where bt.id = ${id}`);
+        return db.load(`select * from ${TBL_TITLE} where id = ${id}`);
     },
     loadName: function (name) {
         return db.load(`select * from ${TBL_TITLE} where name = '${name}'`)
