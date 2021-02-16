@@ -147,6 +147,7 @@ module.exports = {
 		req.session.authUser = null;
 		req.session.cart = null;
 		req.session.isAuthenticated = false;
+		req.session.cart = null;
 		return res.json(true);
 	},
 	processCart: async (req,res) => {
