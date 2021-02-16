@@ -76,7 +76,7 @@ module.exports = {
 			role_id: 5
 		}
 		await Account.update(accountEntity);
-		var expiredDate = new dateUtils(dateUtils.getCurrentDateTime())
+		var expiredDate = new Date(dateUtils.getCurrentDateTime())
 		expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
 		//create new reader card
 		var Reader_cardEntity = {

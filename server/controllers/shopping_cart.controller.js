@@ -47,48 +47,5 @@ const book_titleModel = require('../models/book_title.model');
 				req.session.totals -= 1;
 			}
 		}
-	},
-	processCart: async (req, res) => {
-		if (req.session.cart != null && req.session.cart.totals != 0) {
-			//create borrowing card
-			var datetimestamp = Date.now();
-			var fieldname = 'BR'
-			var cardID = fieldname + '-' + datetimestamp;
-			req.body.returned_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-			req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-
-			var Borrowing_cardEntity = {
-				card_id: cardID,
-				reader_id: req.session.authUser.id,
-				returned_date: req.body.returned_date,
-				borrowed_date: req.body.borrowed_date,
-				created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-				updated_at: ''
-			}
-			await BorrowingCard.insert(Borrowing_cardEntity);
-			//create borrowing card book
-			for (let i = 0; i < req.session.cart.totals; i++) {
-				var Borrowing_card_bookEntity = {
-					borrowing_card_id: cardID,
-					book_id: req.session.cart.items[i].id,
-					created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-					updated_at: ''
-				}
-				await BorrowingCardBook.insert(Borrowing_card_bookEntity);
-				//update quantity of book
-				var quantity = await book_titleModel.loadByID(req.session.cart.items[i].id);
-				quantity = quantity[0]["quantity"];
-				var bookEntity = {
-					id: req.session.cart.items[i].id,
-					quantity: quantity - 1
-				}
-				await book_titleModel.update(bookEntity)
-			}
-			//refresh session cart
-			cart = new Cart();
-			req.session.cart = cart.data;
-			res.json(true);
-		}
-		res.json(false);
 	}
  };

@@ -93,13 +93,13 @@ module.exports = {
 			res.json(false);
 		req.session.authUser.role_id = 6;
 		var accountEntity = {
-			id: id,
+			id: req.session.authUser.id,
 			role_id: 6//change role into awaiting for approval
 		}
 		await Account.update(accountEntity);
 		res.json(true);
 	},
-	awaiting: async (req, res) => {
+	awaiting: async(req,res) => {
 		var list = await accountModel.awaiting();
 		res.json(list);
 	},
@@ -149,7 +149,7 @@ module.exports = {
 		req.session.isAuthenticated = false;
 		return res.json(true);
 	},
-	processCart: async (req, res) => {
+	processCart: async (req,res) => {
 		if (req.session.cart != null && req.session.cart.totals != 0) {
 			//create borrowing card
 			var datetimestamp = Date.now();
