@@ -39,6 +39,7 @@ module.exports = {
 			return res.json(false);
 
 		}
+		console.log(req.file.filename);
 		var book_titleEntity = {
 			name: req.body.name,
 			author: req.body.author,
