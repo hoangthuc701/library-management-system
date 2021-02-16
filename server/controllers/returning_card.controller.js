@@ -3,7 +3,7 @@ const functUtils = require('../middlewares/UtilityFunction');
 const dateUtils = require('../middlewares/dateUtils');
 const BorrwingCard = require('../models/borrowing_card.model');
 const BorrwingCardBook = require('../models/borrowing_card_book.model');
-const Book = require('../models/book.model');
+const BookTitle = require('../models/book_title.model');
 const { months } = require('moment');
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
 		req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
 		var list = await BorrwingCard.loadByID(id);
-		var list2 = await BorrwingCardBook.loadByBorrowingCardID(id);//load danh sach
+		var list2 = await BorrwingCardBook.loadByBorrowingCardID(list[0]["card_id"]);//load danh sach
 
 		if (list.length == 0 || list2.length == 0) {
 			return res.json(false);
@@ -35,15 +35,20 @@ module.exports = {
 
 		for(var i = 0; i < list2.length; i++){
 			var tempid = list2[i]["book_id"];
-			var list3 = await Book.loadByBookTitleID(tempid);
-			var bookEntity = {
-				id : list3[0]["id"],
-				book_title_id: list3[0]["book_title_id"],
-				status: 0,
+			var list3 = await BookTitle.loadByID(tempid);
+			var bookTitleEntity = {
+				id: list3[0]["id"],
+				name: list3[0]["name"],
+				author: list3[0]["author"],
+				quantity: list3[0]["quantity"] + 1,
+				category_id: list3[0]["category_id"],
+				image: list3[0]["image"],
+				description: list3[0]["description"],
 				created_at: list3[0]["created_at"],
-				updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+				updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+				view: list3[0]["view"]
 			}
-			await Book.update(bookEntity);
+			await BookTitle.update(bookTitleEntity);
 			
 		}
 
@@ -74,8 +79,43 @@ module.exports = {
 	},
 	delete: async(req,res) => {
 		var id = req.params.id;
-		await ReturningCard.delete(id);
-		res.json(true);
+		var lt = await ReturningCard.loadByID(id);
+		var list = await BorrwingCard.loadByID(lt[0]["borrowing_card_id"]);
+		var list1 = await BorrwingCardBook.loadByBorrowingCardID(list[0]["card_id"]);//load danh sach
+		var temp = true;
+		for(var i = 0; i < list1.length; i++){
+			var tempid = list1[i]["book_id"];
+			var list3 = await BookTitle.loadByID(tempid);
+			if(list3[0]["quantity"] == 0){
+				temp = false;
+			}
+		}
+		if(temp === false)
+		{
+			res.json(false);
+		}
+		else{
+			for(var i = 0; i < list1.length; i++){
+				var tempid = list1[i]["book_id"];
+				var list3 = await BookTitle.loadByID(tempid);
+				var bookTitleEntity = {
+					id: list3[0]["id"],
+					name: list3[0]["name"],
+					author: list3[0]["author"],
+					quantity: list3[0]["quantity"] - 1,
+					category_id: list3[0]["category_id"],
+					image: list3[0]["image"],
+					description: list3[0]["description"],
+					created_at: list3[0]["created_at"],
+					updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+					view: list3[0]["view"]
+				}
+				await BookTitle.update(bookTitleEntity);
+				
+			}
+			await ReturningCard.delete(id);
+			res.json(true);
+		}
 	},
 	update: async (req, res) => {
 		const id = +req.params.id || -1;
