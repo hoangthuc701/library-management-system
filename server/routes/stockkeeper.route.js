@@ -11,7 +11,7 @@ const returningCardController = require('../controllers/returning_card.controlle
 
 // router.get('/stockkeeper/borrowingCardBook', borrowingCardBookController.getByOffset);
 
-router.get('/stockkeeper/returningCard/add/:id',returningCardController.add);
+router.post('/stockkeeper/returningCard/add/:id',returningCardController.add);
 router.get('/stockkeeper/returningCard/del/:id',returningCardController.delete);
 
 router.get('/stockkeeper/search',bookTitleController.search);

@@ -1,0 +1,11 @@
+thu thu:
+ them, xoa, sua danh sach yeu cau lap the doc gia(role 6) => chap nhan doc gia(4)
+Home: 
+	lap the doc gia : chuyen role user thanh reader(validate role cua user)
+	sua: chuyen role user cu thanh user
+	     chuyen role user moi thanh reader(validate role cua user)
+	xoa the doc gia : chuyen role user thanh user
+
+
+    
+ them, xoa, sua danh sach the doc gia => neu xoa thi thay doi lai vai tro

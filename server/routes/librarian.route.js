@@ -8,7 +8,7 @@ router.get('/librarian/awaiting', accountController.awaiting);
 
 router.get('/librarian/readerCard',readerCardController.getByOffset);
 router.get('/librarian/readerCard/getinfo/:id',readerCardController.getByID);
-router.get('/librarian/readerCard/add',readerCardController.add);
+router.post('/librarian/readerCard/add',readerCardController.add);
 router.get('/librarian/readerCard/del/:id',readerCardController.delete);
-router.get('/librarian/readerCard/edit/:id',readerCardController.update);
+router.post('/librarian/readerCard/edit/:id',readerCardController.update);
 module.exports = router;
