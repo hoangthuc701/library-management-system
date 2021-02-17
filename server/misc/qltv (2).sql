@@ -76,7 +76,8 @@ CREATE TABLE `book_title` (
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `view` int(11) NOT NULL
+  `view` int(11) NOT NULL,
+  fulltext (`name`, `author`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -365,7 +366,7 @@ INSERT INTO `reader_card` (`id`, `card_id`, `account_id`, `created_date`, `expir
 
 CREATE TABLE `returning_card` (
   `id` int(11) UNSIGNED NOT NULL,
-  `borrowing_card_id` int(11) DEFAULT NULL,
+  `borrowing_card_id` varchar(50) DEFAULT NULL,
   `penalty_cost` float DEFAULT NULL,
   `returned_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,

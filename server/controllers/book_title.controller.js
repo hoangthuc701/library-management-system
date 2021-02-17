@@ -77,7 +77,7 @@ module.exports = {
 			category_id: req.body.category_id,
 			image: req.body.image,
 			description: req.body.description,
-			created_at: req.body.created_at,
+			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await BookTitle.update(book_titleEntity);

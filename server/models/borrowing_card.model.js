@@ -9,7 +9,9 @@ module.exports = {
     loadByID: function (id) {
         return db.load(`select * from ${TBL_BORROWING_CARD} where id = ${id}`);
     },
-   
+    loadByCardID: function (id) {
+        return db.load(`select * from ${TBL_BORROWING_CARD} where card_id = '${id}'`);
+    },
     insert: function (entity) {
         return db.add(TBL_BORROWING_CARD, entity);
     },

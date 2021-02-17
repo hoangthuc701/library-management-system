@@ -19,13 +19,12 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-        req.body.name = '123';
+        //req.body.name = '123';
         
         var list = await Category.loadName(req.body.name);
 		if (list.length != 0) {
 			return res.json(false);
         }
-
 		var CategoryEntity = {
             name: req.body.name,
 			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
@@ -40,15 +39,15 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		const id = +req.params.id || -1;
+		//const id = +req.params.id || -1;
 		//test 
-		req.body.name = '12345';
-        req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		// req.body.name = '12345';
+        // req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
 		var CategoryEntity = {
-			id : id,
+			id : req.body.id,
 			name: req.body.name,
-			created_at: req.body.created_at,
+			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await Category.update(CategoryEntity);

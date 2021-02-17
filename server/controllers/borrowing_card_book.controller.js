@@ -20,21 +20,22 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.borrowing_card_id = 2;
-        req.body.book_id = 1;
+		// req.body.borrowing_card_id = 2;
+        // req.body.book_id = 1;
         
-        var list = await BorrowingCard.loadByID(req.body.borrowing_card_id);
+        var list = await BorrowingCard.loadByCardID(req.body.borrowing_card_id);
 		if (list.length == 0) {
 			return res.json(false);
         }
-        
-		var Borrowing_card_bookEntity = {
-            borrowing_card_id: req.body.borrowing_card_id,
-            book_id: req.body.book_id,
-			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-			updated_at: ''
-		}
-		await BorrowingCardBook.insert(Borrowing_card_bookEntity);
+        req.session.cart.items.forEach(item => {
+			var Borrowing_card_bookEntity = {
+				borrowing_card_id: req.body.borrowing_card_id,
+				book_id: item.id,
+				created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+				updated_at: ''
+			}
+			await BorrowingCardBook.insert(Borrowing_card_bookEntity);
+		 });
 		return res.json(true);
 	},
 	delete: async(req,res) => {
@@ -43,21 +44,21 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		const id = +req.params.id || -1;
+		//const id = +req.params.id || -1;
 		//test 
-		req.body.borrowing_card_id = 3;
-        req.body.book_id = 1;
-        req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		// req.body.borrowing_card_id = 3;
+        // req.body.book_id = 1;
+        //req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
-        var list = await BorrowingCard.loadByID(req.body.borrowing_card_id);
+        var list = await BorrowingCard.loadByCardID(req.body.borrowing_card_id);
 		if (list.length == 0) {
 			return res.json(false);
         }
 		var Borrowing_card_bookEntity = {
-			id : id,
+			id : req.body.id,
             borrowing_card_id: req.body.borrowing_card_id,
             book_id: req.body.book_id,
-			created_at: req.body.created_at,
+			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await BorrowingCardBook.update(Borrowing_card_bookEntity);

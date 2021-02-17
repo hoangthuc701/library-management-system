@@ -23,10 +23,10 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		var id = req.params.id;
+		var id = req.body.borrowing_card_id;
 		req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
-		var list = await BorrwingCard.loadByID(id);
+		var list = await BorrwingCard.loadByCardID(id);
 		var list2 = await BorrwingCardBook.loadByBorrowingCardID(list[0]["card_id"]);//load danh sach
 
 		if (list.length == 0 || list2.length == 0) {
@@ -79,8 +79,9 @@ module.exports = {
 	},
 	delete: async(req,res) => {
 		var id = req.params.id;
+		
 		var lt = await ReturningCard.loadByID(id);
-		var list = await BorrwingCard.loadByID(lt[0]["borrowing_card_id"]);
+		var list = await BorrwingCard.loadByCardID(lt[0]["borrowing_card_id"]);
 		var list1 = await BorrwingCardBook.loadByBorrowingCardID(list[0]["card_id"]);//load danh sach
 		var temp = true;
 		for(var i = 0; i < list1.length; i++){
