@@ -46,8 +46,13 @@
     <!-- add -->
     <form method = "post" enctype="multipart/form-data" action="http://localhost:8080/admin/BookTitles/add"> 
         <div class="form-group" >
+            <input type="text" class="form-control" id="name" name="name" placeholder="" value="">
+            <input type="text" class="form-control" id="author" name="author" placeholder="" value="">
+            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="" value="">
+            <input type="text" class="form-control" id="category_id" name="category_id" placeholder="" value="">
+            <input type="text" class="form-control" id="description" name="description" placeholder="" value="">
             <label for="txtImage">Ảnh đại diện bài viết:</label><br>
-            <img id="showImg" src="../public/bookTitleImage/noImage.jpg" style="width:300px;height:300px;"><br>
+            <img id="showImg" src="../../public/bookTitleImage/noImage.jpg" style="width:300px;height:300px;"><br>
             <input type="file" name="urlImage" value="" id="urlImage"></input>
             <input type="submit" value="Submit">
         </div>
@@ -55,8 +60,14 @@
     <!-- edit -->
     <form method = "post" enctype="multipart/form-data" action="http://localhost:8080/admin/BookTitles/edit"> 
         <div class="form-group" >
+            <input type="text" class="form-control" id="id" name="id" placeholder="" value="">
+            <input type="text" class="form-control" id="name" name="name" placeholder="" value="">
+            <input type="text" class="form-control" id="author" name="author" placeholder="" value="">
+            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="" value="">
+            <input type="text" class="form-control" id="category_id" name="category_id" placeholder="" value="">
+            <input type="text" class="form-control" id="description" name="description" placeholder="" value="">
             <label for="txtImage">Ảnh đại diện bài viết:</label><br>
-            <img id="showImg" src="../public/bookTitleImage/noImage.jpg" style="width:300px;height:300px;"><br>
+            <img id="showImg" src="../../public/bookTitleImage/noImage.jpg" style="width:300px;height:300px;"><br>
             <input type="file" name="urlImage" value="" id="urlImage"></input>
             <input type="submit" value="Submit">
         </div>
