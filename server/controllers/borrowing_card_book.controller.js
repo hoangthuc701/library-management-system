@@ -34,7 +34,7 @@ module.exports = {
 				created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 				updated_at: ''
 			}
-			await BorrowingCardBook.insert(Borrowing_card_bookEntity);
+			//await BorrowingCardBook.insert(Borrowing_card_bookEntity);
 		 });
 		return res.json(true);
 	},
