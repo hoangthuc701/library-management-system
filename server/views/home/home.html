@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trang chủ</title>
     <link rel="icon" type="image/png" href="/public/images/icons/favicon.png" />
     <link rel="stylesheet" type="text/css" href="/public/vendor/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css"
@@ -24,29 +24,9 @@
     <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/public/js/main.js"></script>
     <script src="/public/js/style.js"></script>
-    <script>
-        $(function () {
-            $('#urlImage').change(function () {
-                var input = this;
-                var url = $(this).val();
-                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "jfif")) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showImg').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            });
-        });
-    </script>
 </head>
 
 <body>
-    {{#section 'title'}}
-Trang chủ
-{{/section}}
-
 <div class="container">
   <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
     <div class="f2-s-1 p-r-30 size-w-0 m-tb-6 flex-wr-s-c">

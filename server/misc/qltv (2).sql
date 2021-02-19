@@ -6,7 +6,8 @@
 -- Thời gian đã tạo: Th2 16, 2021 lúc 07:07 AM
 -- Phiên bản máy phục vụ: 10.4.17-MariaDB
 -- Phiên bản PHP: 8.0.1
-
+create database qltv;
+use qltv;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
