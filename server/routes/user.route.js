@@ -12,5 +12,5 @@ router.get('/user/registerReaderCard', accountController.readerCard);
 router.get('/user/shoppingCart/addcart/:id',shoppingCart.addcart);
 router.get('/user/shoppingCart/delCart/:id',shoppingCart.removeFromCart);
 router.get('/user/processCart', accountController.processCart);
-router.get('/user/returningCard/:id',returningCardController.add);
+router.get('/user/returningCard',returningCardController.add);
 module.exports = router;

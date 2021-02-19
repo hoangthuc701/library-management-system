@@ -10,5 +10,5 @@ router.get('/librarian/readerCard',readerCardController.getByOffset);
 router.get('/librarian/readerCard/getinfo/:id',readerCardController.getByID);
 router.post('/librarian/readerCard/add',readerCardController.add);
 router.get('/librarian/readerCard/del/:id',readerCardController.delete);
-router.post('/librarian/readerCard/edit/:id',readerCardController.update);
+router.post('/librarian/readerCard/edit',readerCardController.update);
 module.exports = router;

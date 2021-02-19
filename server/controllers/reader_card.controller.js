@@ -2,6 +2,7 @@ const ReaderCard = require('../models/reader.model');
 const functUtils = require('../middlewares/UtilityFunction');
 const dateUtils = require('../middlewares/dateUtils');
 const Account = require('../models/account.model');
+const accountModel = require('../models/account.model');
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -19,18 +20,16 @@ module.exports = {
 		res.json(await ReaderCard.loadByID(id))
 	},
 	add: async (req, res) => {
-		//test data
-		// req.body.card_id = '123';
-        // req.body.identity_number = '';
-        // req.body.account_id = 1;
-        //req.body.created_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-        // req.body.expirated_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
         var list = await Account.loadByID(req.body.account_id);
 		if (list.length == 0) {
 			return res.json(false);
         }
-
+		var accountEntity = {
+			id: req.body.account_id,
+			role_id: 5
+		}
+		await Account.update(accountEntity);
 		var Reader_cardEntity = {
 			card_id: req.body.card_id,
             account_id: req.body.account_id,
@@ -46,14 +45,6 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		//const id = +req.params.id || -1;
-		//test 
-		// req.body.card_id = '123';
-        // req.body.identity_number = '123';
-        // req.body.account_id = 1;
-        // req.body.created_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-		// req.body.expirated_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-        // req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
         var list = await Account.loadByID(req.body.account_id);
 		if (list.length == 0) {
@@ -63,8 +54,7 @@ module.exports = {
 		var Reader_cardEntity = {
 			id : req.body.id,
 			card_id: req.body.card_id,
-            account_id: req.body.account_id,
-            //created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            account_id: req.body.account_id,            
             expirated_date: req.body.expirated_date,
 		}
 		await ReaderCard.update(Reader_cardEntity);

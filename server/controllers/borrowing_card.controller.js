@@ -18,12 +18,7 @@ module.exports = {
 		res.json(await BorrowingCard.loadByID(id))
 	},
 	add: async (req, res) => {
-		//test data
-		// req.body.card_id = '123';
-		// req.body.reader_id = 1;
-		// req.body.returned_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
 		req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-
 		var Borrowing_cardEntity = {
             card_id: req.body.card_id,
             reader_id: req.body.reader_id,
@@ -41,18 +36,12 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		//const id = +req.params.id || -1;
-		//test 
-		//req.body.returned_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-		// req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-		// req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
 		var Borrowing_cardEntity = {
 			id : req.body.id,
 			card_id: req.body.card_id,
             reader_id: req.body.reader_id,
             returned_date: req.body.returned_date,
             borrowed_date: req.body.borrowed_date,
-			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await BorrowingCard.update(Borrowing_cardEntity);

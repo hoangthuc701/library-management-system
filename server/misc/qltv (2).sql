@@ -73,6 +73,7 @@ CREATE TABLE `book_title` (
   `author` varchar(50) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

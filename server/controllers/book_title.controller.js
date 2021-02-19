@@ -1,7 +1,7 @@
 const BookTitle = require('../models/book_title.model');
 const functUtils = require('../middlewares/UtilityFunction')
 const dateUtils = require('../middlewares/dateUtils')
-
+const fs = require('fs');
 
 
 module.exports = {
@@ -26,13 +26,6 @@ module.exports = {
 		res.json(list);
 	},
 	add: async (req, res) => {
-		//test data
-		// req.body.name = 'Title run go';
-		// req.body.author = 'author out fly';
-		// req.body.quantity = 3;
-		// req.body.category_id = 1;
-		// req.body.image='';
-		// req.body.description='sach test mid';
 		//validation -- check duplicate user
 		var list = await BookTitle.loadName(req.body.name);
 		if (list.length != 0) {
@@ -60,15 +53,13 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		//const id = +req.params.id || -1;
-		//test 
-		// req.body.name = 'Title10';
-		// req.body.author = 'author1';
-		// req.body.quantity = 3;
-		// req.body.category_id = 2;
-		// req.body.image='';
-		// req.body.description='sach test 1';
-		// req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		var BookID = req.body.id;
+		const row = await BookTitle.loadByID(BookID);
+		// if recieve new image, delete old image 
+		if (req.file) {
+			var imagePath = row[0]["image"].substring(1, row[0]["image"].length);
+			fs.unlinkSync(imagePath);
+		}
 		var book_titleEntity = {
 			id : req.body.id,
 			name: req.body.name,
@@ -77,14 +68,13 @@ module.exports = {
 			category_id: req.body.category_id,
 			image: "/public/bookTitleImage/" + req.file.filename,
 			description: req.body.description,
-			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 		}
 		await BookTitle.update(book_titleEntity);
 		return res.json(true);
 	},
 	search: async (req, res) => {
-		req.body.keyword = 'author why';
+		req.body.keyword = 'author A';
 		var list = []
 		list = await BookTitle.fulltextsearch(req.body.keyword, 0);
 		res.json(list);

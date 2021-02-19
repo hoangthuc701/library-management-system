@@ -20,10 +20,6 @@ module.exports = {
 		res.json(await BorrowingCardBook.loadByID(id))
 	},
 	add: async (req, res) => {
-		//test data
-		// req.body.borrowing_card_id = 2;
-        // req.body.book_id = 1;
-        
         var list = await BorrowingCard.loadByCardID(req.body.borrowing_card_id);
 		var list2 = await BookTitle.loadByID(req.body.book_id);
 		var list3 = await BorrowingCardBook.loadByBorrowingCardID(req.body.borrowing_card_id);
@@ -65,11 +61,6 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		//const id = +req.params.id || -1;
-		//test 
-		// req.body.borrowing_card_id = 3;
-        // req.body.book_id = 1;
-        //req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
         var list = await BorrowingCard.loadByCardID(req.body.borrowing_card_id);
 		
