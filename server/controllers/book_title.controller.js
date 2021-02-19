@@ -27,12 +27,12 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.name = 'Title run go';
-		req.body.author = 'author out fly';
-		req.body.quantity = 3;
-		req.body.category_id = 1;
-		req.body.image='';
-		req.body.description='sach test mid';
+		// req.body.name = 'Title run go';
+		// req.body.author = 'author out fly';
+		// req.body.quantity = 3;
+		// req.body.category_id = 1;
+		// req.body.image='';
+		// req.body.description='sach test mid';
 		//validation -- check duplicate user
 		var list = await BookTitle.loadName(req.body.name);
 		if (list.length != 0) {
@@ -60,25 +60,25 @@ module.exports = {
 		res.json(true);
 	},
 	update: async (req, res) => {
-		const id = +req.params.id || -1;
+		//const id = +req.params.id || -1;
 		//test 
-		req.body.name = 'Title10';
-		req.body.author = 'author1';
-		req.body.quantity = 3;
-		req.body.category_id = 2;
-		req.body.image='';
-		req.body.description='sach test 1';
-		req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+		// req.body.name = 'Title10';
+		// req.body.author = 'author1';
+		// req.body.quantity = 3;
+		// req.body.category_id = 2;
+		// req.body.image='';
+		// req.body.description='sach test 1';
+		// req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
 		var book_titleEntity = {
-			id : id,
+			id : req.body.id,
 			name: req.body.name,
 			author: req.body.author,
 			quantity: req.body.quantity,
 			category_id: req.body.category_id,
-			image: req.body.image,
+			image: "/public/bookTitleImage/" + req.file.filename,
 			description: req.body.description,
 			//created_at: req.body.created_at,
-			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 		}
 		await BookTitle.update(book_titleEntity);
 		return res.json(true);

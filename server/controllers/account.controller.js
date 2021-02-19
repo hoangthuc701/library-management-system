@@ -9,6 +9,7 @@ const md5 = require('md5');
 const shoppingCart = require('../controllers/shopping_cart.controller');
 const accountModel = require('../models/account.model');
 const book_titleModel = require('../models/book_title.model');
+const moment = require('moment');
 class Cart {
 	constructor() {
 		this.data = {};
@@ -35,11 +36,11 @@ module.exports = {
 	},
 	add: async (req, res) => {
 		//test data
-		req.body.username = 'test20';
-		req.body.password = '123';
-		req.body.name = 'test';
-		req.body.email = 'test';
-		req.body.phone = 'test';
+		// req.body.username = 'test20';
+		// req.body.password = '123';
+		// req.body.name = 'test';
+		// req.body.email = 'test';
+		// req.body.phone = 'test';
 		//validation -- check duplicate user
 		var list = await Account.loadUser(req.body.username);
 		if (list.length != 0) {
@@ -62,8 +63,9 @@ module.exports = {
 		return res.json(true);
 	},
 	update: async (req, res) => {
-		const id = +req.params.id || -1;
+		//const id = +req.params.id || -1;
 		//test 
+		req.body.id = 1;
 		req.body.block = 0;
 		req.body.created_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
 		//validation -- check duplicate user
@@ -72,7 +74,7 @@ module.exports = {
 			return res.json(false);
 		}
 		var accountEntity = {
-			id: id,
+			id: req.body.id,
 			username: req.body.username,
 			password: md5(req.body.password),
 			name: req.body.name,
@@ -80,7 +82,7 @@ module.exports = {
 			phone: req.body.phone,
 			role_id: req.body.role_id,
 			isBlock: req.body.block,
-			created_at: req.body.created_at,
+			//created_at: req.body.created_at,
 			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await Account.update(accountEntity);
@@ -104,12 +106,12 @@ module.exports = {
 		res.json(list);
 	},
 	login: async (req, res) => {
-		req.body.username = 'test20';
-		req.body.password = '123';
-		pass = md5(req.body.password);
+		// req.body.username = 'test20';
+		// req.body.password = '123';
+		var pass = md5(req.body.password);
 		const acc = await Account.loadUser(req.body.username);
-
-		if (acc.length === 0) {
+		
+		if (acc.length == 0) {
 			return res.json(false);
 		}
 		if (acc[0]["password"] != pass) {
@@ -118,13 +120,17 @@ module.exports = {
 		//update reader card
 		if (acc[0]["role_id"] == 5) {
 			const card = await readerCard.loadByUserID(acc[0]["id"]);
-			var cardDate = new date(readerCard[0]["expirated_date"]);
-			var currentDate = new date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
+			//const TH = moment(card[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+			console.log(card[0]["expirated_date"]);
+			let cardDate = new Date(card[0]["expirated_date"]);
+			var currentDate = new Date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
+			console.log(currentDate);
 			if (currentDate > cardDate) {
 				//change role into user
+				console.log("ok");
 				acc[0]["role_id"] = 1;
 				var accountEntity = {
-					id: id,
+					id: acc[0]["id"],
 					role_id: 1
 				}
 				await Account.update(accountEntity);

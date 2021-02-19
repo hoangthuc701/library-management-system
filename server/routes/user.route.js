@@ -5,7 +5,7 @@ const shoppingCart = require('../controllers/shopping_cart.controller');
 const returningCardController = require('../controllers/returning_card.controller')
 
 router.post('/user/register',accountController.add);
-router.get('/user/login',accountController.login);
+router.post('/user/login',accountController.login);
 router.get('/user/logout',accountController.logout);
 router.get('/user/registerReaderCard', accountController.readerCard);
 
