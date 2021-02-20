@@ -35,10 +35,6 @@ module.exports = {
 			if(list3[i]["book_id"] == req.body.book_id){
 				check = true;
 			}
-<<<<<<< HEAD
-			//await BorrowingCardBook.insert(Borrowing_card_bookEntity);
-		 });
-=======
 			console.log(list3[i]["book_id"]);
 		}
 		if(check === true){
@@ -57,7 +53,7 @@ module.exports = {
 			updated_at: ''
 		}
 		await BorrowingCardBook.insert(Borrowing_card_bookEntity);
->>>>>>> d3340f155affbc1fc2ae23eaad31318ed674ed9c
+
 		return res.json(true);
 	},
 	delete: async(req,res) => {

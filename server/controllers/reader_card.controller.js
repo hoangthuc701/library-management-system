@@ -86,5 +86,7 @@ module.exports = {
 			id: userID,
 			role_id: 1
 		}
+		await Account.update(accountEntity);
+		return res.json(true);
 	}
 };

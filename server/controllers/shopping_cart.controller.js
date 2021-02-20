@@ -47,5 +47,6 @@ const book_titleModel = require('../models/book_title.model');
 				req.session.totals -= 1;
 			}
 		}
+		res.json(true);
 	}
  };

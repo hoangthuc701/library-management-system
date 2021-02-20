@@ -11,7 +11,7 @@ module.exports = {
 	
         var listBorrowingCard = await BorrowingCard.loadByOffset((p - 1) * 10);
         var quantity = await BorrowingCard.quantity();
-		res.json({list: BorrowingCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+		res.json({list: listBorrowingCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;
