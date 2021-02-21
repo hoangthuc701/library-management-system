@@ -31,6 +31,7 @@ router.get('/stockkeeper/BookTitles/getinfo/:id', bookTitleController.getByID);
 router.post('/stockkeeper/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
 router.get('/stockkeeper/BookTitles/del/:id', bookTitleController.delete);
 router.post('/stockkeeper/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
+router.get('/stockkeeper/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
 
 router.get('/stockkeeper/BorrowingCard', borrowingCardController.getByOffset);
 router.get('/stockkeeper/BorrowingCard/getinfo/:id', borrowingCardController.getByID);

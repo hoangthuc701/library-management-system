@@ -25,6 +25,16 @@ module.exports = {
 		await BookTitle.update(book_titleEntity);
 		res.json(list);
 	},
+	getByCategoryID: async(req,res) => {
+		var id = req.params.id;
+		var p = 1;
+		var list = [];
+		if (req.query.p)
+			p = req.query.p;
+		var listCate = await BookTitle.loadByCategoryID(id, (p - 1) * 10);
+		var quantity = await BookTitle.quantityCategory(id);
+		res.json({list: listCate, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+	},
 	add: async (req, res) => {
 		//validation -- check duplicate user
 		var list = await BookTitle.loadName(req.body.name);
