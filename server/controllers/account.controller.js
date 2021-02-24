@@ -110,8 +110,8 @@ module.exports = {
 	login: async (req, res) => {
 		// req.body.username = 'test20';
 		// req.body.password = '123';
-		var pass = md5(req.body.password);
-		const acc = await Account.loadUser(req.body.username);
+		var pass = md5(req.body._password);
+		const acc = await Account.loadUser(req.body._username);
 		
 		if (acc.length == 0) {
 			return res.json(false);
