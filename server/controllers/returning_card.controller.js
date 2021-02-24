@@ -15,7 +15,10 @@ module.exports = {
 	
         var listReturningCard = await ReturningCard.loadByOffset((p - 1) * 10);
         var quantity = await ReturningCard.quantity();
-		res.json({list: listReturningCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+		res.render(newLocal, {
+			List: listReturningCard, quantity: quantity[0]["quantity"],
+			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
+		});
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;

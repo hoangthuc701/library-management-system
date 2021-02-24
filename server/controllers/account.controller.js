@@ -23,7 +23,7 @@ module.exports = {
 		var list = [];
 		if (req.query.p)
 			p = req.query.p;
-		//modify lis cho hien thi vai tro
+		
 		var listAccount = await Account.loadByOffset((p - 1) * 10);
 		var quantity = await Account.quantity();
 		const newLocal = 'admin/Account/list';

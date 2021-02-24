@@ -13,10 +13,10 @@ module.exports = {
 	
         var listBookTitle = await BookTitle.loadByOffset((p - 1) * 10);
         var quantity = await BookTitle.quantity();
-		const newLocal = 'admin/Account/list';
+		const newLocal = 'admin/BookTitle/list';
 		res.render(newLocal, {
 			List: listBookTitle, quantity: quantity[0]["quantity"],
-			rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
+			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
 		});
 	},
 	getByID: async(req,res) => {

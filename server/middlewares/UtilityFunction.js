@@ -7,8 +7,7 @@ module.exports = {
                 .map((d, i) => Object({ value: i + 1 <= numOfPages ? i + 1 : -1 }));
         }
         let start = current - 3;
-        let end = current + 1;
-
+        let end = parseInt(current) + 1;
         if (start < 0) {
             start = 0;
             end = 4;
@@ -16,6 +15,7 @@ module.exports = {
             end = numOfPages - 1;
             start = end - 4;
         }
+
         return new Array(5).fill().map((d, i) => Object({ value: i + start + 1 }));
     }
 }
