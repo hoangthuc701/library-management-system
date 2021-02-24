@@ -26,8 +26,11 @@ module.exports = {
         const condition = { id }
         return db.del(TBL_ACCOUNT, condition);
     },
-    awaiting: function(){
-        return db.load(`select * from ${TBL_ACCOUNT} where role_id = 6`);
+    awaiting: function(offset){
+        return db.load(`select * from ${TBL_ACCOUNT} where role_id = 6 LIMIT 10 OFFSET ${offset}`);
+    },
+    quantityAwaiting: () =>{
+        return db.load(`select count(*) as quantity from ${TBL_ACCOUNT} where role_id = 6`);
     },
     getNextAutoIncrement: () => {
         return db.load(`SELECT AUTO_INCREMENT
@@ -36,7 +39,7 @@ module.exports = {
         AND TABLE_NAME = "${TBL_ACCOUNT}"`)
     },
     quantity: () =>{
-        return db.load(`select count(*) as quantity from ${TBL_ACCOUNT}`)
+        return db.load(`select count(*) as quantity from ${TBL_ACCOUNT}`);
     },
     loadByOffset: (offset) =>{
         return db.load(`SELECT * FROM ${TBL_ACCOUNT} LIMIT 10 OFFSET ${offset}`)

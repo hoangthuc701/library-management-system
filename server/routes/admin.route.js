@@ -41,6 +41,7 @@ router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
 router.post('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
 router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
 router.post('/admin/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
+router.get('/admin/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
 
 router.get('/admin/BorrowingCard', borrowingCardController.getByOffset);
 router.get('/admin/BorrowingCard/getinfo/:id', borrowingCardController.getByID);

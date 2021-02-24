@@ -13,6 +13,9 @@ module.exports = {
     loadName: function (name) {
         return db.load(`select * from ${TBL_TITLE} where name = '${name}'`)
     },
+    loadByCategoryID: function (id, offset) {
+        return db.load(`select * from ${TBL_TITLE} where category_id = ${id} LIMIT 10 OFFSET ${offset}`)
+    },
     insert: function (entity) {
         return db.add(TBL_TITLE, entity);
     },
@@ -36,6 +39,9 @@ module.exports = {
     },
     quantity: () =>{
         return db.load(`select count(*) as quantity from ${TBL_TITLE}`)
+    },
+    quantityCategory: (id) =>{
+        return db.load(`select count(*) as quantity from ${TBL_TITLE} where category_id = ${id}`);
     },
     loadByOffset: (offset) =>{
         return db.load(`SELECT * FROM ${TBL_TITLE} LIMIT 10 OFFSET ${offset}`)

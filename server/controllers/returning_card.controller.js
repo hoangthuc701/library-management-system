@@ -25,7 +25,6 @@ module.exports = {
 		res.json(await ReturningCard.loadByID(id))
 	},
 	add: async (req, res) => {
-		//test data
 		var id = req.body.borrowing_card_id;
 		req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
         
