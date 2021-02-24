@@ -13,7 +13,11 @@ module.exports = {
 	
         var listBookTitle = await BookTitle.loadByOffset((p - 1) * 10);
         var quantity = await BookTitle.quantity();
-		res.json({list: listBookTitle, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+		const newLocal = 'admin/Account/list';
+		res.render(newLocal, {
+			List: listBookTitle, quantity: quantity[0]["quantity"],
+			rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
+		});
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;

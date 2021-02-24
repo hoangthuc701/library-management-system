@@ -31,6 +31,10 @@ var upload = multer({
 });
 
 const directory = '/public/bookTitleImage/';
+router.get('/admin', async function (req, res) {
+    const newLocal = 'admin/dashboard';
+    res.render(newLocal, { layout: 'adminPanel' });
+});
 
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);

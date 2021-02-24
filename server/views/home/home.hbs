@@ -1,234 +1,98 @@
-<!-- navigation -->
-  <!-- form đăng ký tài khoản -->
-  <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><strong>Đăng kí tài khoản</strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<!-- Hiển thị top 4 quyển sách mới nhập về -->
+<section class="bg0">
+  <div class="container">
+    <div class="row m-rl--1">
+      <div class="col-md-6 p-rl-1 p-b-2">
+        <div class="bg-img1 size-a-3 how1 pos-relative"
+          style="background-image: url(../public/bookTitleImage/test.png);">
+          <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 1</a>
 
-        </div>
-        <div class="pl-3 pr-3 pt-3">
-          <div class="alert alert-warning w-100 text-center" role="alert" id="alert" style="display: none;">
-          </div>
-        </div>
-
-        <div class="modal-body">
-          <form id="form-register" method="POST" action="/account/register">
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" id="username"
-              name="username" placeholder="Tên tài khoản*" required>
-
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" id="name"
-              name="name" placeholder="Họ tên*" required>
-
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" id="email"
-              name="email" placeholder="Email*" required>
-
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="password"
-              type="password" name="password" placeholder="Mật khẩu*" required>
-
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
-              id="repassword" placeholder="Nhập lại*" required>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="button"
-            id="btn-register">
-            Đăng kí
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
-
-  <!-- form đăng nhập -->
-  <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><strong>Đăng nhập</strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
-        </div>
-        <div class="pl-3 pr-3 pt-3">
-          <div class="alert alert-warning w-100 text-center" role="alert" id="alert-login" style="display: none;">
-          </div>
-        </div>
-
-        <div class="modal-body">
-          <form id="form-login" method="POST" action="/account/login">
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" id="_username"
-              name="_username" placeholder="Tên người dùng*" required>
-
-            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="_password"
-              type="password" name="_password" placeholder="Mật khẩu*" required>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <a href="/account/google">
-            <button type="button" style="background-color: #cf4332;"
-              class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
-              <i class="fa fa-google-plus" aria-hidden="true"></i> Đăng nhập với Google
-            </button></a>
-          <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="submit"
-            form="form-login" id="btn-login">
-            Đăng nhập
-          </button>
-        </div>
-        <div class="modal-footer">
-          <a href="/account/ConfirmEmail">Quên mật khẩu?</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
-
-
-
-  <header>
-    
-    <div class="container-menu-desktop">
-      <div class="topbar">
-        <div class="content-topbar container h-100">
-          <div class="left-topbar">
-            <!-- nếu user chưa đăng nhập thì hiển thị cái này -->
-            <a href="javascript:;" class="left-topbar-item" data-toggle="modal" data-target="#modal-register"
-              id="anchor-signup">
-              <i class="fa fa-user-plus" aria-hidden="true"></i> Đăng kí
+          <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
+            <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+              Link tới chuyên mục sách
             </a>
 
-            <a href="javascript:;" class="left-topbar-item" data-toggle="modal" data-target="#modal-login"
-              id="anchor-signin">
-              <i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
-            </a>
-          </div>
-          <div class="right-topbar">
-            <a class="list-group-item action active" href="">
-              Tên chuyên mục 1
-              <span class="badge badge-primary float-right">1</span>
-            </a>
-            <!-- kiểm tra nếu user đã đăng nhập thì hiển thị cái này -->
-            <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle left-topbar-item" href="#" id="navbarDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: Roboto-Regular;">
-                <small><i class="fa fa-user" aria-hidden="true"></i> Xin chào, tên tài khoản!</small>
+            <h3 class="how1-child2 m-t-14 m-b-10">
+              <a href="" class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03 _article">
+                Tiêu đề
               </a>
-              <div class="dropdown-menu dropdown-menu-right" style="z-index: 10;" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item left-topbar-item" href="/account/profile">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Trang cá nhân</small>
-                </a>
-                <!-- Khi vai trò là độc giả thì hiển thị cái này -->
-                <a class="dropdown-item left-topbar-item" href="/account/AddLimits">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Đăng ký thẻ độc giả</small>
-                </a>
-                <!-- -->
-                <!-- Khi vai trò là thủ thư thì hiển thị cái này -->
-                <a class="dropdown-item left-topbar-item" href="/reporter/listpost">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý thẻ độc giả</small>
-                </a>
-                <a class="dropdown-item left-topbar-item" href="/reporter/post">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Chấp nhận độc giả</small>
-                </a>
-                <a class="dropdown-item left-topbar-item" href="/reporter/post">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý phiếu mượn</small>
-                </a>
-                <a class="dropdown-item left-topbar-item" href="/reporter/post">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý phiếu trả</small>
-                </a>
-                <!-- Khi vai trò là admin thì hiển thị cái này -->
-                <a class="dropdown-item left-topbar-item" href="/editor/post">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Menu Admin</small>
-                </a>
-                <!-- Khi vai trò là thủ kho thì hiển thị cái này -->
-                <a class="dropdown-item left-topbar-item" href="/admin">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Nhập sách</small>
-                </a>
-                <a class="dropdown-item left-topbar-item" href="/admin">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý danh sách sách</small>
+              <p class="text-white">
+                Số lượng
+              </p>
+            </h3>
+
+            <span class="how1-child2">
+              <span class="f1-s-4 cl11">
+                Tác giả
+              </span>
+
+              <span class="f1-s-3 cl11 m-rl-3">
+                -
+              </span>
+
+              <span class="f1-s-3 cl11">
+                Ngày nhập sách
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 p-rl-1">
+        <div class="row m-rl--1">
+          <div class="col-12 p-rl-1 p-b-2">
+            <div class="bg-img1 size-a-4 how1 pos-relative"
+              style="background-image: url(../public/bookTitleImage/test.png);">
+              <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 2</a>
+
+              <div class="flex-col-e-s s-full p-rl-25 p-tb-24">
+                <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+                  Link tới chuyên mục sách
                 </a>
 
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item left-topbar-item" href="/account/logout">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i> <small>Đăng xuất</small>
-                </a>
+                <h3 class="how1-child2 m-t-14">
+                  <a href="" class="how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03 _article">
+                    Tiêu đề
+                  </a>
+                  <p class="text-white">
+                    Số lượng:
+                  </p>
+                </h3>
+
+                <span class="how1-child2">
+                  <span class="f1-s-4 cl11">
+                    Tác giả
+                  </span>
+
+                  <span class="f1-s-3 cl11 m-rl-3">
+                    -
+                  </span>
+
+                  <span class="f1-s-3 cl11">
+                    Ngày nhập
+                  </span>
+                </span>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-  </header>
 
-
-  <!-- sidebar -->
-  <div class="col-sm-2">
-    <ul class="list-group">
-      <a class="list-group-item action {{#if isActive}}active{{/if}}" href="">
-        Tên chuyên mục 1
-        <span class="badge badge-primary float-right">1</span>
-      </a>
-      <a class="list-group-item action {{#if isActive}}active{{/if}}" href="">
-        Tên chuyên mục 1
-        <span class="badge badge-primary float-right">1</span>
-      </a>
-      <a class="list-group-item action {{#if isActive}}active{{/if}}" href="">
-        Tên chuyên mục 1
-        <span class="badge badge-primary float-right">13</span>
-      </a>
-      <a class="list-group-item action {{#if isActive}}active{{/if}}" href="">
-        Tên chuyên mục 1
-        <span class="badge badge-primary float-right">15</span>
-      </a>
-      <a class="list-group-item action {{#if isActive}}active{{/if}}" href="">
-        Tên chuyên mục 1
-        <span class="badge badge-primary float-right">16</span>
-      </a>
-    </ul>
-  </div>
-
-  <!-- content -->
-  <div class="container">
-    <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
-      <div class="f2-s-1 p-r-30 size-w-0 m-tb-6 flex-wr-s-c">
-        <!-- Tìm kiếm theo full text search -->
-        <form class="dropdown" method="post" action="/search-enter" id="search-box">
-          <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 ">
-            <input autocomplete="off" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" id="search"
-              placeholder="Tìm kiếm...">
-            <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
-              <i class="zmdi zmdi-search"></i>
-            </button>
-          </div>
-
-          <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" id="match-list">
-          </ul>
-        </form>
-      </div>
-    </div>
-    <!-- Hiển thị top 4 quyển sách mới nhập về -->
-    <section class="bg0">
-      <div class="container">
-        <div class="row m-rl--1">
-          <div class="col-md-6 p-rl-1 p-b-2">
-            <div class="bg-img1 size-a-3 how1 pos-relative"
-              style="background-image: url(../public/bookTitleImage/test.png);">
-              <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 1</a>
+          <div class="col-sm-6 p-rl-1 p-b-2">
+            <div class="bg-img1 size-a-5 how1 pos-relative"
+              style="background-image: url(../public/bookTitleImage/test.png);"
+              title="{{this._4OutstandingArticles.2.NoiDungTat}}">
+              <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 3</a>
 
               <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                 <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
                   Link tới chuyên mục sách
                 </a>
 
-                <h3 class="how1-child2 m-t-14 m-b-10">
-                  <a href="" class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03 _article">
+                <h3 class="how1-child2 m-t-14">
+                  <a href="" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03 _article">
                     Tiêu đề
                   </a>
                   <p class="text-white">
-                    Số lượng
+                    Số lượng:
                   </p>
                 </h3>
 
@@ -249,774 +113,698 @@
             </div>
           </div>
 
-          <div class="col-md-6 p-rl-1">
-            <div class="row m-rl--1">
-              <div class="col-12 p-rl-1 p-b-2">
-                <div class="bg-img1 size-a-4 how1 pos-relative"
-                  style="background-image: url(../public/bookTitleImage/test.png);">
-                  <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 2</a>
+          <div class="col-sm-6 p-rl-1 p-b-2">
+            <div class="bg-img1 size-a-5 how1 pos-relative"
+              style="background-image: url(../public/bookTitleImage/test.png);"
+              title="{{this._4OutstandingArticles.3.NoiDungTat}}">
+              <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 4</a>
 
-                  <div class="flex-col-e-s s-full p-rl-25 p-tb-24">
-                    <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
-                      Link tới chuyên mục sách
-                    </a>
+              <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
+                <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+                  Link tới chuyên mục sách
+                </a>
 
-                    <h3 class="how1-child2 m-t-14">
-                      <a href="" class="how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03 _article">
-                        Tiêu đề
-                      </a>
-                      <p class="text-white">
-                        Số lượng:
-                      </p>
-                    </h3>
+                <h3 class="how1-child2 m-t-14">
+                  <a href="" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03 _article">
+                    Tiêu đề
+                  </a>
+                  <p class="text-white">
+                    Số lượng:
+                  </p>
+                </h3>
 
-                    <span class="how1-child2">
-                      <span class="f1-s-4 cl11">
-                        Tác giả
-                      </span>
+                <span class="how1-child2">
+                  <span class="f1-s-4 cl11">
+                    Tác giả
+                  </span>
 
-                      <span class="f1-s-3 cl11 m-rl-3">
-                        -
-                      </span>
+                  <span class="f1-s-3 cl11 m-rl-3">
+                    -
+                  </span>
 
-                      <span class="f1-s-3 cl11">
-                        Ngày nhập
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-6 p-rl-1 p-b-2">
-                <div class="bg-img1 size-a-5 how1 pos-relative"
-                  style="background-image: url(../public/bookTitleImage/test.png);"
-                  title="{{this._4OutstandingArticles.2.NoiDungTat}}">
-                  <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 3</a>
-
-                  <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
-                    <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
-                      Link tới chuyên mục sách
-                    </a>
-
-                    <h3 class="how1-child2 m-t-14">
-                      <a href="" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03 _article">
-                        Tiêu đề
-                      </a>
-                      <p class="text-white">
-                        Số lượng:
-                      </p>
-                    </h3>
-
-                    <span class="how1-child2">
-                      <span class="f1-s-4 cl11">
-                        Tác giả
-                      </span>
-
-                      <span class="f1-s-3 cl11 m-rl-3">
-                        -
-                      </span>
-
-                      <span class="f1-s-3 cl11">
-                        Ngày nhập sách
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-6 p-rl-1 p-b-2">
-                <div class="bg-img1 size-a-5 how1 pos-relative"
-                  style="background-image: url(../public/bookTitleImage/test.png);"
-                  title="{{this._4OutstandingArticles.3.NoiDungTat}}">
-                  <a href="" class="dis-block how1-child1 trans-03 _article">Quyển sách mới nhập về top 4</a>
-
-                  <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
-                    <a href="" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
-                      Link tới chuyên mục sách
-                    </a>
-
-                    <h3 class="how1-child2 m-t-14">
-                      <a href="" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03 _article">
-                        Tiêu đề
-                      </a>
-                      <p class="text-white">
-                        Số lượng:
-                      </p>
-                    </h3>
-
-                    <span class="how1-child2">
-                      <span class="f1-s-4 cl11">
-                        Tác giả
-                      </span>
-
-                      <span class="f1-s-3 cl11 m-rl-3">
-                        -
-                      </span>
-
-                      <span class="f1-s-3 cl11">
-                        Ngày nhập sách
-                      </span>
-                    </span>
-                  </div>
-                </div>
+                  <span class="f1-s-3 cl11">
+                    Ngày nhập sách
+                  </span>
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!--  -->
-
-    <!-- Hiển thị top 10 quyển sách được xem nhiều nhất -->
-    <section class="bg0 p-t-70">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-12">
-            <div class="p-b-20">
-              <div class="tab01 p-b-20">
-                <div class="tab01-head how2 how2-cl1 bocl12 flex-s-c m-r-10 m-r-0-sr991">
-                  <h3 class="f1-m-2 cl12 tab01-title">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i> Được xem nhiều nhất trong tuần
-                  </h3>
-                </div>
-
-                <div class="tab-content p-t-35">
-                  <div class="tab-pane fade show active" id="tab1-1" role="tabpanel">
-                    <div class="row">
-                      <!-- sách 1 -->
-                      <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
-                        <div class="m-b-30">
-                          <a href="/article/{{this._10MostViewArticles.0.id}}"
-                            class="wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="p-t-20">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{this._10MostViewArticles.0.id}}"
-                                class="f1-m-3 cl2 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{this._10MostViewArticles.0.ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- sách 2 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{this._10MostViewArticles.1.NoiDungTat}}">
-                          <a href="/article/{{this._10MostViewArticles.1.id}}"
-                            class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{this._10MostViewArticles.1.id}}"
-                                class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{this._10MostViewArticles.1.ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục:
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập:
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- cột giữa -->
-                      <!-- sách 1 -->
-                      <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- sách 2 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-
-                        <!-- sách 3 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-
-                        <!-- sách 4 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- cột bên phải -->
-                      <!-- sách 1 -->
-                      <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề:
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục:
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- sách 2 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề:
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục:
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- sách 3 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề:
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục:
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <!-- sách 4 -->
-                        <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
-                          <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
-                            <img src="/public/bookTitleImage/download.jpg" alt="IMG">
-                          </a>
-
-                          <div class="size-w-2">
-                            <h5 class="p-b-5">
-                              <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
-                                Tiêu đề:
-                              </a>
-                              <p>
-                                <small class="text-dark">Số lượng:</small>
-                              </p>
-                            </h5>
-
-                            <span class="cl8">
-                              <a href="/category/{{ChuyenMucID}}"
-                                class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
-                                Chuyên mục:
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                Tác giả
-                              </a>
-
-                              <span class="f1-s-3 m-rl-3">
-                                -
-                              </span>
-
-                              <span class="f1-s-3">
-                                Ngày nhập
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-
-
-
-
-              <div class="tab01 p-b-20">
-                <div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
-                  <h3 class="f1-m-2 cl13 tab01-title">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Top các quyển sách còn nhiều nhất
-                  </h3>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab01 p-b-20">
-                  <div class="tab01-head how2 how2-cl3 bocl12 flex-s-c m-r-10 m-r-0-sr991">
-                    <h3 class="f1-m-2 cl14 tab01-title">
-                      <i class="fa fa-bookmark" aria-hidden="true"></i> Top chuyên mục trong tuần
-                    </h3>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
-                        <h4 class="card-title">Tiêu đề:</h4>
-                        <p class="card-text"><b>Số lượng:</b>VALUE</p>
-                        <p class="card-text"><b>Tác giả:</b> VALUE</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
   </div>
-  </section>
-  <!-- footer -->
-  <footer>
-    <div class="bg2 p-t-40 p-b-25">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 p-b-20">
-            <div class="size-h-3 flex-s-c">
-              <a href="javascript:;">
-                <img class="max-s-full" src="/public/images/icons/logo.png" alt="LOGO">
-              </a>
+</section>
+<!--  -->
+
+<!-- Hiển thị top 10 quyển sách được xem nhiều nhất -->
+<section class="bg0 p-t-70">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="p-b-20">
+          <div class="tab01 p-b-20">
+            <div class="tab01-head how2 how2-cl1 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+              <h3 class="f1-m-2 cl12 tab01-title">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> Được xem nhiều nhất trong tuần
+              </h3>
             </div>
 
-            <div>
-              <p class="f1-s-1 cl11 p-b-16">
-                Đồ án cuối kì môn Nhập môn công nghệ phần mềm - 20HCB của nhóm 12, bao gồm 5 thành viên:
-              </p>
+            <div class="tab-content p-t-35">
+              <div class="tab-pane fade show active" id="tab1-1" role="tabpanel">
+                <div class="row">
+                  <!-- sách 1 -->
+                  <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
+                    <div class="m-b-30">
+                      <a href="/article/{{this._10MostViewArticles.0.id}}" class="wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
 
-              <p class="f1-s-1 cl11 p-b-16">
-                <a href="https://github.com/NguyenMinhTamHcmus" target="_blank"
-                  class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
-                  <i class="fa fa-github" aria-hidden="true"></i> MSSV 1 - Nguyễn Hoàng Thức
-                </a>
-              </p>
+                      <div class="p-t-20">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{this._10MostViewArticles.0.id}}"
+                            class="f1-m-3 cl2 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
 
-              <p class="f1-s-1 cl11 p-b-16">
-                <a href="https://github.com/VoSiThien" target="_blank"
-                  class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
-                  <i class="fa fa-github" aria-hidden="true"></i> MMSV2 - Trần Phương Nam
-                </a>
-              </p>
-              <p class="f1-s-1 cl11 p-b-16">
-                <a href="https://github.com/cuongpiger" target="_blank"
-                  class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
-                  <i class="fa fa-github" aria-hidden="true"></i> MSSV4 - Nguyễn Văn Sang
-                </a>
-              </p>
-              <p class="f1-s-1 cl11 p-b-16">
-                <a href="https://github.com/cuongpiger" target="_blank"
-                  class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
-                  <i class="fa fa-github" aria-hidden="true"></i> 20424066 - Nguyễn Minh Tâm
-                </a>
-              </p>
-              <p class="f1-s-1 cl11 p-b-16">
-                <a href="https://github.com/cuongpiger" target="_blank"
-                  class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
-                  <i class="fa fa-github" aria-hidden="true"></i> 20424073 - Võ Sĩ Thiên
-                </a>
-              </p>
+                        <span class="cl8">
+                          <a href="/category/{{this._10MostViewArticles.0.ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- sách 2 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{this._10MostViewArticles.1.NoiDungTat}}">
+                      <a href="/article/{{this._10MostViewArticles.1.id}}"
+                        class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{this._10MostViewArticles.1.id}}"
+                            class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{this._10MostViewArticles.1.ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục:
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập:
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- cột giữa -->
+                  <!-- sách 1 -->
+                  <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- sách 2 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- sách 3 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- sách 4 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- cột bên phải -->
+                  <!-- sách 1 -->
+                  <div class="col-md-4 p-r-25 p-r-15-sr991 h-100">
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề:
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục:
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- sách 2 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề:
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục:
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- sách 3 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề:
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục:
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- sách 4 -->
+                    <div class="flex-wr-sb-s m-b-30" title="{{NoiDungTat}}" style="height: 102px;">
+                      <a href="/article/{{id}}" class="size-w-1 wrap-pic-w hov1 trans-03 _article">
+                        <img src="/public/bookTitleImage/download.jpg" alt="IMG">
+                      </a>
+
+                      <div class="size-w-2">
+                        <h5 class="p-b-5">
+                          <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _article">
+                            Tiêu đề:
+                          </a>
+                          <p>
+                            <small class="text-dark">Số lượng:</small>
+                          </p>
+                        </h5>
+
+                        <span class="cl8">
+                          <a href="/category/{{ChuyenMucID}}"
+                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                            Chuyên mục:
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                            Tác giả
+                          </a>
+
+                          <span class="f1-s-3 m-rl-3">
+                            -
+                          </span>
+
+                          <span class="f1-s-3">
+                            Ngày nhập
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+          <div class="tab01 p-b-20">
+            <div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+              <h3 class="f1-m-2 cl13 tab01-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Top các quyển sách còn nhiều nhất
+              </h3>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab01 p-b-20">
+              <div class="tab01-head how2 how2-cl3 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+                <h3 class="f1-m-2 cl14 tab01-title">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i> Top chuyên mục trong tuần
+                </h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <img class="card-img-top" src="/public/bookTitleImage/download.jpg" alt="Card image cap">
+                    <h4 class="card-title">Tiêu đề:</h4>
+                    <p class="card-text"><b>Số lượng:</b>VALUE</p>
+                    <p class="card-text"><b>Tác giả:</b> VALUE</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
+</section>
+<!-- footer -->
+<footer>
+  <div class="bg2 p-t-40 p-b-25">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 p-b-20">
+          <div class="size-h-3 flex-s-c">
+            <a href="javascript:;">
+              <img class="max-s-full" src="/public/images/icons/logo.png" alt="LOGO">
+            </a>
+          </div>
 
-    <div class="bg11">
-      <div class="container size-h-4 flex-c-c p-tb-15">
-        <span class="f1-s-1 cl0 txt-center">
-          <a href="javascript:;" class="f1-s-1 cl10 hov-link1">
+          <div>
+            <p class="f1-s-1 cl11 p-b-16">
+              Đồ án cuối kì môn Nhập môn công nghệ phần mềm - 20HCB của nhóm 12, bao gồm 5 thành viên:
+            </p>
 
-            <script>document.write(new Date().getFullYear());</script> Trang được thực hiện bởi <i class="fa fa-heart"
-              aria-hidden="true"> </i><a href="javascript:;"> #G12_Nhập môn công nghệ phần mềm</a>
-        </span>
+            <p class="f1-s-1 cl11 p-b-16">
+              <a href="https://github.com/NguyenMinhTamHcmus" target="_blank"
+                class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
+                <i class="fa fa-github" aria-hidden="true"></i> MSSV 1 - Nguyễn Hoàng Thức
+              </a>
+            </p>
+
+            <p class="f1-s-1 cl11 p-b-16">
+              <a href="https://github.com/VoSiThien" target="_blank"
+                class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
+                <i class="fa fa-github" aria-hidden="true"></i> MMSV2 - Trần Phương Nam
+              </a>
+            </p>
+            <p class="f1-s-1 cl11 p-b-16">
+              <a href="https://github.com/cuongpiger" target="_blank"
+                class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
+                <i class="fa fa-github" aria-hidden="true"></i> MSSV4 - Nguyễn Văn Sang
+              </a>
+            </p>
+            <p class="f1-s-1 cl11 p-b-16">
+              <a href="https://github.com/cuongpiger" target="_blank"
+                class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
+                <i class="fa fa-github" aria-hidden="true"></i> 20424066 - Nguyễn Minh Tâm
+              </a>
+            </p>
+            <p class="f1-s-1 cl11 p-b-16">
+              <a href="https://github.com/cuongpiger" target="_blank"
+                class="fs-18 cl11 hov-cl10 trans-03 m-r-8 f1-s-1 cl11 p-b-16">
+                <i class="fa fa-github" aria-hidden="true"></i> 20424073 - Võ Sĩ Thiên
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+
+  <div class="bg11">
+    <div class="container size-h-4 flex-c-c p-tb-15">
+      <span class="f1-s-1 cl0 txt-center">
+        <a href="javascript:;" class="f1-s-1 cl10 hov-link1">
+
+          <script>document.write(new Date().getFullYear());</script> Trang được thực hiện bởi <i class="fa fa-heart"
+            aria-hidden="true"> </i><a href="javascript:;"> #G12_Nhập môn công nghệ phần mềm</a>
+      </span>
+    </div>
+  </div>
+</footer>

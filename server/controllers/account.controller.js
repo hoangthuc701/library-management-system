@@ -26,9 +26,11 @@ module.exports = {
 		//modify lis cho hien thi vai tro
 		var listAccount = await Account.loadByOffset((p - 1) * 10);
 		var quantity = await Account.quantity();
-		//write something here
-		console.log(Math.ceil(quantity["quantity"] / 10));
-		res.json({ list: listAccount, quantity: quantity, rangeOfPages: funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p) });
+		const newLocal = 'admin/Account/list';
+		res.render(newLocal, {
+			List: listAccount, quantity: quantity[0]["quantity"],
+			pagi:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
+		});
 	},
 	getByID: async (req, res) => {
 		var id = req.params.id;
