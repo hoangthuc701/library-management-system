@@ -13,6 +13,9 @@ module.exports = {
         console.log(`select * from ${TBL_BORROWING_CARD_BOOK} where borrowing_card_id = '${id}'`);
         return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where borrowing_card_id = '${id}'`);
     },
+    loadByBookID: function (id) {
+        return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where book_id = ${id}`);
+    },
     insert: function (entity) {
         return db.add(TBL_BORROWING_CARD_BOOK, entity);
     },
