@@ -15,6 +15,7 @@ module.exports = {
 	
         var listReturningCard = await ReturningCard.loadByOffset((p - 1) * 10);
         var quantity = await ReturningCard.quantity();
+		var newLocal = 'ReturningCard/list';
 		res.render(newLocal, {
 			List: listReturningCard, quantity: quantity[0]["quantity"],
 			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'

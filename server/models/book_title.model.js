@@ -30,7 +30,12 @@ module.exports = {
         const condition = { id }
         return db.del(TBL_TITLE, condition);
     },
-
+    loadGonnaOutOfStockBook: function(){
+        return db.load(`select bt.*, c.name as catname FROM book_title bt, category c where bt.quantity > 0 and c.id = bt.category_id order by quantity asc limit 6`);
+    },
+    loadMostView: function(){
+        return db.load(`select bt.*, c.name as catname FROM book_title bt, category c where bt.quantity > 0 and c.id = bt.category_id order by quantity desc limit 6`);
+    },
     getNextAutoIncrement: () => {
         return db.load(`SELECT AUTO_INCREMENT
         FROM information_schema.TABLES
