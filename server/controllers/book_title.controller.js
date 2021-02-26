@@ -1,6 +1,7 @@
 const BookTitle = require('../models/book_title.model');
 const functUtils = require('../middlewares/UtilityFunction')
-const dateUtils = require('../middlewares/dateUtils')
+const dateUtils = require('../middlewares/dateUtils');
+const Category = require('../models/category.model');
 const fs = require('fs');
 
 
@@ -12,9 +13,11 @@ module.exports = {
 			p = req.query.p;
 	
         var listBookTitle = await BookTitle.loadByOffset((p - 1) * 10);
+		var listCate = await Category.load();
         var quantity = await BookTitle.quantity();
 		const newLocal = 'admin/BookTitle/list';
 		res.render(newLocal, {
+			ListCate: listCate,
 			List: listBookTitle, quantity: quantity[0]["quantity"],
 			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
 		});

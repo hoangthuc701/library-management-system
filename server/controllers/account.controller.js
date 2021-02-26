@@ -85,6 +85,11 @@ module.exports = {
 		await Account.update(accountEntity);
 		return res.json(true);
 	},
+	delete: async(req,res) => {
+		var id = req.params.id;
+		await Account.delete(id);
+		res.json(true);
+	},
 	readerCard: async (req, res) => {
 
 		const id = +req.params.id || -1;

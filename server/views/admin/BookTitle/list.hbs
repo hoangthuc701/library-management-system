@@ -27,6 +27,13 @@
  
     <div class="card-header">
         <h4>Danh sách các đầu sách</h4>
+        <div class="card-header d-flex justify-content-between">
+            <a href="/admin/BookTitle/add" class="btn btn-outline-success">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Thêm tài khoản
+            </a>
+        </div>
+        
         <ul class="pagination">
             {{#each this.pagi}}
             {{#when value 'noteq'-1}}
@@ -37,49 +44,78 @@
     </div>
     <div class="card-body">
         <div id="infoList">
-
+            <table class="table table-hover" id="tableCategory">
+                <thead>
+                    <tr style="background-color:bisque">
+                        <th scope="col" class="text-left" style="width: 15%">#</th>
+                        <th scope="col" style="width: 40%;" class="text-center">Tên sách</th>
+                        <th scope="col" style="width: 20%;" class="text-center">Tác giả</th>
+                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyCateParent">
             {{#each this.List}}
             <div id="groupUser{{id}}">
+                <tr>
                 <div style="size:50px;margin:1%;background-color:aliceblue">
-                    <label style="width:80%;">Sách {{name}} </label>
-                    <button style="width:19%;" type="button" class="btn btn-primary"
-                        onclick="viewDetail({{this.id}})"><i class="fa fa-eye" aria-hidden="true"></i>Xem chi
-                        tiết!</button>
+                    <th scope="row" class="text-left" id="tdParentIndex{{id}}">
+                    <label>{{id}} </label>    
+                    </th>
+                    <td class="text-center">
+                        <label>Sách {{name}} </label>
+                    </td>
+                    <td class="text-center">
+                        <label>{{author}} </label>
+                    </td>
+                    <td class="text-center" colspan="2">
+                        <a href="/admin/BookTitle/edit/{{id}}" class="btn btn-primary">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Cập nhật
+                    </a>
+                    <a href="/admin/BookTitle/del/{{id}}" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash" aria-hidden="true"> Xóa </i>
+                    </a>
+                    </td>
+                    {{!-- <button style="width:19%;" type="button" class="btn btn-primary" onclick="viewDetail({{this.id}})"><i class="fa fa-eye"
+                            aria-hidden="true"></i>Xem chi
+                        tiết!</button> --}}
+                    
                 </div>
-                <div id="infoField{{id}}"
+                </tr>
+                {{!-- <div id="infoField{{id}}"
                     style="margin-left: 10%;margin-right: 10%;margin-top: 1%; margin-bottom: 2%;border:1px solid purple;display:none;">
                     <div class="form-group" style="margin: 2%;">
-                        <label for="txtHoTen{{id}}">Họ và Tên:</label>
-                        <input class="form-control" id="txtHoTen{{id}}" value="{{username}}"></input><br>
-                        <label>Bút danh:</label>
-                        {{#when VaiTroID 'eq' 3}}
-                        <button id="btnAthName{{id}}" class="btn btn-primary btn-sm" role="button" title="Sửa"
-                            onclick="editAthName({{id}})">
-                            <i class="fa fa-pencil" aria-hidden="true">sửa</i>
-                        </button>
-                        {{/when}}
-                        <input class="form-control" id="txtButDanh{{id}}"
-                            value="{{#if (isEqual VaiTroID 3)}}{{ButDanh}}{{else}}None{{/if}}">
-                        <label>email:</label>
-                        <input class="form-control" id="txtemail{{id}}" value="{{email}}"></input><br>
-                        <label>Thời hạn:</label>
-                        {{#when VaiTroID 'eq' 4}}
-                        <button id="btnTime{{id}}" class="btn btn-primary btn-sm" role="button" title="Sửa"
-                            onclick="editTime({{id}})">
-                            <i class="fa fa-pencil" aria-hidden="true">sửa</i>
-                        </button>
-                        {{/when}}
-                        <label>Vai trò:</label>
-                        <select id="cbRole{{id}}" name="RoleID" class="form-control" onchange="cbRoleChange({{id}})">
-                            <option value="1" {{#when role_id 'eq' 1}}selected{{/when}}>Quản trị viên</option>
-                            <option value="2" {{#when role_id 'eq' 2}}selected{{/when}}>Biên tập viên</option>
-                            <option value="3" {{#when role_id 'eq' 3}}selected{{/when}}>Phóng viên</option>
-                            <option value="4" {{#when role_id 'eq' 4}}selected{{/when}}>Độc giả</option>
-                        </select>
+                        <form method="POST" enctype="multipart/form-data" action="/admin/BookTitle/edit/{{id}}" style="width: 100%" id="form-confirm">
+                            <input class="form-control" id="txtid{{id}}" name="id" value="{{id}}" hidden></input><br>
+                            <label for="txtname{{id}}">Tên sách: </label>
+                            <input class="form-control" id="txtname{{id}}" name="name" value="{{name}}"></input><br>
+                            <label>Tác giả:</label>
+                            <input class="form-control" id="txtauthor{{id}}" name="author" value="{{author}}"></input><br>
+                            <label>Số lượng:</label>
+                            <input class="form-control" id="txtquantity{{id}}" type="number" name="quantity" value="{{quantity}}"></input><br>
+                            <label>Mô tả:</label>
+                            <input class="form-control" id="txtdescription{{id}}" name="description" value="{{description}}"></input><br>
+                            <label>Chuyên mục:</label>
+                            <select id="cbRole{{id}}" name="categoryID" class="form-control" onchange="cbRoleChange({{id}})">
+                                {{#each ListCate}}
+                                <option value="{{id}}" {{#when id 'eq' id}}selected{{/when}}>{{name}}</option>
+                                {{/each}}
+                            </select><br>
+                            <div class="form-group">
+                                <label for="txtImage">Ảnh đại diện bài viết:</label><br>
+                                <img id="showImg" src="../..{{image}}" style="width:300px;height:300px;"><br>
+                                <input type="file" name="urlImage" value="" id="urlImage"></input>
+                            </div>
+                            <input type="submit" value="update" style="margin-top: 5px; width:15%"
+                                class="btn btn-primary" id="btn-confirm">
+                        </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
             {{/each}}
+            </tbody>
+            </table>
         </div>
     </div>
 </div>
