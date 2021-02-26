@@ -14,10 +14,10 @@ module.exports = {
 			var listBorrowingCardBook = await borrowingCardBook.loadByBorrowingCardID(listBorrowingCard[i]["card_id"]);
 			list.push([listBorrowingCard[i]]);
 			listBorrowingCardBook.forEach((brDetail) => {
-				list[i].push({brDetail});
+				list[i].push(brDetail);
 			});
 		};
-		console.log(list[0][1]);
+		console.log(list[0][2]);
 		newLocal = 'admin/BorrowingCard/list';
 		res.render(newLocal, {
 			List: list, quantity: quantity[0]["quantity"],

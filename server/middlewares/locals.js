@@ -15,10 +15,7 @@ module.exports = function (app) {
       // save to cache
       cache.set(GLB_CATEGORIES, _Cats);
     }
-    var l = 0;
     res.locals.lcCats = await Category.load();
-    console.log(res.locals.lcCats);
-    console.log(l)
     next();
   });
 

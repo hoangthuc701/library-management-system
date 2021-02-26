@@ -169,10 +169,8 @@
   }
 </script>
 {{/section}}
+
 <div class="card">
-  <div class="card-header">
-    <h4>Danh sách phiếu mượn</h4>
-  </div>
   <div class="card-header">
         <h4>Danh sách phiếu mượn</h4>
         <ul class="pagination">
@@ -242,14 +240,14 @@
                 </tr>
               </thead>
 
-              <tbody id="tbodyCateChild{{this.0.id}}">
+              <tbody id="tbodyCateChild{{this.1.id}}">
                 {{#each this}}
                 {{#if (isNotEqual @index 0)}}
                 <tr id="row{{ChuyenMucCon}}" class="childRow">
                   <td><input id="txtCategory{{id}}" style="border:5mm;text-align:center;"
               value="{{borrowing_card_id}}"></input></td>
                   <td class="text-center"><input id="txtCategory{{id}}" style="border:5mm;text-align: center;"
-                      value="{{created_at}}"></input></td>
+                      value="{{this.id}}"></input></td>
                   <td class="text-left">
                     <button id="btnEditCategory{{id}}" class="btn btn-primary btn-sm" role="button" title="Sửa category"
                       onclick="editCategory({{id}})">
