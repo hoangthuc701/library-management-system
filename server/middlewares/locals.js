@@ -17,8 +17,6 @@ module.exports = function (app) {
     }
     var l = 0;
     res.locals.lcCats = await Category.load();
-    console.log(res.locals.lcCats);
-    console.log(l)
     next();
   });
 

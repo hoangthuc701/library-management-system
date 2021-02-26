@@ -138,6 +138,14 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     await BookTitle.insert(book_titleEntity);
     res.redirect('/admin/BookTitles?p=1');
 });
+
+router.get('/admin/BookTitle/edit/:id', async function (req, res) {
+    console.log(req.params.id);
+    var listBook = await BookTitle.loadByID(+req.params.id);
+    var listCategory = await Category.load();
+    const newLocal = 'admin/BookTitle/edit';
+    res.render(newLocal, { Listcate: listCategory, ListBook: listBook});
+});
 router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async function (req, res) {
     var BookID = +req.params.id;
     const row = await BookTitle.loadByID(BookID);
@@ -157,7 +165,7 @@ router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async functi
         name: req.body.name,
         author: req.body.author,
         quantity: req.body.quantity,
-        category_id: req.body.category_id,
+        category_id: req.body.categoryID,
         image: image,
         description: req.body.description,
         updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
@@ -186,11 +194,54 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
     }
     res.redirect('/admin/BookTitles?p=1');
 });
+// category
+router.post('/admin/Category/add', async function (req, res) {
+    var CategoryEntity = {
+        name: req.body.name,
+        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+        updated_at: ''
+    }
+    await Category.insert(CategoryEntity);
+    res.redirect('/admin/category?p=1');
+});
+router.get('/admin/Category/add/validation', async function (req, res) {
+    const name = req.query.categoryname;
+    var list = await Category.loadName(name);
+    var result = 0;
+    if(list.length != 0){
+        result = 1
+    }
+    res.json({ result });
+});
+router.post('/admin/Category/edit/:id', async function (req, res) {
+    var CategoryEntity = {
+        id : req.body.id,
+        name: req.body.name,			
+        updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+    }
+    await Category.update(CategoryEntity);
+    res.redirect('/admin/category?p=1');
+});
+router.get('/admin/Category/del/validation', async function (req, res) {
+    var id = req.query.id;
+    var p = 1;
+    var list = await BookTitle.loadByCategoryID(id, (p - 1) * 10);
+    var result = 0;
+    if(list.length != 0){
+        result = 1
+    }
+	res.json({ result });
+});
+router.get('/admin/Category/del/:id', async function (req, res) {
+    var id = req.params.id;
+	await Category.delete(id);
+    res.redirect('/admin/category?p=1');
+});
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
 router.post('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
 router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
-router.post('/admin/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
+//router.post('/admin/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
 router.get('/admin/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
 
 router.get('/admin/BorrowingCard', borrowingCardController.getByOffset);
