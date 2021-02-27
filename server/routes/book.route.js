@@ -65,7 +65,6 @@ router.post("/book-comment", async (req, res) => {
       comments.load5CommentsOffset(+req.body.BookID, 0),
       comments.getCommentsQuantity(+req.body.BookID),
     ]);
-    console.log(_comments);
     res.json({
       _comments,
       _quantity: +_quantity[0]["SoLuong"],

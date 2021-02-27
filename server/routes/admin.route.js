@@ -108,7 +108,7 @@ router.get('/admin/account/del/:id', async function (req, res) {
     }
     res.redirect('/admin/Accounts?p=1');
 });
-//         book title
+//book title
 router.get('/admin/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';
@@ -144,7 +144,7 @@ router.get('/admin/BookTitle/edit/:id', async function (req, res) {
     var listBook = await BookTitle.loadByID(+req.params.id);
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/edit';
-    res.render(newLocal, { Listcate: listCategory, ListBook: listBook});
+    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'adminPanel'});
 });
 router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async function (req, res) {
     var BookID = +req.params.id;
