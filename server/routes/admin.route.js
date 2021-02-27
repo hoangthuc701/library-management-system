@@ -124,7 +124,7 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     }
     var image = '';
     if (req.file) {
-        image = "/public/bookTitleImage/" + req.file.filename;
+        image = req.file.filename;
     }
     console.log(req.file.filename);
     var book_titleEntity = {
@@ -157,7 +157,7 @@ router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async functi
     if (req.file) {
         var imagePath = row[0]["image"].substring(1, row[0]["image"].length);
         fs.unlinkSync(imagePath);
-        image = "/public/bookTitleImage/" + req.file.filename;
+        image = req.file.filename;
 
     }
     else {
