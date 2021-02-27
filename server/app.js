@@ -32,9 +32,8 @@ app.use(require('./routes/admin.route'));
 app.use(require('./routes/user.route'));
 app.use(require('./routes/librarian.route'));
 app.use(require('./routes/stockkeeper.route'));
-app.get('/', function (req, res) {
-  res.render('test');
-});
+app.use(require('./routes/book.route'));
+
 
 // catch 404 and forward to error handler
 // eslint-disable-next-line no-unused-vars

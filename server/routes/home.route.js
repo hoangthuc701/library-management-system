@@ -7,4 +7,5 @@ router.get('/', async (req,res) => {
     res.render(newLocal, {list6GonnaOutOfStock: list6GonnaOutOfStock, list6MostView: list6MostView});
 });
 
+
 module.exports = router;
