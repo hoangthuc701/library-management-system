@@ -102,10 +102,14 @@
                   <button type="button" class="btn btn-primary" onclick="viewDetail({{this.id}})"><i class="fa"
                       aria-hidden="true"></i>Cập nhật chuyện mục</button>
 
-                  <button class="btn btn-danger btn-sm" role="button" onclick="delcate({{id}})">
+                  {{!-- <button class="btn btn-danger btn-sm" role="button" onclick="delcate({{id}})">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Xóa
-                  </button>
+                  </button> --}}
+                  <a href="/admin/Category/del/{{id}}" class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Xóa
+                  </a>
                 </td>
               </div>
             </tr>

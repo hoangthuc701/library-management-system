@@ -7,16 +7,19 @@ const readerCardController = require('../controllers/reader_card.controller');
 const CategoryController = require('../controllers/category.controller');
 const returningCardController = require('../controllers/returning_card.controller');
 
+
 const BookTitle = require('../models/book_title.model');
 const Category = require('../models/category.model');
 const ReaderCard = require('../models/reader.model');
 const Account = require('../models/account.model');
 const BorrowingCardBook = require('../models/borrowing_card_book.model');
+const BorrowingCard = require('../models/borrowing_card.model');
 const ReturningCard = require('../models/returning_card.model');
 const md5 = require('md5');
 const dateUtils = require('../middlewares/dateUtils')
 const multer = require('multer');
 const fs = require('fs');
+const moment = require('moment');
 var path = require('path');
 
 
@@ -108,7 +111,11 @@ router.get('/admin/account/del/:id', async function (req, res) {
     }
     res.redirect('/admin/Accounts?p=1');
 });
+<<<<<<< HEAD
 //book title
+=======
+//  =======================================       book title
+>>>>>>> 4379ab7563fe218034f32b83f8368efbd2ab28ac
 router.get('/admin/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';
@@ -121,7 +128,7 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     }
     var image = '';
     if (req.file) {
-        image = "/public/bookTitleImage/" + req.file.filename;
+        image = req.file.filename;
     }
     console.log(req.file.filename);
     var book_titleEntity = {
@@ -154,7 +161,7 @@ router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async functi
     if (req.file) {
         var imagePath = row[0]["image"].substring(1, row[0]["image"].length);
         fs.unlinkSync(imagePath);
-        image = "/public/bookTitleImage/" + req.file.filename;
+        image = req.file.filename;
 
     }
     else {
@@ -194,7 +201,7 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
     }
     res.redirect('/admin/BookTitles?p=1');
 });
-// category
+// ======================================= category
 router.post('/admin/Category/add', async function (req, res) {
     var CategoryEntity = {
         name: req.body.name,
@@ -237,6 +244,132 @@ router.get('/admin/Category/del/:id', async function (req, res) {
 	await Category.delete(id);
     res.redirect('/admin/category?p=1');
 });
+
+//=======================================borrowing card
+router.get('/admin/BorrowingCard/add', async function (req, res) {
+    var listAccount = await Account.load();
+    const newLocal = 'admin/BorrowingCard/add';
+    res.render(newLocal, { List: listAccount, layout: 'adminPanel' });
+});
+router.post('/admin/BorrowingCard/add', async function (req, res) {
+    req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+    var datetimestamp = Date.now();
+    var fieldname = 'BR'
+    var cardID = fieldname + '-' + datetimestamp;
+    var Borrowing_cardEntity = {
+        card_id: cardID,
+        reader_id: req.body.readerID,
+        returned_date: req.body.returned_date,
+        borrowed_date: req.body.borrowed_date,
+        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+        updated_at: ''
+    }
+    await BorrowingCard.insert(Borrowing_cardEntity);
+    res.redirect('/admin/BorrowingCard?p=1');
+});
+router.get('/admin/BorrowingCard/edit/:id', async function (req, res) {
+    var id = +req.params.id;
+    var listAccount = await Account.load();
+    var listBorrowing = await BorrowingCard.loadByID(id);
+    listBorrowing[0]["returned_date"] = moment(listBorrowing[0]["returned_date"], 'YYYY/MM/DD').format('YYYY-MM-DD');
+    const newLocal = 'admin/BorrowingCard/edit';
+    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount});
+});
+router.post('/admin/BorrowingCard/edit/:id', async function (req, res) {
+    var Borrowing_cardEntity = {
+        id: req.body.id,
+        reader_id: req.body.reader_id,
+        returned_date: req.body.returned_date,
+        updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+    }
+    await BorrowingCard.update(Borrowing_cardEntity);
+    res.redirect('/admin/BorrowingCard?p=1');
+});
+router.get('/admin/BorrowingCard/del/:id', async function (req, res) {
+    var id = req.params.id;
+    var listBorrowing = await BorrowingCard.loadByID(id);
+    var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);
+    if (listBorrowingBook.length != 0) {
+        for (var i = 0; i < listBorrowingBook.length; i++) {
+            var listBook = await BookTitle.loadByID(listBorrowingBook[i]["book_id"]);
+            var bookTitleEntity = {
+                id: listBook[0]["id"],
+                quantity: listBook[0]["quantity"] + 1,
+                updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+            }
+			await BookTitle.update(bookTitleEntity);
+            await BorrowingCardBook.delete(listBorrowingBook[i]["id"]);
+        }
+    }
+	await BorrowingCard.delete(id);
+    res.redirect('/admin/BorrowingCard?p=1');
+});
+//=======================================borrowing card book
+// router.post('/admin/borrowingCardBook/add', async function (req, res) {
+//     req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+//     var datetimestamp = Date.now();
+//     var fieldname = 'BR'
+//     var cardID = fieldname + '-' + datetimestamp;
+//     var Borrowing_cardEntity = {
+//         card_id: cardID,
+//         reader_id: req.body.readerID,
+//         returned_date: req.body.returned_date,
+//         borrowed_date: req.body.borrowed_date,
+//         created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+//         updated_at: ''
+//     }
+//     await BorrowingCard.insert(Borrowing_cardEntity);
+//     res.redirect('/admin/BorrowingCard?p=1');
+// });
+//=======================================returing card
+router.post('/admin/returningCard/add', async function (req, res) {
+    var id = req.body.borrowing_card_id;
+    req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
+
+    var listBorrowing = await BorrowingCard.loadByCardID(id);
+    var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);//load danh sach
+
+    if (listBorrowing.length == 0 || listBorrowingBook.length == 0) {
+        res.redirect('/admin/returningCard?p=1');
+    }
+
+    for (var i = 0; i < listBorrowingBook.length; i++) {
+        var tempid = listBorrowingBook[i]["book_id"];
+        var listBook = await BookTitle.loadByID(tempid);
+        var bookTitleEntity = {
+            id: listBook[0]["id"],
+            quantity: listBook[0]["quantity"] + 1,
+            updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+        }
+        await BookTitle.update(bookTitleEntity);
+
+    }
+
+    let date_ob = new Date();
+    let date_ob2 = new Date(listBorrowing[0]["returned_date"]);
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let year = date_ob.getFullYear();
+    let date2 = ("0" + date_ob2.getDate()).slice(-2);
+    let month2 = ("0" + (date_ob2.getMonth() + 1)).slice(-2);
+    let year2 = date_ob2.getFullYear();
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = new Date(year2, month2, date2);
+    const secondDate = new Date(year, month, date);
+
+    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
+    req.body.penalty_cost = diffDays * 10000;
+    var returning_cardEntity = {
+        borrowing_card_id: id,
+        penalty_cost: req.body.penalty_cost,
+        returned_at: req.body.returned_at,
+        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+        updated_at: ''
+    }
+    await ReturningCard.insert(returning_cardEntity);
+    res.redirect('/admin/returningCard?p=1');
+});
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
 router.post('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
@@ -270,7 +403,7 @@ router.post('/admin/category/edit', CategoryController.update);
 
 router.get('/admin/returningCard', returningCardController.getByOffset);
 router.get('/admin/returningCard/getinfo/:id', returningCardController.getByID);
-router.post('/admin/returningCard/add', returningCardController.add);
+//router.post('/admin/returningCard/add', returningCardController.add);
 router.get('/admin/returningCard/del/:id', returningCardController.delete);
 router.post('/admin/returningCard/edit/:id', returningCardController.update);
 
