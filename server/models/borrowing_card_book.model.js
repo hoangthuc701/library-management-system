@@ -10,7 +10,6 @@ module.exports = {
         return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where id = ${id}`);
     },
     loadByBorrowingCardID: function (id) {
-        console.log(`select * from ${TBL_BORROWING_CARD_BOOK} where borrowing_card_id = '${id}'`);
         return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where borrowing_card_id = '${id}'`);
     },
     loadByBookID: function (id) {

@@ -4,6 +4,7 @@ const dateUtils = require('../middlewares/dateUtils');
 const BorrwingCard = require('../models/borrowing_card.model');
 const BorrwingCardBook = require('../models/borrowing_card_book.model');
 const BookTitle = require('../models/book_title.model');
+const moment = require('moment');
 const { months } = require('moment');
 
 module.exports = {
@@ -14,8 +15,11 @@ module.exports = {
 			p = req.query.p;
 	
         var listReturningCard = await ReturningCard.loadByOffset((p - 1) * 10);
+		for(var i = 0; i < listReturningCard.length; i++){
+			listReturningCard[i]["returned_at"] = moment(listReturningCard[i]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+		}
         var quantity = await ReturningCard.quantity();
-		var newLocal = 'ReturningCard/list';
+		var newLocal = 'admin/ReturningCard/list';
 		res.render(newLocal, {
 			List: listReturningCard, quantity: quantity[0]["quantity"],
 			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
