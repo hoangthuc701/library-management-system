@@ -301,22 +301,54 @@ router.get('/admin/BorrowingCard/del/:id', async function (req, res) {
     res.redirect('/admin/BorrowingCard?p=1');
 });
 //=======================================borrowing card book
-// router.post('/admin/borrowingCardBook/add', async function (req, res) {
-//     req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-//     var datetimestamp = Date.now();
-//     var fieldname = 'BR'
-//     var cardID = fieldname + '-' + datetimestamp;
-//     var Borrowing_cardEntity = {
-//         card_id: cardID,
-//         reader_id: req.body.readerID,
-//         returned_date: req.body.returned_date,
-//         borrowed_date: req.body.borrowed_date,
-//         created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-//         updated_at: ''
-//     }
-//     await BorrowingCard.insert(Borrowing_cardEntity);
-//     res.redirect('/admin/BorrowingCard?p=1');
-// });
+router.post('/admin/borrowingCardBook/add', async function (req, res) {
+    var listBorrowing = await BorrowingCard.loadByCardID(req.body.borrowing_card_id);
+    var listBook = await BookTitle.loadByID(req.body.book_id);
+    var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(req.body.borrowing_card_id);
+    var check = false;
+    if (listBorrowing.length == 0 || listBook.length == 0) {
+        res.redirect('/admin/BorrowingCard?p=1');
+    }
+    if(listBook[0]["quantity"] === 0)
+    {
+        res.redirect('/admin/BorrowingCard?p=1');
+    }
+    for(var i = 0; i < listBorrowingBook.length; i++){
+        if(listBorrowingBook[i]["book_id"] == req.body.book_id){
+            check = true;
+        }
+    }
+    if(check === true){
+        res.redirect('/admin/BorrowingCard?p=1');
+    }
+    var book_titleEntity = {
+        id : listBook[0]["id"],
+        quantity: listBook[0]["quantity"] - 1,
+        updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+    }
+    await BookTitle.update(book_titleEntity);
+    var Borrowing_card_bookEntity = {
+        borrowing_card_id: req.body.borrowing_card_id,
+        book_id: req.body.book_id,
+        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+        updated_at: ''
+    }
+    await BorrowingCardBook.insert(Borrowing_card_bookEntity);
+    res.redirect('/admin/BorrowingCard?p=1');
+});
+router.get('/admin/borrowingCardBook/del/:id', async function (req, res) {
+    var id = req.params.id;
+    var listBorrowingBook = await BorrowingCardBook.loadByID(id);
+    var listBook = await BookTitle.loadByID(listBorrowingBook[0]["book_id"]);
+    var book_titleEntity = {
+        id : listBook[0]["id"],
+        quantity: listBook[0]["quantity"] + 1,
+        updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+    }
+    await BookTitle.update(book_titleEntity);
+	await BorrowingCardBook.delete(id);
+    res.redirect('/admin/BorrowingCard?p=1');
+});
 //=======================================returing card
 router.post('/admin/returningCard/add', async function (req, res) {
     var id = req.body.borrowing_card_id;
@@ -364,6 +396,37 @@ router.post('/admin/returningCard/add', async function (req, res) {
         updated_at: ''
     }
     await ReturningCard.insert(returning_cardEntity);
+    res.redirect('/admin/returningCard?p=1');
+});
+router.get('/admin/returningCard/del/:id', async function (req, res) {
+    var id = req.params.id;
+    var listReturningCard = await ReturningCard.loadByID(id);
+    var listBorrowingCardBook = await BorrowingCardBook.loadByBorrowingCardID(listReturningCard[0]["borrowing_card_id"]);//load danh sach
+    var temp = true;
+    for (var i = 0; i < listBorrowingCardBook.length; i++) {
+        var tempid = listBorrowingCardBook[i]["book_id"];
+        var listBook = await BookTitle.loadByID(tempid);
+        if (listBook[0]["quantity"] == 0) {
+            temp = false;
+        }
+    }
+    if (temp === false) {
+        res.json(false);
+    }
+    else {
+        for (var i = 0; i < listBorrowingCardBook.length; i++) {
+            var tempid = listBorrowingCardBook[i]["book_id"];
+            var listBook = await BookTitle.loadByID(tempid);
+            var bookTitleEntity = {
+                id: listBook[0]["id"],
+                quantity: listBook[0]["quantity"] - 1,
+                updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+            }
+            await BookTitle.update(bookTitleEntity);
+
+        }
+        await ReturningCard.delete(id);
+    }
     res.redirect('/admin/returningCard?p=1');
 });
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
