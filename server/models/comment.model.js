@@ -1,4 +1,4 @@
-const queries = require("../scripts/queries.scripts");
+const queries = require("../scripts/queries.script");
 const db = require("../utils/db");
 
 module.exports = {

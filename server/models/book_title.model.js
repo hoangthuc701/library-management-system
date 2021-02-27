@@ -2,7 +2,7 @@ const db = require('../utils/db');
 
 const TBL_TITLE = 'book_title';
 const TBL_BOOK = 'book';
-
+const queries = require('../scripts/queries.script');
 module.exports = {
     load: function () {
         return db.load(`select * from ${TBL_TITLE}`);
@@ -53,5 +53,8 @@ module.exports = {
     },
     fulltextsearch: (keyword, offset) =>{
         return db.load(`select b.* from book_title b where match(b.name, b.author) against ('${keyword}') limit 10 offset ${offset}`)
-    }
+    },
+    load5DependCategory: function (id, catID) {
+        return db.load(queries.load5DependCategory(id, catID));
+    },
 }

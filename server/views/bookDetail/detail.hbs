@@ -1,0 +1,251 @@
+{{#section 'title'}}
+{{this._book.TieuDe}}
+{{/section}}
+
+{{#section 'js'}}
+<script src="/public/js/books.js"></script>
+{{/section}}
+<div class="container">
+    <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+        <div class="f2-s-1 p-r-30 m-tb-6">
+            <a href="/" class="breadcrumb-item f1-s-3 cl9">
+                Trang chủ
+            </a>
+
+            <a href="/category/{{this._book.ChuyenMucID}}" class="breadcrumb-item f1-s-3 cl9">
+                {{this._relatedBook.0.catname}}
+            </a>
+            <span class="breadcrumb-item f1-s-3 cl9">
+                {{this._book.name}}{{this._book.image}}
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<section class="bg0 p-b-140">
+    <div class="bg-img1 size-a-18 how-overlay1"
+        style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
+        <div class="container h-full flex-col-e-c p-b-58">
+            <a href="/category/{{this._relatedBook.0.catname}}"
+                class="f1-s-10 cl0 hov-cl10 trans-03 text-uppercase txt-center m-b-33">
+                {{this._relatedBook.0.catname}}
+            </a>
+
+            <h3 class="f1-l-5 cl0 p-b-16 txt-center respon2">
+                {{this._book.TieuDe}}
+            </h3>
+
+            <div class="flex-wr-c-s">
+                <span class="f1-s-3 cl8 m-rl-7 txt-center ">
+                    <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03 text-white">
+                        {{this._book.author}}
+                    </a>
+
+                    <span class="m-rl-3">-</span>
+
+                    <span class = "text-white">
+                        {{formatDate this._book.created_at}}
+                    </span>
+                </span>
+
+                <span class="f1-s-3 cl8 m-rl-7 txt-center text-white">
+                    {{this._book.view}} <i class="fa fa-eye" aria-hidden="true"></i>
+                </span>
+
+                <a href="javascript:;" class="f1-s-3 cl8 m-rl-7 txt-center hov-cl10 trans-03 text-white" id="head-quantity">
+                    {{this.quantity.0.SoLuong}} <i class="fa fa-comment" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-30">
+                <div class="p-r-10 p-r-0-sr991">
+                    <div class="p-b-70">
+                        <p class="f1-s-11 cl6 p-b-25 mt-5">
+                            &emsp;<i class="fa fa-pencil fa-flip-horizontal" aria-hidden="true"></i>
+                            {{this._book.description}}
+                        </p>
+                        <div class="col-md-6 p-rl-1 p-b-2">
+                            <div class="bg-img1 size-a-3 how1 pos-relative"
+                                style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
+
+                                <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
+                                    <a href="/category/{{this._book.category_id}}"
+                                        class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+                                        {{this._relatedBook.0.catname}}
+                                    </a>
+
+                                    <h3 class="how1-child2 m-t-14 m-b-10">
+                                        <a href="/article/{{this._4OutstandingArticles.0.id}}"
+                                            class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03 _article">
+                                            {{this._4OutstandingArticles.0.TieuDe}}
+                                        </a>
+                                        <p class="text-white">
+                                            {{this._4OutstandingArticles.0.NoiDungTat}}
+                                        </p>
+                                    </h3>
+
+                                    <span class="how1-child2">
+                                        <span class="f1-s-4 cl11 text-white">
+                                            {{this._book.author}}
+                                        </span>
+
+                                        <span class="f1-s-3 cl11 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="f1-s-3 cl11 text-white">
+                                            {{formatDate this._book.created_at}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-rl-1 p-b-2">
+                        </div>
+                    </div>
+
+                    <!-- list of comments -->
+                    <div class="pb-5">
+                        <h4 class="f1-l-4 cl3 p-b-12">
+                            <i class="fa fa-comments fa-lg" aria-hidden="true"></i> Comment
+                            <small id="tail-quantity">({{this.quantity.0.SoLuong}})</small>
+                        </h4>
+                    </div>
+                    <section class="bg0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-r-10 p-r-0-sr991">
+                                        <div class="m-t--40" id="users-comments">
+                                            {{#each this._comments}}
+                                            <div class="flex-wr-sb-s p-t-15 p-b-15 how-bor2">
+                                                <div class="cl8 w-100">
+                                                    <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                                                        {{username}}
+                                                    </a>
+
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+
+                                                    <span class="f1-s-3">
+                                                        <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+                                                        {{formatDate Created}}
+                                                    </span>
+                                                </div>
+
+                                                <p class="f1-s-1 cl6 p-t-13">
+                                                    {{comment}}
+                                                </p>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                        <div class="flex-wr-c-c m-rl--7 p-t-15 float-right" id="comments-area">
+                                            <input type="hidden" id="articleID" value="{{this._book.id}}">
+                                            <button class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active"
+                                                {{#when this._pagi.0.value 'eq' -1}}style="display: none;"
+                                                {{/when}}>1</button>
+                                            {{#each this._pagi}}
+                                            {{#when @index 'gt' 0}}{{#when value 'noteq' -1}}
+                                            <button
+                                                class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">{{value}}</button>
+                                            {{else}}
+                                            <button class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7"
+                                                style="display: none;"></button>
+                                            {{/when}}{{/when}}
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div>
+                        <h4 class="f1-l-4 cl3 p-b-12">
+                            <i class="fa fa-commenting fa-lg" aria-hidden="true"></i> Để lại ý kiến của bạn
+                        </h4>
+
+                        {{#unless lcIsAuthenticated}}
+                        <p class="f1-s-13 cl8 p-b-40 font-italic">
+                            <span class="text-danger"><strong>*</strong></span> Bạn phải đăng nhập để sử dụng tính năng
+                            này.
+                        </p>
+                        {{/unless}}
+
+                        <div>
+                            <input type="hidden" id="book-id" value="{{this._book.id}}">
+                            <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20"
+                                id="msg" placeholder="Để lại ý kiến của bạn tại đây..."></textarea>
+
+                            <button id="btn-send-msg"
+                                class="size-a-17 bg2 borad-3 f1-s-12 cl0 {{#if lcIsAuthenticated}}hov-btn1{{/if}} trans-03 p-rl-15 m-t-10"
+                                {{#unless lcIsAuthenticated}}disabled="disabled" {{/unless}}>
+                                Gửi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- related book --}}
+            <div class="col-md-10 col-lg-4 p-b-30">
+                <div class="p-l-10 p-rl-0-sr991 p-t-70">
+                    <div class="p-b-30">
+                        <div class="how2 how2-cl4 flex-s-c">
+                            <h3 class="f1-m-2 cl3 tab01-title">
+                                <i class="fa fa-exchange" aria-hidden="true"></i> Các sách liên quan
+                            </h3>
+                        </div>
+
+                        <ul class="p-t-35">
+                            {{#each this._relatedBook}}
+                            <li class="flex-wr-sb-s p-b-30" title="{{description}}">
+                                <a href="/article/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03 _book">
+                                    <img src="../../public/bookTitleImage/{{image}}" alt="IMG">
+                                </a>
+
+                                <div class="size-w-11">
+                                    <h6 class="p-b-4">
+                                        <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _book">
+                                            {{name}}
+                                        </a>
+                                    </h6>
+
+                                    <span class="cl8 txt-center p-b-24">
+                                        <a href="/category/{{ChuyenMucID}}"
+                                            class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
+                                            {{catname}}
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                            {{author}}
+                                        </a>
+
+                                        <span class="f1-s-3 m-rl-3">
+                                            -
+                                        </span>
+
+                                        <span class="f1-s-3">
+                                            {{formatDate created_at}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
