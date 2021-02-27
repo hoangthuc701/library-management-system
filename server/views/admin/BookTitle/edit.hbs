@@ -1,20 +1,3 @@
-{{#section 'js'}}
-<script>
-  function cbRoleChange(id) {
-        $.post(
-            `/admin/Users/update`,
-            { id: id, roleID: document.getElementById("cbRole" + id).value },
-            function (data) {
-                $("#infoField" + id).empty();
-                var html = returnHtmlRole(data["List"]);
-                $("#infoField" + id).append(html);
-                window.alert("Sửa thành công!");
-            }
-        );
-    }
-</script>
-{{/section}}
-
 <div class="card">
     <div class="card-header">
         <h4>sửa sách</h4>

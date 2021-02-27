@@ -14,7 +14,7 @@ module.exports = {
         return db.load(`select * from ${TBL_TITLE} where name = '${name}'`)
     },
     loadByCategoryID: function (id, offset) {
-        return db.load(`select * from ${TBL_TITLE} where category_id = ${id} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`select * from ${TBL_TITLE} where category_id = ${id} LIMIT 2 OFFSET ${offset}`)
     },
     insert: function (entity) {
         return db.add(TBL_TITLE, entity);

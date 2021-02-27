@@ -31,6 +31,7 @@ app.use(require('./routes/home.route'));
 app.use(require('./routes/admin.route'));
 app.use(require('./routes/user.route'));
 app.use(require('./routes/librarian.route'));
+app.use(require('./routes/categories.route'));
 app.use(require('./routes/stockkeeper.route'));
 app.use(require('./routes/book.route'));
 
