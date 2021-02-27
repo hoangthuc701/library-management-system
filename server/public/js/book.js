@@ -18,20 +18,19 @@ function displayPaginationButtons(sel, page, data) {
 function getHtmlComments(data) {
   return data["_comments"]
     .map((val) => {
-      var fDate = formatDate(val["NgayBinhLuan"]);
-
+      var fDate = formatDate(val["Created"]);
       var row = `
               <div class="flex-wr-sb-s p-t-15 p-b-15 how-bor2">
                 <div class="cl8 w-100">
                   <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">
-                    <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> ${val["HoTen"]}
+                    <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> ${val["username"]}
                   </a>
                   <span class="f1-s-3 m-rl-3">-</span>
                   <span class="f1-s-3">
                     <i class="fa fa-calendar fa-lg" aria-hidden="true"></i> ${fDate}
                   </span>
                 </div>
-                <p class="f1-s-1 cl6 p-t-13">${val["NoiDung"]}</p>
+                <p class="f1-s-1 cl6 p-t-13">${val["comment"]}</p>
               </div>`;
 
       return row;
@@ -40,14 +39,14 @@ function getHtmlComments(data) {
 }
 
 $(document).ready(function () {
-  $("#btn-send-msg").on("click", function () {
-    var [msgContent, id] = [$("#msg").val(), $("#article-id").val()];
+  $("#btn-send-msg").click(function() {
+    var [msgContent, id] = [$("#msg").val(), $("#book-comment-id").val()];
     $("#msg").val("");
-
+    
     if (msgContent !== ''){
       $.post(
-        "/article-post-comment",
-        { NoiDung: msgContent, BaiVietID: id },
+        "/book-comment",
+        { Comment: msgContent, BookID: id },
         function (data) {
           $("#head-quantity").text(data["_quantity"]);
           $("#tail-quantity").text(`(${data["_quantity"]})`);
@@ -58,20 +57,23 @@ $(document).ready(function () {
         }
       );
     }
-  });
-
-  $("#comments-area button").on("click", function () {
-    const page = +$(this).html();
-
-    if (!$(this).hasClass("pagi-active")) {
-      $.getJSON(`/article?id=${$("#articleID").val()}&page=${page}`, (data) => {
-        displayPaginationButtons("#comments-area button", page, data);
-
-        var html = getHtmlComments(data);
-
-        $("#users-comments").empty();
-        $("#users-comments").append(html);
-      });
+    else{
+      alert("Comment không được comment rỗng!");
     }
   });
+});
+
+$("#comments-area button").on("click", function () {
+  const page = +$(this).html();
+
+  if (!$(this).hasClass("pagi-active")) {
+    $.getJSON(`/bookDetail?id=${$("#bookID").val()}&page=${page}`, (data) => {
+      displayPaginationButtons("#comments-area button", page, data);
+
+      var html = getHtmlComments(data);
+
+      $("#users-comments").empty();
+      $("#users-comments").append(html);
+    });
+  }
 });

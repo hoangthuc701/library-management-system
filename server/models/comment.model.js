@@ -11,6 +11,6 @@ module.exports = {
   },
 
   addComment: function (entity) {
-    return db.add('binhluan', entity);
+    return db.add('comment',entity);
   }
 };

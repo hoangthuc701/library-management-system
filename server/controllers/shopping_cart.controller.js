@@ -22,7 +22,7 @@ const book_titleModel = require('../models/book_title.model');
 		 });
 		const listBook = await BookTitle.loadByID(id);
 		if (listBook[0]["quantity"] == 0 || found === true){
-			res.json(false);
+			res.render('duplicateItem');
 		}
 		else{
 			let book = {
@@ -35,7 +35,7 @@ const book_titleModel = require('../models/book_title.model');
 			}
 			req.session.cart.items.push(book);
 			req.session.cart.totals += 1;
-			res.json(true);
+			res.redirect('home/home');
 		}
 	},
 	removeFromCart: async (req, res) => {

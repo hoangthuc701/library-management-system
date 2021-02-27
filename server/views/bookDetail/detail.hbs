@@ -3,8 +3,9 @@
 {{/section}}
 
 {{#section 'js'}}
-<script src="/public/js/books.js"></script>
+<script src="../../public/js/book.js"></script>
 {{/section}}
+
 <div class="container">
     <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
         <div class="f2-s-1 p-r-30 m-tb-6">
@@ -16,12 +17,11 @@
                 {{this._relatedBook.0.catname}}
             </a>
             <span class="breadcrumb-item f1-s-3 cl9">
-                {{this._book.name}}{{this._book.image}}
+                {{this._book.name}}
             </span>
         </div>
     </div>
 </div>
-
 <!-- Content -->
 <section class="bg0 p-b-140">
     <div class="bg-img1 size-a-18 how-overlay1"
@@ -78,35 +78,24 @@
                                         class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
                                         {{this._relatedBook.0.catname}}
                                     </a>
-
-                                    <h3 class="how1-child2 m-t-14 m-b-10">
-                                        <a href="/article/{{this._4OutstandingArticles.0.id}}"
-                                            class="how-txt1 size-a-6 f1-l-1 cl0 hov-cl10 trans-03 _article">
-                                            {{this._4OutstandingArticles.0.TieuDe}}
-                                        </a>
-                                        <p class="text-white">
-                                            {{this._4OutstandingArticles.0.NoiDungTat}}
-                                        </p>
-                                    </h3>
-
-                                    <span class="how1-child2">
-                                        <span class="f1-s-4 cl11 text-white">
+                                    <span class="how1-child">
+                                        <span class="text-white">
                                             {{this._book.author}}
                                         </span>
 
-                                        <span class="f1-s-3 cl11 m-rl-3">
+                                        <span class="m-rl-3">
                                             -
                                         </span>
 
-                                        <span class="f1-s-3 cl11 text-white">
+                                        <span class="text-white">
                                             {{formatDate this._book.created_at}}
                                         </span>
                                     </span>
+                                    
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 p-rl-1 p-b-2">
-                        </div>
+                        
                     </div>
 
                     <!-- list of comments -->
@@ -147,7 +136,7 @@
                                             {{/each}}
                                         </div>
                                         <div class="flex-wr-c-c m-rl--7 p-t-15 float-right" id="comments-area">
-                                            <input type="hidden" id="articleID" value="{{this._book.id}}">
+                                            <input type="hidden" id="bookID" value="{{this._book.id}}">
                                             <button class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active"
                                                 {{#when this._pagi.0.value 'eq' -1}}style="display: none;"
                                                 {{/when}}>1</button>
@@ -180,13 +169,12 @@
                         {{/unless}}
 
                         <div>
-                            <input type="hidden" id="book-id" value="{{this._book.id}}">
+                            <input type="hidden" id="book-comment-id" value="{{this._book.id}}">
                             <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20"
-                                id="msg" placeholder="Để lại ý kiến của bạn tại đây..."></textarea>
+                                id="msg" name = "comment" placeholder="Để lại ý kiến của bạn tại đây..."></textarea>
 
                             <button id="btn-send-msg"
-                                class="size-a-17 bg2 borad-3 f1-s-12 cl0 {{#if lcIsAuthenticated}}hov-btn1{{/if}} trans-03 p-rl-15 m-t-10"
-                                {{#unless lcIsAuthenticated}}disabled="disabled" {{/unless}}>
+                                class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
                                 Gửi
                             </button>
                         </div>
@@ -206,13 +194,13 @@
                         <ul class="p-t-35">
                             {{#each this._relatedBook}}
                             <li class="flex-wr-sb-s p-b-30" title="{{description}}">
-                                <a href="/article/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03 _book">
+                                <a href="/bookDetail/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03 _book">
                                     <img src="../../public/bookTitleImage/{{image}}" alt="IMG">
                                 </a>
 
                                 <div class="size-w-11">
                                     <h6 class="p-b-4">
-                                        <a href="/article/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _book">
+                                        <a href="/bookDetail/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _book">
                                             {{name}}
                                         </a>
                                     </h6>
