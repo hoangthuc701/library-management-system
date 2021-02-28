@@ -183,7 +183,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
         <form method="POST" action="/admin/returningCard/add" style="width: 100%" id="form-confirm">
-            <input id="txtBorrowingCardID" name="borrowing_card_id"></input>
+            <input id="txtBorrowingCardID" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn"></input>
             <button class="btn btn-outline-success" role="button" type="submit" form="form-confirm">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Thêm phiếu trả
@@ -224,10 +224,10 @@
                 aria-hidden="true"></i></button>
           </td>
           <td class="text-center">
-            <a href="/admin/BorrowingCard/edit/{{id}}" class="btn btn-primary btn-sm">
+            <a href="/admin/returningCard/edit/{{id}}" class="btn btn-primary btn-sm">
                 <i class="fa fa-pencil" aria-hidden="true">sửa</i>
             </a>
-            <a href="/admin/BorrowingCard/del/{{id}}" class="btn btn-danger btn-sm">
+            <a href="/admin/returningCard/del/{{id}}" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash" aria-hidden="true">Xóa</i>
             </a>
           </td>
