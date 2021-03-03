@@ -157,7 +157,7 @@ module.exports = {
 		};
 
 
-		return res.json(true);
+		res.redirect('/');
 	},
 	logout: async (req, res) => {
 		req.session.authUser = null;

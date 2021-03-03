@@ -113,7 +113,11 @@ router.get('/admin/account/del/:id', async function (req, res) {
     }
     res.redirect('/admin/Accounts?p=1');
 });
+<<<<<<< HEAD
+
+=======
 //  =======================================       book title
+>>>>>>> 6f6fa2f08da9d9e7975c6999b83121ece7ef81fa
 router.get('/admin/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';

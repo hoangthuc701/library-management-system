@@ -174,31 +174,28 @@
                 <nav class="menu-desktop">
                     <ul class="main-menu">
                         <div id="_home">
-                            <a href="/" style="color: black"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+                            <a href="/" style="color: black"><i class="fa fa-university fa-2x"
+                                    aria-hidden="true"></i></a>
                         </div>
                         <li class="mega-menu-item">
-                            <a href="/category/{{this.0.id}}">Chuyên mục</a>
-
+                            <a><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                            
                             <div class="sub-mega-menu">
-                                <div class="nav flex-column nav-pills" role="tablist">
-                                    <a class="nav-link active" data-toggle="pill" href="/category/{{this.id}}"
-                                        role="tab">Tất cả</a>
-                                    <a class="nav-link" data-toggle="pill" href="/category/{{this.id}}"
-                                        role="tab">{{this.TenChuyenMuc}}</a>
-                                </div>
+
+                                {{#each lcCats}}
+                                <a class="nav-link bg-light flex-column nav-pills" href="/category/{{this.id}}"
+                                    role="tab">{{this.name}}</a>
+                                {{/each}}
                             </div>
                         </li>
-                        <form class="dropdown" method="post" action="/search-enter" id="search-box">
-                            <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 ">
-                                <input autocomplete="off" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text"
+                        <form class="dropdown mr-0" method="post" action="/search-enter" id="search-box">
+                            <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 m-r-0">
+                                <input autocomplete="on" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text"
                                     name="search" id="search" placeholder="Tìm kiếm...">
                                 <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </div>
-
-                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" id="match-list">
-                            </ul>
                         </form>
                     </ul>
                 </nav>
