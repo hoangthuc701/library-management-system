@@ -75,10 +75,12 @@
                             <div class="bg-img1 size-a-3 how1 pos-relative"
                                 style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
                                 <div class="d-flex justify-content-between" style="margin-left: 130%;">
+                                    {{#when lcAuthUser.role_id 'eq' 5}}
                                     <a href="/user/shoppingCart/addcart/{{this._book.id}}" class="btn btn-danger">
                                         <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
                                         Thêm vào danh sách mượn
                                     </a>
+                                    {{/when}}
                                 </div>
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                                     <a href="/category/{{this._book.category_id}}"

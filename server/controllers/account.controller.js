@@ -1,6 +1,7 @@
 const Account = require('../models/account.model');
 const dateUtils = require('../middlewares/dateUtils')
-const funcUtils = require('../middlewares/UtilityFunction');
+
+const functUtils = require('../middlewares/UtilityFunction');
 const readerCard = require('../models/reader.model');
 const BorrowingCard = require('../models/borrowing_card.model')
 const BorrowingCardBook = require('../models/borrowing_card_book.model')
@@ -29,7 +30,7 @@ module.exports = {
 		const newLocal = 'admin/Account/list';
 		res.render(newLocal, {
 			List: listAccount, quantity: quantity[0]["quantity"],
-			pagi:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
+			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
 		});
 	},
 	getByID: async (req, res) => {
@@ -111,9 +112,11 @@ module.exports = {
 	
         var listAccount = await accountModel.awaiting((p - 1) * 10);
         var quantity = await accountModel.quantityAwaiting();
-		res.json({list: listAccount, quantity: quantity, rangeOfPages:funcUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
-		// var list = await accountModel.awaiting();
-		// res.json(list);
+		const newLocal = 'librarian/ReaderCard/acceptReader';
+		res.render(newLocal, {
+			List: listAccount, quantity: quantity[0]["quantity"],
+			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'stock'
+		});
 	},
 	login: async (req, res) => {
 		// req.body.username = 'test20';
@@ -155,8 +158,6 @@ module.exports = {
 			username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
 			role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
 		};
-
-
 		res.redirect('/');
 	},
 	logout: async (req, res) => {
@@ -164,7 +165,7 @@ module.exports = {
 		req.session.cart = null;
 		req.session.isAuthenticated = false;
 		req.session.cart = null;
-		return res.json(true);
+		res.redirect('/');
 	},
 	processCart: async (req,res) => {
 		if (req.session.cart != null && req.session.cart.totals != 0) {
