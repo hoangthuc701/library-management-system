@@ -205,9 +205,13 @@ module.exports = {
 			//refresh session cart
 			cart = new Cart();
 			req.session.cart = cart.data;
-			res.json(true);
+			console.log('thien la toi');
+			res.redirect('/');
 		}
-		res.json(false);
-	}
+		else{
+			res.json(false);
+		}
+	},
+
 };
 

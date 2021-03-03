@@ -56,7 +56,7 @@ router.get('/stockkeeper/BookTitle', async function (req, res) {
 router.get('/stockkeeper/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'stocker/BookTitle/add';
-    res.render(newLocal, { List: listCategory , layout: 'stock' });
+    res.render(newLocal, { List: listCategory , layout: 'addandedit' });
 });
 router.post('/stockkeeper/BookTitle/add', upload.single('urlImage'), async function (req, res) {
     var list = await BookTitle.loadName(req.body.name);
@@ -88,7 +88,7 @@ router.get('/stockkeeper/BookTitle/edit/:id', async function (req, res) {
     var listBook = await BookTitle.loadByID(+req.params.id);
     var listCategory = await Category.load();
     const newLocal = 'stocker/BookTitle/edit';
-    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'stock'});
+    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'addandedit'});
 });
 router.post('/stockkeeper/BookTitle/edit/:id', upload.single('urlImage'), async function (req, res) {
     var BookID = +req.params.id;

@@ -6,8 +6,10 @@
 <script src="../../public/js/book.js"></script>
 {{/section}}
 
+
+
 <div class="container">
-    <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+    <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1">
         <div class="f2-s-1 p-r-30 m-tb-6">
             <a href="/" class="breadcrumb-item f1-s-3 cl9">
                 Trang chủ
@@ -24,9 +26,9 @@
 </div>
 <!-- Content -->
 <section class="bg0 p-b-140">
-    <div class="bg-img1 size-a-18 how-overlay1"
-        style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
-        <div class="container h-full flex-col-e-c p-b-58">
+    {{!-- <div class="bg-img1 size-a-18 how-overlay1"
+        style="background-image: url(../../public/bookTitleImage/{{this._book.image}});"> --}}
+        {{!-- <div class="container h-full flex-col-e-c p-b-58">
             <a href="/category/{{this._relatedBook.0.catname}}"
                 class="f1-s-10 cl0 hov-cl10 trans-03 text-uppercase txt-center m-b-33">
                 {{this._relatedBook.0.catname}}
@@ -58,7 +60,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container">
         <div class="row">
@@ -72,7 +74,12 @@
                         <div class="col-md-6 p-rl-1 p-b-2">
                             <div class="bg-img1 size-a-3 how1 pos-relative"
                                 style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
-
+                                <div class="d-flex justify-content-between" style="margin-left: 130%;">
+                                    <a href="/user/shoppingCart/addcart/{{this._book.id}}" class="btn btn-danger">
+                                        <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
+                                        Thêm vào danh sách mượn
+                                    </a>
+                                </div>
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                                     <a href="/category/{{this._book.category_id}}"
                                         class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
@@ -137,15 +144,15 @@
                                         </div>
                                         <div class="flex-wr-c-c m-rl--7 p-t-15 float-right" id="comments-area">
                                             <input type="hidden" id="bookID" value="{{this._book.id}}">
-                                            <button class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active"
+                                            <button class="flex-c-c page-link hov-btn2 trans-03 m-all-7"
                                                 {{#when this._pagi.0.value 'eq' -1}}style="display: none;"
                                                 {{/when}}>1</button>
                                             {{#each this._pagi}}
                                             {{#when @index 'gt' 0}}{{#when value 'noteq' -1}}
                                             <button
-                                                class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">{{value}}</button>
+                                                class="flex-c-c page-link hov-btn2 trans-03 m-all-7">{{value}}</button>
                                             {{else}}
-                                            <button class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7"
+                                            <button class="flex-c-c page-link hov-btn2 trans-03 m-all-7"
                                                 style="display: none;"></button>
                                             {{/when}}{{/when}}
                                             {{/each}}

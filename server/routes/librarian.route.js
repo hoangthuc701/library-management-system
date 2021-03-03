@@ -50,14 +50,14 @@ router.get('/librarian/BorrowingCard', async function (req, res) {
     newLocal = 'librarian/BorrowingCard/list';
     res.render(newLocal, {
         List: list, quantity: quantity[0]["quantity"],
-        pagi: functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)
+        pagi: functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'stock'
     });
 });
 
 router.get('/librarian/BorrowingCard/add', async function (req, res) {
     var listAccount = await Account.load();
     const newLocal = 'librarian/BorrowingCard/add';
-    res.render(newLocal, { List: listAccount});
+    res.render(newLocal, { List: listAccount, layout: 'addandedit'});
 });
 router.post('/librarian/BorrowingCard/add', async function (req, res) {
     req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
@@ -81,7 +81,7 @@ router.get('/librarian/BorrowingCard/edit/:id', async function (req, res) {
     var listBorrowing = await BorrowingCard.loadByID(id);
     listBorrowing[0]["returned_date"] = moment(listBorrowing[0]["returned_date"], 'YYYY/MM/DD').format('YYYY-MM-DD');
     const newLocal = 'librarian/BorrowingCard/edit';
-    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount});
+    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit'});
 });
 router.post('/librarian/BorrowingCard/edit/:id', async function (req, res) {
     var Borrowing_cardEntity = {
@@ -178,7 +178,7 @@ router.get('/librarian/returningCard', async function (req, res) {
     var newLocal = 'librarian/ReturningCard/list';
     res.render(newLocal, {
         List: listReturningCard, quantity: quantity[0]["quantity"],
-        pagi: functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)
+        pagi: functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'stock'
     });
 });
 
@@ -267,5 +267,5 @@ router.get('/librarian/returningCard/edit/:id', async function (req, res) {
     var listReturningCard = await ReturningCard.loadByID(id);
     listReturningCard[0]["returned_at"] = moment(listReturningCard[0]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
     const newLocal = 'librarian/ReturningCard/edit';
-    res.render(newLocal, {List:listReturningCard });
+    res.render(newLocal, {List:listReturningCard, layout: 'addandedit' });
 });

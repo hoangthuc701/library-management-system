@@ -2,23 +2,11 @@
 <html lang="en">
 
 <head>
-    <title>{{{_sections.title}}}</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="/public/images/icons/icon.jpg" />
-
-    <link rel="stylesheet" type="text/css"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css">
-    <link rel="stylesheet" type="text/css" href="../../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../../public/fonts/iconic/css/material-design-iconic-font.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/vendor/animate/animate.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/vendor/css-hamburgers/hamburgers.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/vendor/animsition/css/animsition.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/css/util.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../../public/css/style.css" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{{_sections.title}}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap Core CSS -->
     <link href="../../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
@@ -31,7 +19,7 @@
     <link href="../../public/plugins/bower_components/chartist-js/dist/chartist.min.css" rel="stylesheet">
     <link href="../../public/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css"
         rel="stylesheet">
-        <!-- animation CSS -->
+    <!-- animation CSS -->
     <link href="../../public/css/animate.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../../public/css/style.css" rel="stylesheet">
@@ -40,14 +28,27 @@
     <link rel="stylesheet" type="text/css" href="/public/css/main.css" />
 
     {{{_sections.css}}}
+
+    <style>
+        nav .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+
+        nav .dropdown>.dropdown-toggle:active {
+            /*Without this, clicking will make it sticky*/
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="../../public/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../public/vendor/bootstrap/css/bootstrap.min.css" />
-    
-
     <!-- Menu Plugin JavaScript -->
     <script src="../../public/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
     <!--slimscroll JavaScript -->
@@ -66,21 +67,11 @@
     <!-- Custom Theme JavaScript -->
     <script src="../../public/js/custom.min.js"></script>
     <script src="../../public/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
-</head>
-
-<body class="animsition">
-    <div id="snackbar"></div>
-    {{> nav}}
     
-    {{{body}}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/public/vendor/animsition/js/animsition.min.js"></script>
-    <script src="/public/vendor/bootstrap/js/popper.js"></script>
-    <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/public/js/main.js"></script>
-    <script src="/public/js/style.js"></script>
     {{{_sections.js}}}
-    {{> footer}}
+        <div class="container-fluid">
+            {{{body}}}
+        </div>
 </body>
 
 </html>

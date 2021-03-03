@@ -23,6 +23,28 @@
     }
 </script>
 {{/section}}
+{{#section 'css'}}
+<style>
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  background-color:lavender;
+}
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+</style>
+
+{{/section}}
 <div class="card">
  
     <div class="card-header">
@@ -37,7 +59,7 @@
         <ul class="pagination">
             {{#each this.pagi}}
             {{#when value 'noteq'-1}}
-            <li><a href="/stockkeeper/BookTitles?p={{value}}">{{value}}</a></li>
+            <li><a href="/stockkeeper/BookTitle?p={{value}}">{{value}}</a></li>
             {{/when}}
             {{/each}}
         </ul>
@@ -46,15 +68,15 @@
         <div id="infoList">
             <table class="table table-hover" id="tableCategory">
                 <thead>
-                    <tr style="background-color:bisque">
-                        <th scope="col" class="text-left" style="width: 15%">#</th>
-                        <th scope="col" style="width: 40%;" class="text-center">Tên sách</th>
-                        <th scope="col" style="width: 20%;" class="text-center">Tác giả</th>
-                        <th scope="col" class="text-center">Action</th>
-                        <th scope="col" class="text-center"></th>
+                    <tr style="background-color:cornflowerblue">
+                        <th scope="col" class="text-left" style="width: 15%; color:black">#</th>
+                        <th scope="col" style="width: 40%; color:black" class="text-center">Tên sách</th>
+                        <th scope="col" style="width: 20%; color:black" class="text-center">Tác giả</th>
+                        <th scope="col" class="text-center" style="color:black">Action</th>
+                        <th scope="col" class="text-center" style="color:black"></th>
                     </tr>
                 </thead>
-                <tbody id="tbodyCateParent">
+                <tbody id="tbodyCateParent" style="background-color:lavender;">
             {{#each this.List}}
             <div id="groupUser{{id}}">
                 <tr>

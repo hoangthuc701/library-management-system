@@ -113,9 +113,10 @@
                     </a>
                 </div>
                 <div class="right-topbar">
-                    <a class="list-group-item action active" href="">
+                    <a class="btn btn-primary" href="/user/shoppingCart/listCart">
+                        <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
                         Danh sách mượn sách
-                        <span class="badge badge-primary float-right">1</span>
+                        <span class="badge badge-primary float-right">{{this.lcCart.totals}}</span>
                     </a>
                     <!-- kiểm tra nếu user đã đăng nhập thì hiển thị cái này -->
                     <div class="nav-item dropdown">
