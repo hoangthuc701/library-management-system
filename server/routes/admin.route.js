@@ -15,11 +15,13 @@ const Account = require('../models/account.model');
 const BorrowingCardBook = require('../models/borrowing_card_book.model');
 const BorrowingCard = require('../models/borrowing_card.model');
 const ReturningCard = require('../models/returning_card.model');
+const moment = require('moment');
 const md5 = require('md5');
 const dateUtils = require('../middlewares/dateUtils')
 const multer = require('multer');
 const fs = require('fs');
-const moment = require('moment');
+const functUtils = require('../middlewares/UtilityFunction');
+
 var path = require('path');
 
 
@@ -428,6 +430,14 @@ router.get('/admin/returningCard/del/:id', async function (req, res) {
         await ReturningCard.delete(id);
     }
     res.redirect('/admin/returningCard?p=1');
+});
+
+router.get('/admin/returningCard/edit/:id', async function (req, res) {
+    var id = +req.params.id;
+    var listReturningCard = await ReturningCard.loadByID(id);
+    listReturningCard[0]["returned_at"] = moment(listReturningCard[0]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
+    const newLocal = 'admin/ReturningCard/edit';
+    res.render(newLocal, {List:listReturningCard });
 });
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);

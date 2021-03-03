@@ -28,7 +28,7 @@
     <div class="card-header">
         <h4>Danh sách các đầu sách</h4>
         <div class="card-header d-flex justify-content-between">
-            <a href="/admin/BookTitle/add" class="btn btn-outline-success">
+            <a href="/stockkeeper/BookTitle/add" class="btn btn-outline-success">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Thêm sách mới
             </a>
@@ -37,7 +37,7 @@
         <ul class="pagination">
             {{#each this.pagi}}
             {{#when value 'noteq'-1}}
-            <li><a href="/admin/BookTitles?p={{value}}">{{value}}</a></li>
+            <li><a href="/stockkeeper/BookTitles?p={{value}}">{{value}}</a></li>
             {{/when}}
             {{/each}}
         </ul>
@@ -69,11 +69,11 @@
                         <label>{{author}} </label>
                     </td>
                     <td class="text-center" colspan="2">
-                        <a href="/admin/BookTitle/edit/{{id}}" class="btn btn-primary">
+                        <a href="/stockkeeper/BookTitle/edit/{{id}}" class="btn btn-primary">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         Cập nhật
                     </a>
-                    <a href="/admin/BookTitle/del/{{id}}" class="btn btn-danger btn-sm">
+                    <a href="/stockkeeper/BookTitle/del/{{id}}" class="btn btn-danger btn-sm">
                         <i class="fa fa-trash" aria-hidden="true"> Xóa </i>
                     </a>
                     </td>
