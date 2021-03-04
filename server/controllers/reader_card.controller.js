@@ -3,6 +3,7 @@ const functUtils = require('../middlewares/UtilityFunction');
 const dateUtils = require('../middlewares/dateUtils');
 const Account = require('../models/account.model');
 const accountModel = require('../models/account.model');
+const moment = require('moment');
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -12,8 +13,16 @@ module.exports = {
 			p = req.query.p;
 	
         var listReaderCard = await ReaderCard.loadByOffset((p - 1) * 10);
+		for(var i = 0; i < listReaderCard.length; i++){
+			listReaderCard[i]["created_date"] = moment(listReaderCard[i]["created_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+			listReaderCard[i]["expirated_date"] = moment(listReaderCard[i]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+		}
         var quantity = await ReaderCard.quantity();
-		res.json({list: listReaderCard, quantity: quantity, rangeOfPages:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p)});
+		const newLocal = 'librarian/ReaderCard/listReader';
+		res.render(newLocal, {
+			List: listReaderCard, quantity: quantity[0]["quantity"],
+			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'stock'
+		});
 	},
 	getByID: async(req,res) => {
 		var id = req.params.id;
@@ -77,7 +86,7 @@ module.exports = {
             expirated_date: expiredDate,
 		}
 		await ReaderCard.insert(Reader_cardEntity);
-		return res.json(true);
+		res.redirect('/librarian/awaiting');
 	},
 	reject: async(req,res) => {
 		const userID = +req.params.userID || -1;
@@ -87,6 +96,6 @@ module.exports = {
 			role_id: 1
 		}
 		await Account.update(accountEntity);
-		return res.json(true);
-	}
+		res.redirect('/librarian/awaiting');
+	},
 };

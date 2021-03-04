@@ -21,8 +21,8 @@ const book_titleModel = require('../models/book_title.model');
 			}
 		 });
 		const listBook = await BookTitle.loadByID(id);
-		if (listBook[0]["quantity"] == 0 || found === true){
-			res.render('duplicateItem');
+		if (listBook[0]["quantity"] == 0 || found === true || req.session.cart.totals == 10){
+			res.render('duplicateItem', {layout: 'stock'});
 		}
 		else{
 			let book = {
@@ -35,7 +35,8 @@ const book_titleModel = require('../models/book_title.model');
 			}
 			req.session.cart.items.push(book);
 			req.session.cart.totals += 1;
-			res.redirect('home/home');
+			console.log(req.session.cart);
+			res.redirect('/');
 		}
 	},
 	removeFromCart: async (req, res) => {
@@ -48,5 +49,8 @@ const book_titleModel = require('../models/book_title.model');
 			}
 		}
 		res.json(true);
-	}
+	},
+	Listcart: async (req, res) => {
+		res.render('user/listCart', {layout: 'stock'});
+	},
  };

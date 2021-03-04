@@ -14,7 +14,7 @@
                         const row = `
               <div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2">
                 <a href="/bookDetail/${val['id']}" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25 _article">
-                  <img src="${val['image']}" alt="IMG">
+                  <img src="../../public/bookTitleImage/${val["image"]}" alt="IMG">
                 </a>
                 <div class="size-w-9 w-full-sr575 m-b-25">
                   <h5 class="p-b-12">
@@ -104,7 +104,7 @@
 
                     <button class="flex-c-c size-a-13 bo-all-1 cl6 hov-btn1 trans-03"
                         id="button-load-more">
-                        <input type="hidden" id="offset" value="{{this._offset}}">
+                        <input type="hidden" id="offset" value="1">
                         <input type="hidden" id="categoryID" value="{{this._categoryName.id}}">
                         Load more
                     </button>

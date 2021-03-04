@@ -10,7 +10,7 @@ module.exports = {
         return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where id = ${id}`);
     },
     loadByBorrowingCardID: function (id) {
-        return db.load(`select bc.*, b.name from ${TBL_BORROWING_CARD_BOOK} bc, book_title b where bc.book_id = b.id and borrowing_card_id = '${id}'`);
+        return db.load(`select bc.*, b.name, b.image from ${TBL_BORROWING_CARD_BOOK} bc, book_title b where bc.book_id = b.id and borrowing_card_id = '${id}'`);
     },
     loadByBookID: function (id) {
         return db.load(`select * from ${TBL_BORROWING_CARD_BOOK} where book_id = ${id}`);

@@ -102,6 +102,7 @@
             <div class="content-topbar container h-100">
                 <div class="left-topbar">
                     <!-- nếu user chưa đăng nhập thì hiển thị cái này -->
+                    {{#unless this.lcIsAuthenticated}}                                     
                     <a href="javascript:;" class="left-topbar-item" data-toggle="modal" data-target="#modal-register"
                         id="anchor-signup">
                         <i class="fa fa-user-plus" aria-hidden="true"></i> Đăng kí
@@ -111,61 +112,71 @@
                         id="anchor-signin">
                         <i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
                     </a>
+                    {{/unless}}
                 </div>
                 <div class="right-topbar">
-                    <a class="list-group-item action active" href="">
+                    {{#if this.lcIsAuthenticated}}
+                    {{#when lcAuthUser.role_id 'eq' 5}}
+                    <a class="btn btn-primary" href="/user/shoppingCart/listCart">
+                        <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
                         Danh sách mượn sách
-                        <span class="badge badge-primary float-right">1</span>
+                        <span class="badge badge-primary float-right">{{this.lcCart.totals}}</span>
                     </a>
+                    {{/when}}
                     <!-- kiểm tra nếu user đã đăng nhập thì hiển thị cái này -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle left-topbar-item" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             style="font-family: Roboto-Regular;">
-                            <small><i class="fa fa-user" aria-hidden="true"></i> Xin chào, tên tài khoản!</small>
+                            <small><i class="fa fa-user" aria-hidden="true"></i> Xin chào, {{this.lcAuthUser.name}}!</small>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" style="z-index: 10;"
                             aria-labelledby="navbarDropdown">
                             <a class="dropdown-item left-topbar-item" href="/account/profile">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Trang cá nhân</small>
                             </a>
+                            {{#when lcAuthUser.role_id 'eq' 1}}
                             <!-- Khi vai trò là độc giả thì hiển thị cái này -->
                             <a class="dropdown-item left-topbar-item" href="/account/AddLimits">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Đăng ký thẻ độc giả</small>
                             </a>
+                            {{/when}}
                             <!-- -->
                             <!-- Khi vai trò là thủ thư thì hiển thị cái này -->
-                            <a class="dropdown-item left-topbar-item" href="/reporter/listpost">
+                            {{#when lcAuthUser.role_id 'eq' 4}}
+                            <a class="dropdown-item left-topbar-item" href="/librarian/readerCard">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý thẻ độc giả</small>
                             </a>
-                            <a class="dropdown-item left-topbar-item" href="/reporter/post">
+                            <a class="dropdown-item left-topbar-item" href="/librarian/awaiting">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Chấp nhận độc giả</small>
                             </a>
-                            <a class="dropdown-item left-topbar-item" href="/reporter/post">
+                            <a class="dropdown-item left-topbar-item" href="/librarian/BorrowingCard?p=1">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý phiếu mượn</small>
                             </a>
-                            <a class="dropdown-item left-topbar-item" href="/reporter/post">
+                            <a class="dropdown-item left-topbar-item" href="/librarian/returningCard?p=1">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý phiếu trả</small>
                             </a>
+                            {{/when}}
                             <!-- Khi vai trò là admin thì hiển thị cái này -->
+                            {{#when lcAuthUser.role_id 'eq' 2}}
                             <a class="dropdown-item left-topbar-item" href="/editor/post">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Menu Admin</small>
                             </a>
+                            {{/when}}
                             <!-- Khi vai trò là thủ kho thì hiển thị cái này -->
-                            <a class="dropdown-item left-topbar-item" href="/admin">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Nhập sách</small>
-                            </a>
-                            <a class="dropdown-item left-topbar-item" href="/admin">
+                            {{#when lcAuthUser.role_id 'eq' 3}}
+                            <a class="dropdown-item left-topbar-item" href="/stockkeeper/BookTitle?p=1">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Quản lý danh sách
                                     sách</small>
                             </a>
-
+                            {{/when}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item left-topbar-item" href="/user/logout">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> <small>Đăng xuất</small>
                             </a>
                         </div>
                     </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

@@ -1,0 +1,37 @@
+<section class="bg0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="p-b-20">
+          <div class="tab01 p-b-20">
+            <a href="/user/processCart" class="btn btn-success">
+              <i class="fa fa-refresh"> Mượn sách</i>
+            </a>
+            <div class="row">
+              {{#each this.lcCart.items}}
+              <div class="col-sm-3">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <a href="/bookDetail/{{id}}" style="margin-left: 60px;">
+                      <img class="card-img-top" src="../../public/bookTitleImage/{{image}}" alt="Card image cap"
+                        style="width: 90px; height:140px">
+                    </a>
+                  </div>
+                  <div class="card-footer">
+                    <h4 class="card-title">{{name}}</h4>
+                    <p class="card-text"><b>Số lượng: </b>1</p>
+                    <p class="card-text"><b>Tác giả: </b> {{author}}</p>
+                    <a href="" class="btn btn-danger">
+                      <i class="fa fa-trash"> Xóa</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

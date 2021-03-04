@@ -37,6 +37,6 @@ module.exports = {
         return db.load(`select count(*) as quantity from ${TBL_READER_CARD}`)
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT * FROM ${TBL_READER_CARD} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT r.*, a.username FROM ${TBL_READER_CARD} r, account a where r.account_id = a.id LIMIT 10 OFFSET ${offset}`)
     }
 }

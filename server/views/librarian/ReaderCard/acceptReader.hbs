@@ -12,7 +12,7 @@
     var html = `<tr>
           <th scope="row" class="text-left" id = "tdParentIndex${nextID}">
             <p>{{@index}}</p>
-          </th> 
+          </th>
           <td class="text-center" >
             <input id="txtCategory${nextID}" style="border:5mm;text-align:center;"
               value="${cateName}"></input>
@@ -61,10 +61,10 @@
       alert("Tên Phiếu mượn không được rỗng!");
       return;
     }
-    $.getJSON(`/admin/BorrowingCard/add/validation?borrowingID=${BorrowingID}`, (data) => {
+    $.getJSON(`/librarian/BorrowingCard/add/validation?borrowingID=${BorrowingID}`, (data) => {
       if (data["result"] == 0) {
         $.post(
-          "/admin/BorrowingCard/add",
+          "/librarian/BorrowingCard/add",
           { TenChuyenMuc: categoryName },
           function (data) {
             let nextID = data["nextID"] - 1;
@@ -169,66 +169,88 @@
   }
 </script>
 {{/section}}
+{{#section 'css'}}
+<style>
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  background-color:lavender;
+}
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+</style>
+
+{{/section}}
 <div class="card">
   <div class="card-header">
-        <h4>Danh sách phiếu trả</h4>
+        <h4>Danh sách độc giả</h4>
         <ul class="pagination">
             {{#each this.pagi}}
             {{#when value 'noteq'-1}}
-            <li><a href="/admin/returningCard?p={{value}}">{{value}}</a></li>
+            <li><a href="/librarian/readerCard?p={{value}}">{{value}}</a></li>
             {{/when}}
             {{/each}}
         </ul>
     </div>
   <div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <form method="POST" action="/admin/returningCard/add" style="width: 100%" id="form-confirm">
-            <input id="txtBorrowingCardID" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn"></input>
+    <div class="card-header d-flex justify-content-between" style="width: 100%;">
+        <form method="POST" action="/librarian/returningCard/add" style="width: 100%" id="form-confirm">
+            {{!-- <input id="txtBorrowingCardID" style="background-color:bisque;" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn"/>
             <button class="btn btn-outline-success" role="button" type="submit" form="form-confirm">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Thêm phiếu trả
-            </button>
+            </button> --}}
         </form>
     </div>
     <table class="table table-hover" id="tableCategory">
       <thead>
-        <tr style="background-color:bisque">
-          <th scope="col" class="text-left" style="width: 10%">#</th>
-          <th scope="col" class="text-center">Mã Phiếu mượn</th>
-          <th scope="col" class="text-center">tiền phạt</th>
-          <th scope="col" class="text-center">Ngày trả</th>        
-          <th scope="col" class="text-center">View detail</th>
-          <th scope="col" class="text-center">Action</th>
+        <tr style="background-color:cornflowerblue">
+          <th scope="col" class="text-left" style="width: 10%; color:black">#</th>
+          <th scope="col" class="text-left" style="color:black">tên tài khoản</th>
+          <th scope="col" class="text-left" style="color:black">Họ và Tên</th>
+          <th scope="col" class="text-left" style="color:black">email</th>        
+          <th scope="col" class="text-left" style="color:black">phone</th>        
+          <th scope="col" class="text-left" style="color:black">Action</th>
         </tr>
       </thead>
-      <tbody id="tbodyCateParent">
+      <tbody id="tbodyCateParent" style="background-color:lavender;">
         {{#each List}}
         <tr>   
           <th scope="row" class="text-left" id="tdParentIndex{{id}}">
-            <p>{{id}}</p>
+            <p style="color:black">{{id}}</p>
           </th>
-          <td class="text-center">
-            <input id="txtBorrowingCard{{id}}" style="border:5mm;text-align:center;"
-              value="{{borrowing_card_id}}"></input>
+          <td class="text-left">
+              <p style="color: black;">{{username}}</p>
           </td>
-          <td class="text-center">
-            <input id="txtpenaltyCost{{id}}" style="border:5mm;text-align:center;"
-              value="{{penalty_cost}}"></input>
+          <td class="text-left">
+              <p style="color: black;">{{name}}</p>
           </td>
-          <td class="text-center">
-            <input id="txtReturnedAt{{id}}" style="border:5mm;text-align:center;"
-              value="{{returned_at}}"></input>
+          <td class="text-left">
+              <p style="color: black;">{{email}}</p>
           </td>
-          <td class="text-center">
+          <td class="text-left">
+              <p style="color: black;">{{phone}}</p>
+          </td>
+          {{!-- <td class="text-left">
             <button type="button" class="btn btn-primary" onclick="viewDetail({{id}})"><i class="fa fa-eye"
                 aria-hidden="true"></i></button>
-          </td>
-          <td class="text-center">
-            <a href="/admin/returningCard/edit/{{id}}" class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil" aria-hidden="true">sửa</i>
+          </td> --}}
+          <td class="text-left">
+            <a href="/librarian/accept/{{id}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil" aria-hidden="true">chấp nhận</i>
             </a>
-            <a href="/admin/returningCard/del/{{id}}" class="btn btn-danger btn-sm">
-                <i class="fa fa-trash" aria-hidden="true">Xóa</i>
+            <a href="/librarian/reject/{{id}}" class="btn btn-danger btn-sm">
+                <i class="fa fa-trash" aria-hidden="true">Hủy</i>
             </a>
           </td>
         </tr>

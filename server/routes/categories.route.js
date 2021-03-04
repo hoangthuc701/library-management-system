@@ -21,8 +21,9 @@ router.get('/category/:id', async (req, res) => {
 
 router.get("/category-load-more", async (req, res) => {
   const id = +req.query.id;
-  const offset = +req.query.offset;
+  var offset = +req.query.offset;
 
+  console.log(offset);
   const categoryName = (await categories.loadByID(id))[0];
 
   const _book = await book.loadByCategoryID(id, offset);

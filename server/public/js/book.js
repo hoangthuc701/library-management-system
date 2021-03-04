@@ -1,10 +1,10 @@
 function displayPaginationButtons(sel, page, data) {
   $(sel).each((index, el) => {
     $(el).text(data["_pagi"][index]["value"]);
-    $(el).removeClass("pagi-active");
+    $(el).removeClass("");
 
     if (+data["_pagi"][index]["value"] === page) {
-      $(el).addClass("pagi-active");
+      $(el).addClass("");
     }
 
     if (+data["_pagi"][index]["value"] !== -1) {

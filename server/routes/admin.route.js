@@ -15,11 +15,13 @@ const Account = require('../models/account.model');
 const BorrowingCardBook = require('../models/borrowing_card_book.model');
 const BorrowingCard = require('../models/borrowing_card.model');
 const ReturningCard = require('../models/returning_card.model');
+const moment = require('moment');
 const md5 = require('md5');
 const dateUtils = require('../middlewares/dateUtils')
 const multer = require('multer');
 const fs = require('fs');
-const moment = require('moment');
+const functUtils = require('../middlewares/UtilityFunction');
+
 var path = require('path');
 
 
@@ -111,6 +113,7 @@ router.get('/admin/account/del/:id', async function (req, res) {
     }
     res.redirect('/admin/Accounts?p=1');
 });
+
 router.get('/admin/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';
@@ -146,7 +149,7 @@ router.get('/admin/BookTitle/edit/:id', async function (req, res) {
     var listBook = await BookTitle.loadByID(+req.params.id);
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/edit';
-    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'adminPanel'});
+    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'addandedit' });
 });
 router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async function (req, res) {
     var BookID = +req.params.id;
@@ -268,7 +271,7 @@ router.get('/admin/BorrowingCard/edit/:id', async function (req, res) {
     var listBorrowing = await BorrowingCard.loadByID(id);
     listBorrowing[0]["returned_date"] = moment(listBorrowing[0]["returned_date"], 'YYYY/MM/DD').format('YYYY-MM-DD');
     const newLocal = 'admin/BorrowingCard/edit';
-    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount});
+    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit' });
 });
 router.post('/admin/BorrowingCard/edit/:id', async function (req, res) {
     var Borrowing_cardEntity = {
@@ -427,6 +430,14 @@ router.get('/admin/returningCard/del/:id', async function (req, res) {
         await ReturningCard.delete(id);
     }
     res.redirect('/admin/returningCard?p=1');
+});
+
+router.get('/admin/returningCard/edit/:id', async function (req, res) {
+    var id = +req.params.id;
+    var listReturningCard = await ReturningCard.loadByID(id);
+    listReturningCard[0]["returned_at"] = moment(listReturningCard[0]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
+    const newLocal = 'admin/ReturningCard/edit';
+    res.render(newLocal, {List:listReturningCard });
 });
 router.get('/admin/BookTitles', bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
