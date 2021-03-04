@@ -61,26 +61,30 @@ router.get('/stockkeeper/BookTitle/add', async function (req, res) {
 router.post('/stockkeeper/BookTitle/add', upload.single('urlImage'), async function (req, res) {
     var list = await BookTitle.loadName(req.body.name);
     if (list.length != 0) {
-        res.redirect('/stockkeeper/BookTitle/add');
+        var text = `Tên sách đã tồn tại, vui lòng nhập tên khác!`
+		var link = '/stockkeeper/BookTitle?p=1';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
-    var image = '';
-    if (req.file) {
-        image = req.file.filename;
+    else {
+        var image = '';
+        if (req.file) {
+            image = req.file.filename;
+        }
+        console.log(req.file.filename);
+        var book_titleEntity = {
+            name: req.body.name,
+            author: req.body.author,
+            quantity: req.body.quantity,
+            category_id: req.body.categoryID,
+            image: image,
+            description: req.body.description,
+            created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            updated_at: '',
+            view: 0
+        }
+        await BookTitle.insert(book_titleEntity);
+        res.redirect('/stockkeeper/BookTitle?p=1');
     }
-    console.log(req.file.filename);
-    var book_titleEntity = {
-        name: req.body.name,
-        author: req.body.author,
-        quantity: req.body.quantity,
-        category_id: req.body.categoryID,
-        image: image,
-        description: req.body.description,
-        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-        updated_at: '',
-        view: 0
-    }
-    await BookTitle.insert(book_titleEntity);
-    res.redirect('/stockkeeper/BookTitle?p=1');
 });
 
 router.get('/stockkeeper/BookTitle/edit/:id', async function (req, res) {
@@ -130,13 +134,20 @@ router.get('/stockkeeper/BookTitle/del/:id', async function (req, res) {
         }
         if (check == false) {
             await BookTitle.delete(id);
+            res.redirect('/stockkeeper/BookTitle?p=1');
+        }
+        else{
+            var text = `Sách đã được mượn và chưa được trả, không thể xóa!`
+		    var link = '/stockkeeper/BookTitle?p=1';
+		    res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
         }
 
     }
     else {
         await BookTitle.delete(id);
+        res.redirect('/stockkeeper/BookTitle?p=1');
     }
-    res.redirect('/stockkeeper/BookTitle?p=1');
+    
 });
 
 const directory = '/public/bookTitleImage/';

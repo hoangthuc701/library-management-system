@@ -7,7 +7,7 @@ module.exports = {
         return db.load(`select * from ${TBL_READER_CARD}`);
     },
     loadByID: function (id) {
-        return db.load(`select * from ${TBL_READER_CARD} where id = ${id}`);
+        return db.load(`select r.*, a.username from ${TBL_READER_CARD} r, account a where r.account_id = a.id and r.id = ${id}`);
     },
     loadByUserID: function(UserID){
         return db.load(`select * from ${TBL_READER_CARD} where account_id = ${UserID}`);

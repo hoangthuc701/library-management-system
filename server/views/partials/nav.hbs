@@ -137,8 +137,13 @@
                             </a>
                             {{#when lcAuthUser.role_id 'eq' 1}}
                             <!-- Khi vai trò là độc giả thì hiển thị cái này -->
-                            <a class="dropdown-item left-topbar-item" href="/account/AddLimits">
+                            <a class="dropdown-item left-topbar-item" href="/user/registerReaderCard">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Đăng ký thẻ độc giả</small>
+                            </a>
+                            {{/when}}
+                            {{#when lcAuthUser.role_id 'eq' 6}}
+                            <a class="dropdown-item left-topbar-item" href="">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Thẻ độc giả đang chờ duyệt</small>
                             </a>
                             {{/when}}
                             <!-- -->
@@ -159,7 +164,7 @@
                             {{/when}}
                             <!-- Khi vai trò là admin thì hiển thị cái này -->
                             {{#when lcAuthUser.role_id 'eq' 2}}
-                            <a class="dropdown-item left-topbar-item" href="/editor/post">
+                            <a class="dropdown-item left-topbar-item" href="/admin">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Menu Admin</small>
                             </a>
                             {{/when}}

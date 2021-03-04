@@ -22,7 +22,9 @@ const book_titleModel = require('../models/book_title.model');
 		 });
 		const listBook = await BookTitle.loadByID(id);
 		if (listBook[0]["quantity"] == 0 || found === true || req.session.cart.totals == 10){
-			res.render('duplicateItem', {layout: 'stock'});
+			var text = 'Sản phẩm đã tồn tại trong dánh sách mượn sách, hoặc danh sách mượn sách đã đầy!'
+			var link = '/';
+			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 		}
 		else{
 			let book = {

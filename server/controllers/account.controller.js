@@ -92,8 +92,6 @@ module.exports = {
 		res.json(true);
 	},
 	readerCard: async (req, res) => {
-
-		const id = +req.params.id || -1;
 		if (req.session.authUser.role_id != 1)
 			res.json(false);
 		req.session.authUser.role_id = 6;
@@ -102,7 +100,7 @@ module.exports = {
 			role_id: 6//change role into awaiting for approval
 		}
 		await Account.update(accountEntity);
-		res.json(true);
+		res.redirect('/');
 	},
 	awaiting: async(req,res) => {
 		var p = 1;
@@ -123,42 +121,48 @@ module.exports = {
 		// req.body.password = '123';
 		var pass = md5(req.body._password);
 		const acc = await Account.loadUser(req.body._username);
-		
+
 		if (acc.length == 0) {
-			return res.json(false);
+			var text = 'Tên tài khoản không đúng!!'
+			var link = '/';
+			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 		}
-		if (acc[0]["password"] != pass) {
-			return res.json(false);
-		}
-		//update reader card
-		if (acc[0]["role_id"] == 5) {
-			const card = await readerCard.loadByUserID(acc[0]["id"]);
-			//const TH = moment(card[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
-			console.log(card[0]["expirated_date"]);
-			let cardDate = new Date(card[0]["expirated_date"]);
-			var currentDate = new Date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
-			console.log(currentDate);
-			if (currentDate > cardDate) {
-				//change role into user
-				console.log("ok");
-				acc[0]["role_id"] = 1;
-				var accountEntity = {
-					id: acc[0]["id"],
-					role_id: 1
+		else{
+			if(acc[0]["password"] != pass){
+				var text = 'Mật khẩu không đúng!!'
+				var link = '/';
+				res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
+			}
+			else{
+				if (acc[0]["role_id"] == 5) {
+					const card = await readerCard.loadByUserID(acc[0]["id"]);
+					//const TH = moment(card[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+					console.log(card[0]["expirated_date"]);
+					let cardDate = new Date(card[0]["expirated_date"]);
+					var currentDate = new Date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
+					if (currentDate > cardDate) {
+						//change role into user
+						console.log("ok");
+						acc[0]["role_id"] = 1;
+						var accountEntity = {
+							id: acc[0]["id"],
+							role_id: 1
+						}
+						await Account.update(accountEntity);
+						//remove reader card
+						await readerCard.delete(card[0]["id"]);
+					}
 				}
-				await Account.update(accountEntity);
-				//remove reader card
-				await readerCard.delete(card[0]["id"]);
+				cart = new Cart();
+				req.session.cart = cart.data;
+				req.session.isAuthenticated = true;
+				req.session.authUser = {
+					username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
+					role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
+				};
+				res.redirect('/');
 			}
 		}
-		cart = new Cart();
-		req.session.cart = cart.data;
-		req.session.isAuthenticated = true;
-		req.session.authUser = {
-			username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
-			role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
-		};
-		res.redirect('/');
 	},
 	logout: async (req, res) => {
 		req.session.authUser = null;
@@ -206,11 +210,12 @@ module.exports = {
 			//refresh session cart
 			cart = new Cart();
 			req.session.cart = cart.data;
-			console.log('thien la toi');
 			res.redirect('/');
 		}
 		else{
-			res.json(false);
+			var text = 'Dánh sách mượn sách không được trống, vui lòng chọn sách!'
+			var link = '/';
+			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 		}
 	},
 

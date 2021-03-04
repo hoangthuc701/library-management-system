@@ -29,45 +29,73 @@ module.exports = {
 		res.json(await ReaderCard.loadByID(id))
 	},
 	add: async (req, res) => {
-        
-        var list = await Account.loadByID(req.body.account_id);
-		if (list.length == 0) {
-			return res.json(false);
+        var listAccount = await Account.loadUser(req.body.username);
+		if (listAccount.length == 0 || listAccount[0]["role_id"] != 1) {
+			var text = `Tên tài khoản không tồn tại, hoặc tài khoản ${req.body.username} không có quyền đăng ký thẻ độc giả!`
+			var link = '/librarian/readerCard';
+			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
         }
-		var accountEntity = {
-			id: req.body.account_id,
-			role_id: 5
+		else{
+			var accountEntity = {
+				id: listAccount[0]["id"],
+				role_id: 5
+			}
+			await Account.update(accountEntity);
+	
+			var expiredDate = new Date(dateUtils.getCurrentDateTime())
+			expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
+	
+			var Reader_cardEntity = {
+				card_id: '',
+				account_id: listAccount[0]["id"],
+				created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+				expirated_date: expiredDate,
+			}
+			await ReaderCard.insert(Reader_cardEntity);
+			res.redirect('/librarian/readerCard');
 		}
-		await Account.update(accountEntity);
-		var Reader_cardEntity = {
-			card_id: req.body.card_id,
-            account_id: req.body.account_id,
-            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-            expirated_date: req.body.expirated_date,
-		}
-		await ReaderCard.insert(Reader_cardEntity);
-		return res.json(true);
 	},
 	delete: async(req,res) => {
 		var id = req.params.id;
+		var listReader = await ReaderCard.loadByID(id);
+		var accountEntity = {
+			id: listReader[0]["account_id"],
+			role_id: 1
+		}
+		await Account.update(accountEntity);
 		await ReaderCard.delete(id);
-		res.json(true);
+		res.redirect('/librarian/readerCard');
 	},
 	update: async (req, res) => {
-        
-        var list = await Account.loadByID(req.body.account_id);
+        var list = await Account.loadUser(req.body.username);
 		if (list.length == 0) {
-			return res.json(false);
+			var text = 'Tên tài khoản không tồn tại!'
+			var link = '/librarian/readerCard';
+			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
         }
-        
-		var Reader_cardEntity = {
-			id : req.body.id,
-			card_id: req.body.card_id,
-            account_id: req.body.account_id,            
-            expirated_date: req.body.expirated_date,
+        else{
+			var listReader = await ReaderCard.loadByID(req.body.id);
+			var accountEntity = {
+				id: listReader[0]["account_id"],
+				role_id: 1
+			}
+			await Account.update(accountEntity);
+
+			var accountEntity = {
+				id: list[0]["id"],
+				role_id: 5
+			}
+			await Account.update(accountEntity);
+
+			var Reader_cardEntity = {
+				id : req.body.id,
+				card_id: '',
+				account_id: list[0]["id"],
+				expirated_date: req.body.expirated_date,
+			}
+			await ReaderCard.update(Reader_cardEntity);
+			res.redirect('/librarian/readerCard');
 		}
-		await ReaderCard.update(Reader_cardEntity);
-		return res.json(true);
 	},
 	accept: async (req,res) => {
 		const userID = +req.params.userID || -1;

@@ -204,12 +204,12 @@
     </div>
   <div class="card">
     <div class="card-header d-flex justify-content-between" style="width: 100%;">
-        <form method="POST" action="/librarian/returningCard/add" style="width: 100%" id="form-confirm">
-            {{!-- <input id="txtBorrowingCardID" style="background-color:bisque;" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn"/>
+        <form method="POST" action="/librarian/readerCard/add" style="width: 100%" id="form-confirm">
+            <input id="txtBorrowingCardID" style="background-color:bisque;" name="username" placeholder="Nhập mã tên tài khoản"/>
             <button class="btn btn-outline-success" role="button" type="submit" form="form-confirm">
                 <i class="fa fa-plus" aria-hidden="true"></i>
-                Thêm phiếu trả
-            </button> --}}
+                Thêm thẻ độc giả
+            </button>
         </form>
     </div>
     <table class="table table-hover" id="tableCategory">
@@ -242,10 +242,10 @@
                 aria-hidden="true"></i></button>
           </td> --}}
           <td class="text-left">
-            <a href="/librarian/returningCard/edit/{{id}}" class="btn btn-primary btn-sm">
+            <a href="/librarian/readerCard/edit/{{id}}" class="btn btn-primary btn-sm">
                 <i class="fa fa-pencil" aria-hidden="true">sửa</i>
             </a>
-            <a href="/librarian/returningCard/del/{{id}}" class="btn btn-danger btn-sm">
+            <a href="/librarian/readerCard/del/{{id}}" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash" aria-hidden="true">Xóa</i>
             </a>
           </td>

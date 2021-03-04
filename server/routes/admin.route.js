@@ -23,6 +23,7 @@ const fs = require('fs');
 const functUtils = require('../middlewares/UtilityFunction');
 
 var path = require('path');
+const { match } = require('assert');
 
 
 var storage = multer.diskStorage({
@@ -58,34 +59,39 @@ router.get('/admin/account/add', async function (req, res) {
 router.post('/admin/account/add', async function (req, res) {
     var list = await Account.loadUser(req.body.username);
     if (list.length != 0) {
-        res.redirect('/admin/account/add');
+        var text = `Tên tài khoản đã tồn tại!`
+		var link = '/admin/account/add';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
-    var role = +req.body.roleID;
-    //insert
-    var accountEntity = {
-        username: req.body.username,
-        password: md5(req.body.password),
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        role_id: req.body.roleID,
-        isBlock: 0,
-        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-        updated_at: ''
-    }
-    await Account.insert(accountEntity);
-    if (role == 5) {
-        var listuser = await Account.loadUser(req.body.username);
-        var date = new Date("12/2/2030");
-        var Reader_cardEntity = {
-            card_id: '',
-            account_id: listuser[0]["id"],
-            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-            expirated_date: date,
+    else {
+        var role = +req.body.roleID;
+        //insert
+        var accountEntity = {
+            username: req.body.username,
+            password: md5(req.body.password),
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            role_id: req.body.roleID,
+            isBlock: 0,
+            created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            updated_at: ''
         }
-        await ReaderCard.insert(Reader_cardEntity);
+        await Account.insert(accountEntity);
+        if (role == 5) {
+            var listuser = await Account.loadUser(req.body.username);
+            var date = new Date("12/2/2030");
+            var Reader_cardEntity = {
+                card_id: '',
+                account_id: listuser[0]["id"],
+                created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+                expirated_date: date,
+            }
+            await ReaderCard.insert(Reader_cardEntity);
+        }
+        res.redirect('/admin/Accounts?p=1');
     }
-    res.redirect('/admin/Accounts?p=1');
+
 });
 router.post('/admin/account/edit/:id', async function (req, res) {
     var id = +req.params.id;
@@ -103,6 +109,7 @@ router.post('/admin/account/edit/:id', async function (req, res) {
     }
     await Account.update(accountEntity);
     res.redirect('/admin/Accounts?p=1');
+    
 });
 router.get('/admin/account/del/:id', async function (req, res) {
     var id = req.params.id;
@@ -122,26 +129,30 @@ router.get('/admin/BookTitle/add', async function (req, res) {
 router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (req, res) {
     var list = await BookTitle.loadName(req.body.name);
     if (list.length != 0) {
-        res.redirect('/admin/BookTitle/add');
+        var text = `Tên sách đã tồn tại!`
+		var link = '/admin/BookTitle/add';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
-    var image = '';
-    if (req.file) {
-        image = req.file.filename;
-    }
-    console.log(req.file.filename);
-    var book_titleEntity = {
-        name: req.body.name,
-        author: req.body.author,
-        quantity: req.body.quantity,
-        category_id: req.body.categoryID,
-        image: image,
-        description: req.body.description,
-        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-        updated_at: '',
-        view: 0
-    }
-    await BookTitle.insert(book_titleEntity);
-    res.redirect('/admin/BookTitles?p=1');
+    else {
+        var image = '';
+        if (req.file) {
+            image = req.file.filename;
+        }
+        console.log(req.file.filename);
+        var book_titleEntity = {
+            name: req.body.name,
+            author: req.body.author,
+            quantity: req.body.quantity,
+            category_id: req.body.categoryID,
+            image: image,
+            description: req.body.description,
+            created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            updated_at: '',
+            view: 0
+        }
+        await BookTitle.insert(book_titleEntity);
+        res.redirect('/admin/BookTitles?p=1');
+    } 
 });
 
 router.get('/admin/BookTitle/edit/:id', async function (req, res) {
@@ -191,13 +202,18 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
         }
         if (check == false) {
             await BookTitle.delete(id);
+            res.redirect('/admin/BookTitles?p=1');
         }
-
+        else{
+            var text = `Sách đã được mượn và chưa được trả, không thể xóa!`
+		    var link = '/admin/BookTitles?p=1';
+		    res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
+        }
     }
     else {
         await BookTitle.delete(id);
-    }
-    res.redirect('/admin/BookTitles?p=1');
+        res.redirect('/admin/BookTitles?p=1');
+    }    
 });
 // ======================================= category
 router.post('/admin/Category/add', async function (req, res) {
@@ -274,8 +290,9 @@ router.get('/admin/BorrowingCard/edit/:id', async function (req, res) {
     res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit' });
 });
 router.post('/admin/BorrowingCard/edit/:id', async function (req, res) {
+    var id = +req.params.id;
     var Borrowing_cardEntity = {
-        id: req.body.id,
+        id: id,
         reader_id: req.body.reader_id,
         returned_date: req.body.returned_date,
         updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
@@ -309,34 +326,45 @@ router.post('/admin/borrowingCardBook/add', async function (req, res) {
     var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(req.body.borrowing_card_id);
     var check = false;
     if (listBorrowing.length == 0 || listBook.length == 0) {
-        res.redirect('/admin/BorrowingCard?p=1');
+        var text = `Sách không tồn tại!`
+		var link = '/admin/BorrowingCard?p=1';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
-    if(listBook[0]["quantity"] === 0)
-    {
-        res.redirect('/admin/BorrowingCard?p=1');
-    }
-    for(var i = 0; i < listBorrowingBook.length; i++){
-        if(listBorrowingBook[i]["book_id"] == req.body.book_id){
-            check = true;
+    else {
+        if (listBook[0]["quantity"] === 0) {
+            var text = `Số lượng sách đã hết, không thể mượn!`
+            var link = '/admin/BorrowingCard?p=1';
+            res.render('duplicateItem', { Text: text, Link: link, layout: 'addandedit' });
+        }
+        else{
+            for (var i = 0; i < listBorrowingBook.length; i++) {
+                if (listBorrowingBook[i]["book_id"] == req.body.book_id) {
+                    check = true;
+                }
+            }
+            if (check === true) {
+                var text = `Sách đã tồn tại trong chi tiết phiếu mượn này!`
+                var link = '/admin/BorrowingCard?p=1';
+                res.render('duplicateItem', { Text: text, Link: link, layout: 'addandedit' });
+            }
+            else{
+                var book_titleEntity = {
+                    id: listBook[0]["id"],
+                    quantity: listBook[0]["quantity"] - 1,
+                    updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
+                }
+                await BookTitle.update(book_titleEntity);
+                var Borrowing_card_bookEntity = {
+                    borrowing_card_id: req.body.borrowing_card_id,
+                    book_id: req.body.book_id,
+                    created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+                    updated_at: ''
+                }
+                await BorrowingCardBook.insert(Borrowing_card_bookEntity);
+                res.redirect('/admin/BorrowingCard?p=1');
+            }
         }
     }
-    if(check === true){
-        res.redirect('/admin/BorrowingCard?p=1');
-    }
-    var book_titleEntity = {
-        id : listBook[0]["id"],
-        quantity: listBook[0]["quantity"] - 1,
-        updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
-    }
-    await BookTitle.update(book_titleEntity);
-    var Borrowing_card_bookEntity = {
-        borrowing_card_id: req.body.borrowing_card_id,
-        book_id: req.body.book_id,
-        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-        updated_at: ''
-    }
-    await BorrowingCardBook.insert(Borrowing_card_bookEntity);
-    res.redirect('/admin/BorrowingCard?p=1');
 });
 router.get('/admin/borrowingCardBook/del/:id', async function (req, res) {
     var id = req.params.id;
@@ -355,50 +383,63 @@ router.get('/admin/borrowingCardBook/del/:id', async function (req, res) {
 router.post('/admin/returningCard/add', async function (req, res) {
     var id = req.body.borrowing_card_id;
     req.body.returned_at = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
-
     var listBorrowing = await BorrowingCard.loadByCardID(id);
-    var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);//load danh sach
-
-    if (listBorrowing.length == 0 || listBorrowingBook.length == 0) {
-        res.redirect('/admin/returningCard?p=1');
+    if (listBorrowing.length == 0) {
+        var text = `Phiếu mượn không tồn tại!`
+		var link = '/admin/returningCard?p=1';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
-
-    for (var i = 0; i < listBorrowingBook.length; i++) {
-        var tempid = listBorrowingBook[i]["book_id"];
-        var listBook = await BookTitle.loadByID(tempid);
-        var bookTitleEntity = {
-            id: listBook[0]["id"],
-            quantity: listBook[0]["quantity"] + 1,
-            updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+    else{
+        var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);//load danh sach
+        if(listBorrowingBook.length == 0){
+            var text = `Chi tiết phiếu mượn không tồn tại!`
+		    var link = '/admin/returningCard?p=1';
+		    res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
         }
-        await BookTitle.update(bookTitleEntity);
+        else{
+            for (var i = 0; i < listBorrowingBook.length; i++) {
+                var tempid = listBorrowingBook[i]["book_id"];
+                var listBook = await BookTitle.loadByID(tempid);
+                var bookTitleEntity = {
+                    id: listBook[0]["id"],
+                    quantity: listBook[0]["quantity"] + 1,
+                    updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+                }
+                await BookTitle.update(bookTitleEntity);
+        
+            }
+        
+            let date_ob = new Date();
+            let date_ob2 = new Date(listBorrowing[0]["returned_date"]);
 
+            let date = ("0" + date_ob.getDate()).slice(-2);
+            let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+            let year = date_ob.getFullYear();
+
+            let date2 = ("0" + date_ob2.getDate()).slice(-2);
+            let month2 = ("0" + (date_ob2.getMonth() + 1)).slice(-2);
+            let year2 = date_ob2.getFullYear();
+            const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+            const dateBorrowing = new Date(year2, month2, date2);
+            const dateSystem = new Date(year, month, date);
+            var diffDays = 0;
+            if(dateBorrowing < dateSystem){
+                diffDays = Math.round(Math.abs((dateSystem - dateBorrowing) / oneDay));
+                console.log(diffDays);
+            }
+            req.body.penalty_cost = diffDays * 10000;
+            var returning_cardEntity = {
+                borrowing_card_id: id,
+                penalty_cost: req.body.penalty_cost,
+                returned_at: req.body.returned_at,
+                created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+                updated_at: ''
+            }
+            await ReturningCard.insert(returning_cardEntity);
+            res.redirect('/admin/returningCard?p=1');
+        }
     }
-
-    let date_ob = new Date();
-    let date_ob2 = new Date(listBorrowing[0]["returned_date"]);
-    let date = ("0" + date_ob.getDate()).slice(-2);
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    let year = date_ob.getFullYear();
-    let date2 = ("0" + date_ob2.getDate()).slice(-2);
-    let month2 = ("0" + (date_ob2.getMonth() + 1)).slice(-2);
-    let year2 = date_ob2.getFullYear();
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(year2, month2, date2);
-    const secondDate = new Date(year, month, date);
-
-    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-
-    req.body.penalty_cost = diffDays * 10000;
-    var returning_cardEntity = {
-        borrowing_card_id: id,
-        penalty_cost: req.body.penalty_cost,
-        returned_at: req.body.returned_at,
-        created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-        updated_at: ''
-    }
-    await ReturningCard.insert(returning_cardEntity);
-    res.redirect('/admin/returningCard?p=1');
+    
 });
 router.get('/admin/returningCard/del/:id', async function (req, res) {
     var id = req.params.id;
@@ -413,7 +454,9 @@ router.get('/admin/returningCard/del/:id', async function (req, res) {
         }
     }
     if (temp === false) {
-        res.json(false);
+        var text = `Số lượng sách đã hêt không thể xóa phiếu trả!`
+		var link = '/admin/returningCard?p=1';
+		res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
     }
     else {
         for (var i = 0; i < listBorrowingCardBook.length; i++) {
@@ -428,8 +471,8 @@ router.get('/admin/returningCard/del/:id', async function (req, res) {
 
         }
         await ReturningCard.delete(id);
+        res.redirect('/admin/returningCard?p=1');
     }
-    res.redirect('/admin/returningCard?p=1');
 });
 
 router.get('/admin/returningCard/edit/:id', async function (req, res) {
