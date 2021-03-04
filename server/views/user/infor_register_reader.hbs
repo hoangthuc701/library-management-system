@@ -1,0 +1,27 @@
+{{#section 'js'}}
+<script>
+  
+</script>
+{{/section}}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Nội dung đăng ký thẻ độc giả</h4>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-9">
+        <form method="POST" action="/user/registerReaderCard" style="width: 100%" id="form-confirm">
+            <div class="form-group">
+                <input type="text" class="form-control" id="content_register" name="content_register" placeholder="Nguyễn Văn A. KHTN"
+                    value="">
+            </div>
+            <a class="btn btn-success" href="/" role="button" title="Back to List">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <input type="submit" value="Submit" class="btn btn-primary" id="btn-confirm" >
+        </form>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>

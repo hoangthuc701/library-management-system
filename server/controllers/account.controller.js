@@ -91,9 +91,16 @@ module.exports = {
 		await Account.delete(id);
 		res.json(true);
 	},
+	
 	readerCard: async (req, res) => {
+		console.log(req.body.content_register);
 		if (req.session.authUser.role_id != 1)
 			res.json(false);
+		var infor = {
+			account_id: req.session.authUser.id,
+			content_register: req.body.content_register
+		}
+		await Account.insertInforRegister(infor);
 		req.session.authUser.role_id = 6;
 		var accountEntity = {
 			id: req.session.authUser.id,
@@ -115,6 +122,17 @@ module.exports = {
 			List: listAccount, quantity: quantity[0]["quantity"],
 			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'stock'
 		});
+	},
+	singleUser: async(req,res) => {
+		var username = req.query.username;
+
+		var listAccount = await accountModel.loadUser(username);
+		var result = true;
+		if(listAccount.length == 0){
+			
+			result = false;
+		}
+		res.json({Result: result});
 	},
 	login: async (req, res) => {
 		// req.body.username = 'test20';
@@ -218,6 +236,9 @@ module.exports = {
 			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 		}
 	},
-
+	Infor_register: async (req,res) => {
+		const newLocal = 'user/infor_register_reader';
+    	res.render(newLocal, { layout: 'main' });
+	}
 };
 

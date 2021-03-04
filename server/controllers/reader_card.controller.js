@@ -104,6 +104,8 @@ module.exports = {
 			id: userID,
 			role_id: 5
 		}
+		var listinfor_register = await Account.LoadInfor_register(userID);
+		await Account.deleteInfor_register(listinfor_register[0]["id"]);
 		await Account.update(accountEntity);
 		var expiredDate = new Date(dateUtils.getCurrentDateTime())
 		expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
@@ -119,6 +121,8 @@ module.exports = {
 	reject: async(req,res) => {
 		const userID = +req.params.userID || -1;
 		//change user role into user after librarian rejected
+		var listinfor_register = await Account.LoadInfor_register(userID);
+		await Account.deleteInfor_register(listinfor_register[0]["id"]);
 		var accountEntity = {
 			id: userID,
 			role_id: 1

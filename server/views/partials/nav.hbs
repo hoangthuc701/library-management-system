@@ -1,5 +1,40 @@
 <!-- navigation -->
 <!-- form đăng ký tài khoản -->
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $("#btn-register").on("click", function (e) {
+            var passwordMatch = $("#password").val() === $("#repassword").val();
+
+            if (passwordMatch === false) {
+                e.preventDefault();
+
+                $("#alert").html("Mật khẩu đánh lại không khớp, vui lòng kiểm tra lại!");
+                $("#alert").css("display", "block");
+            } 
+            else {
+                e.preventDefault();
+
+                $.getJSON(`/user/checkUniqueUser&username=${$("#username").val()}`, (data) => {
+                    if (data["Result"] === true) {
+                        $("#alert").html("Email này đã được đăng kí, vui lòng kiểm tra lại!");
+                        $("#alert").css("display", "block");
+                    }
+                    if ((data["Result"] === false){
+                        $("#alert").html("Tên người dùng này đã được đăng kí, vui lòng kiểm tra lại!");
+                        $("#alert").css("display", "block");
+                    }
+                    if (data["Result"] === 0) {
+                        $("#alert").css("display", "none");
+                        $("#form-register").submit();
+                    }
+                });
+            }
+        });    
+    });
+</script>
+{{/section}}
+
 <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -34,7 +69,7 @@
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
                         id="repassword" placeholder="Nhập lại*" required>
-                    <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="submit"
+                    <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="button"
                         id="btn-register" form="form-register" hidden>
                         Đăng kí
                     </button>
@@ -42,9 +77,13 @@
             </div>
             <div class="modal-footer">
                 <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="submit"
-                    id="btn-register" form="form-register" hidden>
+                    id="btn-register" form="form-register">
                     Đăng kí
                 </button>
+                {{!-- <a href="/user/register">asdsadsa</a>
+                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc">
+                    Đăng kí
+                </button> --}}
             </div>
         </div>
     </div>
@@ -102,7 +141,7 @@
             <div class="content-topbar container h-100">
                 <div class="left-topbar">
                     <!-- nếu user chưa đăng nhập thì hiển thị cái này -->
-                    {{#unless this.lcIsAuthenticated}}                                     
+                    {{#unless this.lcIsAuthenticated}}
                     <a href="javascript:;" class="left-topbar-item" data-toggle="modal" data-target="#modal-register"
                         id="anchor-signup">
                         <i class="fa fa-user-plus" aria-hidden="true"></i> Đăng kí
@@ -128,7 +167,8 @@
                         <a class="nav-link dropdown-toggle left-topbar-item" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             style="font-family: Roboto-Regular;">
-                            <small><i class="fa fa-user" aria-hidden="true"></i> Xin chào, {{this.lcAuthUser.name}}!</small>
+                            <small><i class="fa fa-user" aria-hidden="true"></i> Xin chào,
+                                {{this.lcAuthUser.name}}!</small>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" style="z-index: 10;"
                             aria-labelledby="navbarDropdown">
@@ -137,13 +177,14 @@
                             </a>
                             {{#when lcAuthUser.role_id 'eq' 1}}
                             <!-- Khi vai trò là độc giả thì hiển thị cái này -->
-                            <a class="dropdown-item left-topbar-item" href="/user/registerReaderCard">
+                            <a class="dropdown-item left-topbar-item" href="/user/inforRegister">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Đăng ký thẻ độc giả</small>
                             </a>
                             {{/when}}
                             {{#when lcAuthUser.role_id 'eq' 6}}
                             <a class="dropdown-item left-topbar-item" href="">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Thẻ độc giả đang chờ duyệt</small>
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Thẻ độc giả đang chờ
+                                    duyệt</small>
                             </a>
                             {{/when}}
                             <!-- -->
@@ -195,7 +236,7 @@
                         </div>
                         <li class="mega-menu-item">
                             <a><i class="fa fa-list-ul" aria-hidden="true"></i></a>
-                            
+
                             <div class="sub-mega-menu">
 
                                 {{#each lcCats}}
@@ -204,7 +245,7 @@
                                 {{/each}}
                             </div>
                         </li>
-                        <form class="dropdown mr-0" method="post" action="/search-enter" id="search-box">
+                        <form class="dropdown mr-0" method="post" action="/user/search" id="search-box">
                             <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 m-r-0">
                                 <input autocomplete="on" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text"
                                     name="search" id="search" placeholder="Tìm kiếm...">

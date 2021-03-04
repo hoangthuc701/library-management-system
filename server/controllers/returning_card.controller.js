@@ -6,6 +6,7 @@ const BorrwingCardBook = require('../models/borrowing_card_book.model');
 const BookTitle = require('../models/book_title.model');
 const moment = require('moment');
 const { months } = require('moment');
+const accountModel = require('../models/account.model');
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -25,6 +26,7 @@ module.exports = {
 			pagi:functUtils.rangeOfPagination(Math.ceil(quantity[0]["quantity"] / 10), p), layout: 'adminPanel'
 		});
 	},
+	
 	getByID: async(req,res) => {
 		var id = req.params.id;
 		res.json(await ReturningCard.loadByID(id))

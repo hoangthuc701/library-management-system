@@ -10,6 +10,7 @@ const md5 = require('md5');
 const shoppingCart = require('../controllers/shopping_cart.controller');
 const accountModel = require('../models/account.model');
 const book_titleModel = require('../models/book_title.model');
+const e = require('express');
  module.exports = {
 	
 	addcart: async (req, res) => {
@@ -21,36 +22,43 @@ const book_titleModel = require('../models/book_title.model');
 			}
 		 });
 		const listBook = await BookTitle.loadByID(id);
-		if (listBook[0]["quantity"] == 0 || found === true || req.session.cart.totals == 10){
+		if (found === true || req.session.cart.totals == 10){
 			var text = 'Sản phẩm đã tồn tại trong dánh sách mượn sách, hoặc danh sách mượn sách đã đầy!'
 			var link = '/';
 			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 		}
 		else{
-			let book = {
-				id: id,
-				name: listBook[0]["name"],
-				author: listBook[0]["author"],
-				category_id: listBook[0]["category_id"],
-				image: listBook[0]["image"],
-				description: listBook[0]["description"]
+			if(listBook[0]["quantity"] == 0)
+			{
+				var text = 'Sách đã hết, không thể mượn, xin hãy chờ nhập thêm!'
+				var link = '/';
+				res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
 			}
-			req.session.cart.items.push(book);
-			req.session.cart.totals += 1;
-			console.log(req.session.cart);
-			res.redirect('/');
+			else{
+				let book = {
+					id: id,
+					name: listBook[0]["name"],
+					author: listBook[0]["author"],
+					category_id: listBook[0]["category_id"],
+					image: listBook[0]["image"],
+					description: listBook[0]["description"]
+				}
+				req.session.cart.items.push(book);
+				req.session.cart.totals += 1;
+				res.redirect('/');
+			}
 		}
 	},
 	removeFromCart: async (req, res) => {
 		var id = req.params.id;
-		for(let i = 0; i < req.session.items.length; i++) {
-			let item = req.session.items[i];
-			if(item.id === id) {
-				req.session.items.splice(i, 1);
-				req.session.totals -= 1;
+		for(let i = 0; i < req.session.cart.totals; i++) {
+			let item = req.session.cart.items[i];	
+			if(item.id == id) {
+				req.session.cart.items.splice(i, 1);
+				req.session.cart.totals -= 1;
 			}
 		}
-		res.json(true);
+		res.redirect('/user/shoppingCart/listCart');
 	},
 	Listcart: async (req, res) => {
 		res.render('user/listCart', {layout: 'stock'});

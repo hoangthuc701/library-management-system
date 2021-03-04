@@ -24,53 +24,6 @@ function formatDate(date) {
 }
 
 $(document).ready(function () {
-  $(document).on('click', '._article', function (e) {
-    e.preventDefault();
-
-    var href = $(this).attr('href');
-    var id = +$(this).attr('href').match(/\d+$/);
-
-    $.getJSON(`/reader-allow-access?id=${id}`, (data) => {
-      if (+data === -1) snackbarToggle("📢 Bài viết này dành cho độc giả Premium, vui lòng đăng nhập để có thể xem bài viết!");
-      else if (+data === 1) window.location.replace(href);
-      else snackbarToggle("📢 Vui lòng đăng kí Premium để xem bài viết!");
-    });
-  });
-
-  $("#search").on("input", function () {
-    $("#match-list").removeClass("show");
-
-    $.getJSON(`/search?key=${$("#search").val()}`, (data) => {
-      if (data.length !== 0) {
-        $("#match-list").addClass("show");
-        $("#match-list").empty();
-
-        data.forEach((val, index) => {
-          const row = `<li class="my-dropdown-item"><a href="/article/${val["id"]}">${val["TieuDe"]}</a></li>`;
-
-          if (index !== 0)
-            $("#match-list").append('<hr style="padding: 0; margin: 0;">');
-          $("#match-list").append(row);
-        });
-      }
-    });
-  });
-
-  $("#button-go-top").click(function () {
-    $(window).scrollTop(0);
-  });
-
-  $("#search").on("keypress", function (e) {
-    if (e.which === 13) {
-      $("#search-box").submit();
-    }
-  });
-
-  $(".nav-link").on("click", function () {
-    var href = $(this).attr("href");
-    window.location.replace(href);
-  });
-
   $("#btn-register").on("click", function (e) {
     var passwordMatch = $("#password").val() === $("#repassword").val();
 
@@ -82,16 +35,16 @@ $(document).ready(function () {
     } else {
       e.preventDefault();
 
-      $.getJSON(`/check-user-exist?email=${$("#email").val()}&username=${$("#username").val()}`, (data) => {
-        if (data === 1) {
+      $.getJSON(`/user/checkUniqueUser&username=${$("#username").val()}`, (data) => {
+        if (data["Result"] === true) {
           $("#alert").html("Email này đã được đăng kí, vui lòng kiểm tra lại!");
           $("#alert").css("display", "block");
         }
-        if(data === 2){
+        if((data["Result"] === false){
           $("#alert").html("Tên người dùng này đã được đăng kí, vui lòng kiểm tra lại!");
           $("#alert").css("display", "block");
         }
-        if(data === 0){
+        if(data["Result"] === 0){
           $("#alert").css("display", "none");
           $("#form-register").submit();
         }
@@ -118,13 +71,4 @@ $(document).ready(function () {
     );
   });
 
-  $('#anchor-signin').on('click', () => {
-    clearInputValue(['#_email', '#_password']);
-    $('#alert-login').css('display', 'none');
-  });
-
-  $('#anchor-signup').on('click', () => {
-    clearInputValue(['#email', '#password', '#name', '#repassword']);
-    $('#alert').css('display', 'none');
-  });
 });

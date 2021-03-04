@@ -86,9 +86,9 @@ module.exports = {
 		return res.json(true);
 	},
 	search: async (req, res) => {
-		req.body.keyword = 'author A';
 		var list = []
-		list = await BookTitle.fulltextsearch(req.body.keyword, 0);
-		res.json(list);
+		list = await BookTitle.fulltextsearch(req.body.search, 0);
+		const newLocal = 'user/viewSearch';
+    	res.render(newLocal, {List: list, layout: 'main' });
 	}
 };
