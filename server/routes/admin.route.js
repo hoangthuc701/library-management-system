@@ -120,7 +120,7 @@ router.get('/admin/account/del/:id', async function (req, res) {
     }
     res.redirect('/admin/Accounts?p=1');
 });
-//  =======================================       book title
+
 router.get('/admin/BookTitle/add', async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';
