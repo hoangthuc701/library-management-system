@@ -47,23 +47,28 @@ module.exports = {
 		//validation -- check duplicate user
 		var list = await Account.loadUser(req.body.username);
 		if (list.length != 0) {
-			return res.json(false);
+			var text = `Tài khoản đã tồn tại, vui lòng nhập tài khoản khác!`
+			var link = '/';
+			res.render('duplicateItem', {Text: text, Link: link});
 		}
 		//insert
-
-		var accountEntity = {
-			username: req.body.username,
-			password: md5(req.body.password),
-			name: req.body.name,
-			email: req.body.email,
-			phone: req.body.phone,
-			role_id: 1,
-			isBlock: 0,
-			created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-			updated_at: ''
+		else{
+			var accountEntity = {
+				username: req.body.username,
+				password: md5(req.body.password),
+				name: req.body.name,
+				email: req.body.email,
+				phone: req.body.phone,
+				role_id: 1,
+				isBlock: 0,
+				created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+				updated_at: ''
+			}
+			await Account.insert(accountEntity);
+	
+			res.redirect('/');
 		}
-		await Account.insert(accountEntity);
-		return res.json(true);
+		
 	},
 	update: async (req, res) => {
 		//validation -- check duplicate user
@@ -128,6 +133,7 @@ module.exports = {
 
 		var listAccount = await accountModel.loadUser(username);
 		var result = true;
+		console.log('cc');
 		if(listAccount.length == 0){
 			
 			result = false;

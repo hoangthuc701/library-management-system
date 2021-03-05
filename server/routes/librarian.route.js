@@ -12,15 +12,15 @@ const ReaderCard = require('../models/reader.model');
 const Account = require('../models/account.model');
 const BorrowingCardBook = require('../models/borrowing_card_book.model');
 const ReturningCard = require('../models/returning_card.model');
+const restrictLibrarian = require('../middlewares/restrictLibrarian');
 
+router.get('/librarian/accept/:userID', restrictLibrarian, readerCardController.accept);
+router.get('/librarian/reject/:userID', restrictLibrarian, readerCardController.reject);
 
-router.get('/librarian/accept/:userID',readerCardController.accept);
-router.get('/librarian/reject/:userID',readerCardController.reject);
+router.get('/librarian/awaiting', restrictLibrarian, accountController.awaiting);
 
-router.get('/librarian/awaiting', accountController.awaiting);
-
-router.get('/librarian/readerCard',readerCardController.getByOffset);
-router.get('/librarian/readerCard/getinfo/:id',readerCardController.getByID);
+router.get('/librarian/readerCard', restrictLibrarian,readerCardController.getByOffset);
+router.get('/librarian/readerCard/getinfo/:id', restrictLibrarian,readerCardController.getByID);
 router.post('/librarian/readerCard/add',readerCardController.add);
 router.get('/librarian/readerCard/del/:id',readerCardController.delete);
 

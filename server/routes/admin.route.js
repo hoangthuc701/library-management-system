@@ -21,10 +21,9 @@ const dateUtils = require('../middlewares/dateUtils')
 const multer = require('multer');
 const fs = require('fs');
 const functUtils = require('../middlewares/UtilityFunction');
-
 var path = require('path');
 const { match } = require('assert');
-
+const restrictAdmin = require('../middlewares/restrictAdmin');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -214,6 +213,21 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
         await BookTitle.delete(id);
         res.redirect('/admin/BookTitles?p=1');
     }    
+});
+
+router.post('/admin/BookTitle/search', async function (req, res) {
+    var list = []
+    var p = 0;
+    list = await BookTitle.fulltextsearch(req.body.search, p);
+    // const newLocal = 'user/viewSearch';
+    // res.render(newLocal, {List: list, layout: 'main' });
+
+    const newLocal = 'admin/BookTitle/list';
+    res.render(newLocal, {
+
+        List: list, quantity: list.length,
+        pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'adminPanel'
+    });
 });
 // ======================================= category
 router.post('/admin/Category/add', async function (req, res) {

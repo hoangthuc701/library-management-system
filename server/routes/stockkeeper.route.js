@@ -14,6 +14,7 @@ const md5 = require('md5');
 const dateUtils = require('../middlewares/dateUtils')
 const fs = require('fs');
 const functUtils = require('../middlewares/UtilityFunction');
+const restrictStocker = require('../middlewares/restrictStocker');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,7 +37,7 @@ var upload = multer({
 });
 
 //  =======================================       book title
-router.get('/stockkeeper/BookTitle', async function (req, res) {
+router.get('/stockkeeper/BookTitle', restrictStocker,async function (req, res) {
     var p = 1;
     var list = [];
     if (req.query.p)

@@ -2,38 +2,27 @@
 <!-- form đăng ký tài khoản -->
 {{#section 'js'}}
 <script>
+    function click(){
+        alert("asdasdSA");
+    }
     $(document).ready(function () {
         $("#btn-register").on("click", function (e) {
-            var passwordMatch = $("#password").val() === $("#repassword").val();
-
-            if (passwordMatch === false) {
-                e.preventDefault();
-
-                $("#alert").html("Mật khẩu đánh lại không khớp, vui lòng kiểm tra lại!");
-                $("#alert").css("display", "block");
-            } 
-            else {
-                e.preventDefault();
-
-                $.getJSON(`/user/checkUniqueUser&username=${$("#username").val()}`, (data) => {
-                    if (data["Result"] === true) {
-                        $("#alert").html("Email này đã được đăng kí, vui lòng kiểm tra lại!");
-                        $("#alert").css("display", "block");
-                    }
-                    if ((data["Result"] === false){
-                        $("#alert").html("Tên người dùng này đã được đăng kí, vui lòng kiểm tra lại!");
-                        $("#alert").css("display", "block");
-                    }
-                    if (data["Result"] === 0) {
-                        $("#alert").css("display", "none");
-                        $("#form-register").submit();
-                    }
-                });
-            }
+            e.preventDefault();
+            alert("hadsasd");
+            $.getJSON(`/user/checkUniqueUser&username=${$("#username").val()}`, (data) => {
+                if(data['Result'] == true){
+                    alert('trùng');
+                }
+            });
+        }
         });    
     });
 </script>
+
 {{/section}}
+
+
+
 
 <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -53,22 +42,22 @@
             <div class="modal-body">
                 <form id="form-register" method="POST" action="/user/register">
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="username" name="username" placeholder="Tên tài khoản*" required>
+                        id="username" name="username" placeholder="Tên tài khoản*" >
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="name" name="name" placeholder="Họ tên*" required>
+                        id="name" name="name" placeholder="Họ tên*" >
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="email"
+                        id="email" name="email" placeholder="Email*" >
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="email" name="email" placeholder="Email*" required>
-
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="phone" name="phone" placeholder="phone number*" required>
+                        id="phone" name="phone" placeholder="phone number*" >
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="password"
-                        type="password" name="password" placeholder="Mật khẩu*" required>
+                        type="password" name="password" placeholder="Mật khẩu*" >
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
-                        id="repassword" placeholder="Nhập lại*" required>
+                        id="repassword" placeholder="Nhập lại*" >
                     <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="button"
                         id="btn-register" form="form-register" hidden>
                         Đăng kí
@@ -80,10 +69,10 @@
                     id="btn-register" form="form-register">
                     Đăng kí
                 </button>
-                {{!-- <a href="/user/register">asdsadsa</a>
-                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc">
+      
+                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc" onclick="click()">
                     Đăng kí
-                </button> --}}
+                </button>
             </div>
         </div>
     </div>
@@ -172,7 +161,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" style="z-index: 10;"
                             aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item left-topbar-item" href="/account/profile">
+                            <a class="dropdown-item left-topbar-item" href="/home/profile">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> <small>Trang cá nhân</small>
                             </a>
                             {{#when lcAuthUser.role_id 'eq' 1}}
