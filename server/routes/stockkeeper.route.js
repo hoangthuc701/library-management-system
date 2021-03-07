@@ -54,7 +54,7 @@ router.get('/stockkeeper/BookTitle', restrictStocker,async function (req, res) {
     });
 });
 
-router.get('/stockkeeper/BookTitle/add', async function (req, res) {
+router.get('/stockkeeper/BookTitle/add', restrictStocker,async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'stocker/BookTitle/add';
     res.render(newLocal, { List: listCategory , layout: 'addandedit' });
@@ -88,7 +88,7 @@ router.post('/stockkeeper/BookTitle/add', upload.single('urlImage'), async funct
     }
 });
 
-router.get('/stockkeeper/BookTitle/edit/:id', async function (req, res) {
+router.get('/stockkeeper/BookTitle/edit/:id', restrictStocker,async function (req, res) {
     console.log(req.params.id);
     var listBook = await BookTitle.loadByID(+req.params.id);
     var listCategory = await Category.load();
@@ -101,7 +101,7 @@ router.post('/stockkeeper/BookTitle/edit/:id', upload.single('urlImage'), async 
     // if recieve new image, delete old image 
     var image = '';
     if (req.file) {
-        var imagePath = row[0]["image"].substring(1, row[0]["image"].length);
+        var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
         fs.unlinkSync(imagePath);
         image = req.file.filename;
 
@@ -122,8 +122,9 @@ router.post('/stockkeeper/BookTitle/edit/:id', upload.single('urlImage'), async 
     await BookTitle.update(book_titleEntity);
     res.redirect('/stockkeeper/BookTitle?p=1');
 });
-router.get('/stockkeeper/BookTitle/del/:id', async function (req, res) {
+router.get('/stockkeeper/BookTitle/del/:id', restrictStocker,async function (req, res) {
     var id = req.params.id;
+    const row = await BookTitle.loadByID(id);
     var listborrowing = await BorrowingCardBook.loadByBookID(id);
     var check = false;
     if (listborrowing.length != 0) {
@@ -134,6 +135,8 @@ router.get('/stockkeeper/BookTitle/del/:id', async function (req, res) {
             }
         }
         if (check == false) {
+            var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
+            fs.unlinkSync(imagePath);
             await BookTitle.delete(id);
             res.redirect('/stockkeeper/BookTitle?p=1');
         }
@@ -145,38 +148,50 @@ router.get('/stockkeeper/BookTitle/del/:id', async function (req, res) {
 
     }
     else {
+        var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
+        fs.unlinkSync(imagePath);
         await BookTitle.delete(id);
         res.redirect('/stockkeeper/BookTitle?p=1');
     }
     
 });
+router.post('/stockkeeper/BookTitle/search', async function (req, res) {
+    var list = []
+    var p = 0;
+    list = await BookTitle.fulltextsearch(req.body.search, p);
+    const newLocal = 'stocker/BookTitle/list';
+    res.render(newLocal, {
+        List: list, quantity: list.length,
+        pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'stock'
+    });
+});
 
 const directory = '/public/bookTitleImage/';
 
-router.get('/stockkeeper/BookTitles', bookTitleController.getByOffset);
-router.get('/stockkeeper/BookTitles/getinfo/:id', bookTitleController.getByID);
-router.post('/stockkeeper/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
-router.get('/stockkeeper/BookTitles/del/:id', bookTitleController.delete);
-router.post('/stockkeeper/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
-router.get('/stockkeeper/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
+// router.get('/stockkeeper/BookTitles', bookTitleController.getByOffset);
+// router.get('/stockkeeper/BookTitles/getinfo/:id', bookTitleController.getByID);
+// router.post('/stockkeeper/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
+// router.get('/stockkeeper/BookTitles/del/:id', bookTitleController.delete);
+// router.post('/stockkeeper/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
+// router.get('/stockkeeper/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
 
-router.get('/stockkeeper/BorrowingCard', borrowingCardController.getByOffset);
-router.get('/stockkeeper/BorrowingCard/getinfo/:id', borrowingCardController.getByID);
-router.post('/stockkeeper/BorrowingCard/add',borrowingCardController.add);
-router.get('/stockkeeper/BorrowingCard/del/:id', borrowingCardController.delete);
-router.post('/stockkeeper/BorrowingCard/edit',borrowingCardController.update);
+// router.get('/stockkeeper/BorrowingCard', borrowingCardController.getByOffset);
+// router.get('/stockkeeper/BorrowingCard/getinfo/:id', borrowingCardController.getByID);
+// router.post('/stockkeeper/BorrowingCard/add',borrowingCardController.add);
+// router.get('/stockkeeper/BorrowingCard/del/:id', borrowingCardController.delete);
+// router.post('/stockkeeper/BorrowingCard/edit',borrowingCardController.update);
 
-router.get('/stockkeeper/borrowingCardBook', borrowingCardBookController.getByOffset);
-router.get('/stockkeeper/borrowingCardBook/getinfo/:id', borrowingCardBookController.getByID);
-router.post('/stockkeeper/borrowingCardBook/add',borrowingCardBookController.add);
-router.get('/stockkeeper/borrowingCardBook/del/:id', borrowingCardBookController.delete);
-router.post('/stockkeeper/borrowingCardBook/edit',borrowingCardBookController.update);
+// router.get('/stockkeeper/borrowingCardBook', borrowingCardBookController.getByOffset);
+// router.get('/stockkeeper/borrowingCardBook/getinfo/:id', borrowingCardBookController.getByID);
+// router.post('/stockkeeper/borrowingCardBook/add',borrowingCardBookController.add);
+// router.get('/stockkeeper/borrowingCardBook/del/:id', borrowingCardBookController.delete);
+// router.post('/stockkeeper/borrowingCardBook/edit',borrowingCardBookController.update);
 
-router.get('/stockkeeper/returningCard', returningCardController.getByOffset);
-router.get('/stockkeeper/returningCard/getinfo/:id', returningCardController.getByID);
-router.post('/stockkeeper/returningCard/add',returningCardController.add);
-router.get('/stockkeeper/returningCard/del/:id',returningCardController.delete);
-router.post('/stockkeeper/returningCard/edit/:id',returningCardController.update);
+// router.get('/stockkeeper/returningCard', returningCardController.getByOffset);
+// router.get('/stockkeeper/returningCard/getinfo/:id', returningCardController.getByID);
+// router.post('/stockkeeper/returningCard/add',returningCardController.add);
+// router.get('/stockkeeper/returningCard/del/:id',returningCardController.delete);
+// router.post('/stockkeeper/returningCard/edit/:id',returningCardController.update);
 
-router.get('/stockkeeper/search',bookTitleController.search);
+// router.get('/stockkeeper/search',bookTitleController.search);
 module.exports = router;

@@ -46,12 +46,12 @@ var upload = multer({
 });
 
 const directory = '/public/bookTitleImage/';
-router.get('/admin', async function (req, res) {
+router.get('/admin', restrictAdmin,async function (req, res) {
     const newLocal = 'admin/dashboard';
     res.render(newLocal, { layout: 'adminPanel' });
 });
 
-router.get('/admin/account/add', async function (req, res) {
+router.get('/admin/account/add', restrictAdmin,async function (req, res) {
     const newLocal = 'admin/Account/add';
     res.render(newLocal, { layout: 'adminPanel' });
 });
@@ -110,7 +110,7 @@ router.post('/admin/account/edit/:id', async function (req, res) {
     res.redirect('/admin/Accounts?p=1');
     
 });
-router.get('/admin/account/del/:id', async function (req, res) {
+router.get('/admin/account/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
     var listReader = await ReaderCard.loadByUserID(id);
     await Account.delete(id);
@@ -120,7 +120,7 @@ router.get('/admin/account/del/:id', async function (req, res) {
     res.redirect('/admin/Accounts?p=1');
 });
 
-router.get('/admin/BookTitle/add', async function (req, res) {
+router.get('/admin/BookTitle/add', restrictAdmin,async function (req, res) {
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/add';
     res.render(newLocal, { List: listCategory, layout: 'adminPanel' });
@@ -154,7 +154,7 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     } 
 });
 
-router.get('/admin/BookTitle/edit/:id', async function (req, res) {
+router.get('/admin/BookTitle/edit/:id',async function (req, res) {
     console.log(req.params.id);
     var listBook = await BookTitle.loadByID(+req.params.id);
     var listCategory = await Category.load();
@@ -167,10 +167,9 @@ router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async functi
     // if recieve new image, delete old image 
     var image = '';
     if (req.file) {
-        var imagePath = row[0]["image"].substring(1, row[0]["image"].length);
+        var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
         fs.unlinkSync(imagePath);
         image = req.file.filename;
-
     }
     else {
         image = row[0]['image'];
@@ -188,8 +187,9 @@ router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async functi
     await BookTitle.update(book_titleEntity);
     res.redirect('/admin/BookTitles?p=1');
 });
-router.get('/admin/BookTitle/del/:id', async function (req, res) {
+router.get('/admin/BookTitle/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
+    const row = await BookTitle.loadByID(id);        
     var listborrowing = await BorrowingCardBook.loadByBookID(id);
     var check = false;
     if (listborrowing.length != 0) {
@@ -200,6 +200,8 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
             }
         }
         if (check == false) {
+            var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
+            fs.unlinkSync(imagePath);
             await BookTitle.delete(id);
             res.redirect('/admin/BookTitles?p=1');
         }
@@ -210,6 +212,8 @@ router.get('/admin/BookTitle/del/:id', async function (req, res) {
         }
     }
     else {
+        var imagePath = 'public/bookTitleImage/' + row[0]["image"].substring(0, row[0]["image"].length);
+        fs.unlinkSync(imagePath);
         await BookTitle.delete(id);
         res.redirect('/admin/BookTitles?p=1');
     }    
@@ -219,9 +223,6 @@ router.post('/admin/BookTitle/search', async function (req, res) {
     var list = []
     var p = 0;
     list = await BookTitle.fulltextsearch(req.body.search, p);
-    // const newLocal = 'user/viewSearch';
-    // res.render(newLocal, {List: list, layout: 'main' });
-
     const newLocal = 'admin/BookTitle/list';
     res.render(newLocal, {
 
@@ -267,14 +268,14 @@ router.get('/admin/Category/del/validation', async function (req, res) {
     }
 	res.json({ result });
 });
-router.get('/admin/Category/del/:id', async function (req, res) {
+router.get('/admin/Category/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
 	await Category.delete(id);
     res.redirect('/admin/category?p=1');
 });
 
 //=======================================borrowing card
-router.get('/admin/BorrowingCard/add', async function (req, res) {
+router.get('/admin/BorrowingCard/add', restrictAdmin,async function (req, res) {
     var listAccount = await Account.load();
     const newLocal = 'admin/BorrowingCard/add';
     res.render(newLocal, { List: listAccount, layout: 'adminPanel' });
@@ -295,7 +296,7 @@ router.post('/admin/BorrowingCard/add', async function (req, res) {
     await BorrowingCard.insert(Borrowing_cardEntity);
     res.redirect('/admin/BorrowingCard?p=1');
 });
-router.get('/admin/BorrowingCard/edit/:id', async function (req, res) {
+router.get('/admin/BorrowingCard/edit/:id', restrictAdmin,async function (req, res) {
     var id = +req.params.id;
     var listAccount = await Account.load();
     var listBorrowing = await BorrowingCard.loadByID(id);
@@ -314,7 +315,7 @@ router.post('/admin/BorrowingCard/edit/:id', async function (req, res) {
     await BorrowingCard.update(Borrowing_cardEntity);
     res.redirect('/admin/BorrowingCard?p=1');
 });
-router.get('/admin/BorrowingCard/del/:id', async function (req, res) {
+router.get('/admin/BorrowingCard/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
     var listBorrowing = await BorrowingCard.loadByID(id);
     var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);
@@ -380,7 +381,7 @@ router.post('/admin/borrowingCardBook/add', async function (req, res) {
         }
     }
 });
-router.get('/admin/borrowingCardBook/del/:id', async function (req, res) {
+router.get('/admin/borrowingCardBook/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
     var listBorrowingBook = await BorrowingCardBook.loadByID(id);
     var listBook = await BookTitle.loadByID(listBorrowingBook[0]["book_id"]);
@@ -455,7 +456,7 @@ router.post('/admin/returningCard/add', async function (req, res) {
     }
     
 });
-router.get('/admin/returningCard/del/:id', async function (req, res) {
+router.get('/admin/returningCard/del/:id', restrictAdmin,async function (req, res) {
     var id = req.params.id;
     var listReturningCard = await ReturningCard.loadByID(id);
     var listBorrowingCardBook = await BorrowingCardBook.loadByBorrowingCardID(listReturningCard[0]["borrowing_card_id"]);//load danh sach
@@ -489,51 +490,51 @@ router.get('/admin/returningCard/del/:id', async function (req, res) {
     }
 });
 
-router.get('/admin/returningCard/edit/:id', async function (req, res) {
+router.get('/admin/returningCard/edit/:id', restrictAdmin,async function (req, res) {
     var id = +req.params.id;
     var listReturningCard = await ReturningCard.loadByID(id);
     listReturningCard[0]["returned_at"] = moment(listReturningCard[0]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
     const newLocal = 'admin/ReturningCard/edit';
     res.render(newLocal, {List:listReturningCard });
 });
-router.get('/admin/BookTitles', bookTitleController.getByOffset);
+router.get('/admin/BookTitles', restrictAdmin,bookTitleController.getByOffset);
 router.get('/admin/BookTitles/getinfo/:id', bookTitleController.getByID);
-router.post('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
-router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
+// router.post('/admin/BookTitles/add', upload.single('urlImage'), bookTitleController.add);
+// router.get('/admin/BookTitles/del/:id', bookTitleController.delete);
 //router.post('/admin/BookTitles/edit', upload.single('urlImage'), bookTitleController.update);
-router.get('/admin/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
+//router.get('/admin/BookTitles/getCategory/:id', bookTitleController.getByCategoryID);
 
-router.get('/admin/BorrowingCard', borrowingCardController.getByOffset);
+router.get('/admin/BorrowingCard', restrictAdmin,borrowingCardController.getByOffset);
 router.get('/admin/BorrowingCard/getinfo/:id', borrowingCardController.getByID);
-router.post('/admin/BorrowingCard/add', borrowingCardController.add);
-router.get('/admin/BorrowingCard/del/:id', borrowingCardController.delete);
-router.post('/admin/BorrowingCard/edit', borrowingCardController.update);
+// router.post('/admin/BorrowingCard/add', borrowingCardController.add);
+// router.get('/admin/BorrowingCard/del/:id', borrowingCardController.delete);
+// router.post('/admin/BorrowingCard/edit', borrowingCardController.update);
 
-router.get('/admin/borrowingCardBook', borrowingCardBookController.getByOffset);
+router.get('/admin/borrowingCardBook', restrictAdmin,borrowingCardBookController.getByOffset);
 router.get('/admin/borrowingCardBook/getinfo/:id', borrowingCardBookController.getByID);
-router.post('/admin/borrowingCardBook/add', borrowingCardBookController.add);
-router.get('/admin/borrowingCardBook/del/:id', borrowingCardBookController.delete);
-router.post('/admin/borrowingCardBook/edit', borrowingCardBookController.update);
+// router.post('/admin/borrowingCardBook/add', borrowingCardBookController.add);
+// router.get('/admin/borrowingCardBook/del/:id', borrowingCardBookController.delete);
+// router.post('/admin/borrowingCardBook/edit', borrowingCardBookController.update);
 
-router.get('/admin/readerCard', readerCardController.getByOffset);
+router.get('/admin/readerCard', restrictAdmin,readerCardController.getByOffset);
 router.get('/admin/readerCard/getinfo/:id', readerCardController.getByID);
-router.post('/admin/readerCard/add', readerCardController.add);
-router.get('/admin/readerCard/del/:id', readerCardController.delete);
-router.post('/admin/readerCard/edit', readerCardController.update);
+// router.post('/admin/readerCard/add', readerCardController.add);
+// router.get('/admin/readerCard/del/:id', readerCardController.delete);
+// router.post('/admin/readerCard/edit', readerCardController.update);
 
-router.get('/admin/category', CategoryController.getByOffset);
+router.get('/admin/category', restrictAdmin,CategoryController.getByOffset);
 router.get('/admin/category/getinfo/:id', CategoryController.getByID);
-router.post('/admin/category/add', CategoryController.add);
-router.get('/admin/category/del/:id', CategoryController.delete);
-router.post('/admin/category/edit', CategoryController.update);
+// router.post('/admin/category/add', CategoryController.add);
+// router.get('/admin/category/del/:id', CategoryController.delete);
+// router.post('/admin/category/edit', CategoryController.update);
 
-router.get('/admin/returningCard', returningCardController.getByOffset);
+router.get('/admin/returningCard', restrictAdmin,returningCardController.getByOffset);
 router.get('/admin/returningCard/getinfo/:id', returningCardController.getByID);
 //router.post('/admin/returningCard/add', returningCardController.add);
-router.get('/admin/returningCard/del/:id', returningCardController.delete);
-router.post('/admin/returningCard/edit/:id', returningCardController.update);
+// router.get('/admin/returningCard/del/:id', returningCardController.delete);
+// router.post('/admin/returningCard/edit/:id', returningCardController.update);
 
-router.get('/admin/Accounts', accountController.getByOffset);
+router.get('/admin/Accounts', restrictAdmin,accountController.getByOffset);
 router.get('/admin/Accounts/getinfo/:id', accountController.getByID);
 //router.post('/admin/Accounts/add',accountController.add);
 //router.post('/admin/Accounts/edit/:id',accountController.update);

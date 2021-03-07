@@ -22,14 +22,14 @@ router.get('/librarian/awaiting', restrictLibrarian, accountController.awaiting)
 router.get('/librarian/readerCard', restrictLibrarian,readerCardController.getByOffset);
 router.get('/librarian/readerCard/getinfo/:id', restrictLibrarian,readerCardController.getByID);
 router.post('/librarian/readerCard/add',readerCardController.add);
-router.get('/librarian/readerCard/del/:id',readerCardController.delete);
+router.get('/librarian/readerCard/del/:id',restrictLibrarian,readerCardController.delete);
 
 router.post('/librarian/readerCard/edit/:id',readerCardController.update);
 module.exports = router;
 
 //======================================= reader card
 
-router.get('/librarian/readerCard/edit/:id', async function (req, res) {
+router.get('/librarian/readerCard/edit/:id', restrictLibrarian,async function (req, res) {
     var id = +req.params.id;
     var listReader = await ReaderCard.loadByID(id);
     listReader[0]["expirated_date"] = moment(listReader[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
@@ -38,7 +38,7 @@ router.get('/librarian/readerCard/edit/:id', async function (req, res) {
 });
 
 //=======================================borrowing card
-router.get('/librarian/BorrowingCard', async function (req, res) {
+router.get('/librarian/BorrowingCard', restrictLibrarian,async function (req, res) {
     var p = 1;
     let list = [];
     if (req.query.p)
@@ -64,7 +64,7 @@ router.get('/librarian/BorrowingCard', async function (req, res) {
     });
 });
 
-router.get('/librarian/BorrowingCard/add', async function (req, res) {
+router.get('/librarian/BorrowingCard/add',restrictLibrarian, async function (req, res) {
     var listAccount = await Account.load();
     const newLocal = 'librarian/BorrowingCard/add';
     res.render(newLocal, { List: listAccount, layout: 'addandedit'});
@@ -85,7 +85,7 @@ router.post('/librarian/BorrowingCard/add', async function (req, res) {
     await BorrowingCard.insert(Borrowing_cardEntity);
     res.redirect('/librarian/BorrowingCard?p=1');
 });
-router.get('/librarian/BorrowingCard/edit/:id', async function (req, res) {
+router.get('/librarian/BorrowingCard/edit/:id', restrictLibrarian,async function (req, res) {
     var id = +req.params.id;
     var listAccount = await Account.load();
     var listBorrowing = await BorrowingCard.loadByID(id);
@@ -93,7 +93,7 @@ router.get('/librarian/BorrowingCard/edit/:id', async function (req, res) {
     const newLocal = 'librarian/BorrowingCard/edit';
     res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit'});
 });
-router.post('/librarian/BorrowingCard/edit/:id', async function (req, res) {
+router.post('/librarian/BorrowingCard/edit/:id',async function (req, res) {
     var id = +req.params.id;
     var Borrowing_cardEntity = {
         id: id,
@@ -104,7 +104,7 @@ router.post('/librarian/BorrowingCard/edit/:id', async function (req, res) {
     await BorrowingCard.update(Borrowing_cardEntity);
     res.redirect('/librarian/BorrowingCard?p=1');
 });
-router.get('/librarian/BorrowingCard/del/:id', async function (req, res) {
+router.get('/librarian/BorrowingCard/del/:id', restrictLibrarian,async function (req, res) {
     var id = req.params.id;
     var listBorrowing = await BorrowingCard.loadByID(id);
     var listBorrowingBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowing[0]["card_id"]);
@@ -171,7 +171,7 @@ router.post('/librarian/borrowingCardBook/add', async function (req, res) {
     }
 });
 
-router.get('/librarian/borrowingCardBook/del/:id', async function (req, res) {
+router.get('/librarian/borrowingCardBook/del/:id', restrictLibrarian,async function (req, res) {
     var id = req.params.id;
     var listBorrowingBook = await BorrowingCardBook.loadByID(id);
     var listBook = await BookTitle.loadByID(listBorrowingBook[0]["book_id"]);
@@ -186,7 +186,7 @@ router.get('/librarian/borrowingCardBook/del/:id', async function (req, res) {
 });
 
 //=======================================returing card
-router.get('/librarian/returningCard', async function (req, res) {
+router.get('/librarian/returningCard', restrictLibrarian,async function (req, res) {
     var p = 1;
     var list = [];
     if (req.query.p)
@@ -264,7 +264,7 @@ router.post('/librarian/returningCard/add', async function (req, res) {
         }   
     }
 });
-router.get('/librarian/returningCard/del/:id', async function (req, res) {
+router.get('/librarian/returningCard/del/:id', restrictLibrarian,async function (req, res) {
     var id = req.params.id;
     var listReturningCard = await ReturningCard.loadByID(id);
     var listBorrowingCardBook = await BorrowingCardBook.loadByBorrowingCardID(listReturningCard[0]["borrowing_card_id"]);//load danh sach
@@ -298,7 +298,7 @@ router.get('/librarian/returningCard/del/:id', async function (req, res) {
     }
 });
 
-router.get('/librarian/returningCard/edit/:id', async function (req, res) {
+router.get('/librarian/returningCard/edit/:id', restrictLibrarian,async function (req, res) {
     var id = +req.params.id;
     var listReturningCard = await ReturningCard.loadByID(id);
     listReturningCard[0]["returned_at"] = moment(listReturningCard[0]["returned_at"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
