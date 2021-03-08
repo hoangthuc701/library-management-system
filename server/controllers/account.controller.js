@@ -11,6 +11,7 @@ const shoppingCart = require('../controllers/shopping_cart.controller');
 const accountModel = require('../models/account.model');
 const book_titleModel = require('../models/book_title.model');
 const moment = require('moment');
+const { response } = require('express');
 class Cart {
 	constructor() {
 		this.data = {};
@@ -48,8 +49,9 @@ module.exports = {
 		var list = await Account.loadUser(req.body.username);
 		if (list.length != 0) {
 			var text = `Tài khoản đã tồn tại, vui lòng nhập tài khoản khác!`
-			var link = '/';
-			res.render('duplicateItem', {Text: text, Link: link});
+			res.json({
+				error:text
+			})
 		}
 		//insert
 		else{
@@ -62,11 +64,13 @@ module.exports = {
 				role_id: 1,
 				isBlock: 0,
 				created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
-				updated_at: ''
+				updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 			}
 			await Account.insert(accountEntity);
 	
-			res.redirect('/');
+			res.json({
+				message:'Đăng ký thành công.'
+			})
 		}
 		
 	},

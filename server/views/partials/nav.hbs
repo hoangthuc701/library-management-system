@@ -2,21 +2,45 @@
 <!-- form đăng ký tài khoản -->
 {{#section 'js'}}
 <script>
-    function click(){
-        alert("asdasdSA");
+    function showError(text){
+        $('#alert').style.display = 'block';
+         $('#alert').innerHTML =text; 
     }
-    $(document).ready(function () {
-        $("#btn-register").on("click", function (e) {
-            e.preventDefault();
-            alert("hadsasd");
-            $.getJSON(`/user/checkUniqueUser&username=${$("#username").val()}`, (data) => {
-                if(data['Result'] == true){
-                    alert('trùng');
-                }
-            });
+
+    function handleRegister(){ 
+        const username=  $("input[name='username']").val();
+        const name =  $("input[name='name']").val();
+        const email= $("input[name='email']").val();
+        const phone= $("input[name='phone']").val();
+        const password = $("input[name='password']").val();
+        const repassword =  $("input[name='repassword']").val();
+
+        if (password != repassword){
+            showError('Mật khẩu không khớp với nhau.');
         }
-        });    
-    });
+
+        
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                username: $("input[name='username']").val(),
+                name: $("input[name='name']").val(),
+                email: $("input[name='email']").val(),
+                phone: $("input[name='phone']").val(),
+                password:$("input[name='password']").val()
+            }),
+        };
+
+       fetch(`http://localhost:8080/user/register`,
+            requestOptions
+        ).then(res=>res.json()).then(data=>{
+            console.log(data);
+        }); 
+    }
 </script>
 
 {{/section}}
@@ -40,7 +64,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="form-register" method="POST" action="/user/register">
+                <form id="form-register">
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
                         id="username" name="username" placeholder="Tên tài khoản*" >
 
@@ -57,22 +81,13 @@
                         type="password" name="password" placeholder="Mật khẩu*" >
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
-                        id="repassword" placeholder="Nhập lại*" >
-                    <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="button"
-                        id="btn-register" form="form-register" hidden>
-                        Đăng kí
-                    </button>
+                        id="repassword" name="repassword" placeholder="Nhập lại*" >
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" type="submit"
-                    id="btn-register" form="form-register">
-                    Đăng kí
-                </button>
-      
-                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc" onclick="click()" hidden>
-                    Đăng kí
-                </button>
+                <div class="modal-footer">
+                          <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc" onclick="handleRegister()">
+                            Đăng kí
+                        </button>
+                     </div>
             </div>
         </div>
     </div>
