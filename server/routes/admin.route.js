@@ -94,6 +94,25 @@ router.post('/admin/account/add', async function (req, res) {
 });
 router.post('/admin/account/edit/:id', async function (req, res) {
     var id = +req.params.id;
+    var listAccount = await Account.loadByID(req.body.id);
+    if (listAccount[0]['role_id'] != 5 && req.body.roleID == 5) {
+        var expiredDate = new Date(dateUtils.getCurrentDateTime())
+        expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
+
+        var Reader_cardEntity = {
+            card_id: '',
+            account_id: listAccount[0]["id"],
+            created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+            expirated_date: expiredDate,
+        }
+        await ReaderCard.insert(Reader_cardEntity);
+    }
+    else{
+        if(listAccount[0]['role_id'] == 5 && req.body.roleID != 5){
+            var listReader = await ReaderCard.loadByUserID(listAccount[0]["id"]);
+            await ReaderCard.delete(listReader[0]["id"]);
+        }
+    }
     var accountEntity = {
         id: req.body.id,
         username: req.body.username,
