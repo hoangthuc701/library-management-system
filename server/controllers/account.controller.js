@@ -152,15 +152,15 @@ module.exports = {
 		const acc = await Account.loadUser(req.body._username);
 
 		if (acc.length == 0) {
-			var text = 'Tên tài khoản không đúng!!'
-			var link = '/';
-			res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
+			res.json({
+				error: 'Tài khoản không tồn tại.'
+			})
 		}
 		else{
 			if(acc[0]["password"] != pass){
-				var text = 'Mật khẩu không đúng!!'
-				var link = '/';
-				res.render('duplicateItem', {Text: text, Link: link, layout: 'addandedit'});
+				res.json({
+					error:'Mật khẩu không đúng.'
+				})
 			}
 			else{
 				if (acc[0]["role_id"] == 5) {
@@ -188,7 +188,7 @@ module.exports = {
 					username: acc[0]["username"], id: acc[0]["id"], name: acc[0]["name"], email: acc[0]["email"], phone: acc[0]["phone"],
 					role_id: acc[0]["role_id"], isBlock: acc[0]["isBlock"]
 				};
-				res.redirect('/');
+				res.json({message:'ok'});
 			}
 		}
 	},
