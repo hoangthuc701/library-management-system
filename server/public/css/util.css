@@ -2487,8 +2487,7 @@ iframe {border: none;}
 .flex-wr-sa-s, .flex-wr-sa-c, .flex-wr-sa-e, .flex-wr-sa-st,
 .flex-col-wr, .flex-colrev-wr,
 .flex-row-wr, .flex-rowrev-wr,
-.flex-wr {flex-wrap: wrap;}
-
+.flex-wr {display:wrap;flex-wrap: wrap;}
 .flex-col-wr-s-s, .flex-col-wr-s-c, .flex-col-wr-s-e, .flex-col-wr-s-st,
 .flex-colrev-wr-s-s, .flex-colrev-wr-s-c, .flex-colrev-wr-s-e, .flex-colrev-wr-s-st,
 .flex-row-wr-s-s, .flex-row-wr-s-c, .flex-row-wr-s-e, .flex-row-wr-s-st,

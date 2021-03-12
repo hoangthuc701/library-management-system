@@ -2,7 +2,7 @@ const moment = require('moment');
 
 module.exports = {
     getCurrentDateTime: ()=>{
-        return new moment();
+        return new moment().format('YYYY-MM-DD hh:mm:ss');
     },
     formatDateTimeSQL: function (value) {
         const sqlDate = new Date(value);

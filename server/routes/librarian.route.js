@@ -29,12 +29,13 @@ module.exports = router;
 
 //======================================= reader card
 
-router.get('/librarian/readerCard/edit/:id', restrictLibrarian,async function (req, res) {
-    var id = +req.params.id;
+router.get('/librarian/readerCard/edit', restrictLibrarian,async function (req, res) {
+    var id = +req.query.id;
     var listReader = await ReaderCard.loadByID(id);
     listReader[0]["expirated_date"] = moment(listReader[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY-MM-DD');
     newLocal = 'librarian/ReaderCard/edit';
-    res.render(newLocal, { List: listReader, layout: 'addandedit' });
+    console.log("asdsadsadsadsad");
+    res.render(newLocal, { List: listReader});
 });
 
 //=======================================borrowing card
@@ -56,7 +57,7 @@ router.get('/librarian/BorrowingCard', restrictLibrarian,async function (req, re
             list[i].push(brDetail);
         });
     };
-    console.log(list[0][2]);
+    
     newLocal = 'librarian/BorrowingCard/list';
     res.render(newLocal, {
         List: list, quantity: quantity[0]["quantity"],
@@ -67,7 +68,7 @@ router.get('/librarian/BorrowingCard', restrictLibrarian,async function (req, re
 router.get('/librarian/BorrowingCard/add',restrictLibrarian, async function (req, res) {
     var listAccount = await Account.load();
     const newLocal = 'librarian/BorrowingCard/add';
-    res.render(newLocal, { List: listAccount, layout: 'addandedit'});
+    res.render(newLocal, { List: listAccount});
 });
 router.post('/librarian/BorrowingCard/add', async function (req, res) {
     req.body.borrowed_date = dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime());
@@ -85,13 +86,13 @@ router.post('/librarian/BorrowingCard/add', async function (req, res) {
     await BorrowingCard.insert(Borrowing_cardEntity);
     res.redirect('/librarian/BorrowingCard?p=1');
 });
-router.get('/librarian/BorrowingCard/edit/:id', restrictLibrarian,async function (req, res) {
-    var id = +req.params.id;
+router.get('/librarian/BorrowingCard/edit', restrictLibrarian,async function (req, res) {
+    var id = +req.query.id;
     var listAccount = await Account.load();
     var listBorrowing = await BorrowingCard.loadByID(id);
     listBorrowing[0]["returned_date"] = moment(listBorrowing[0]["returned_date"], 'YYYY/MM/DD').format('YYYY-MM-DD');
     const newLocal = 'librarian/BorrowingCard/edit';
-    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit'});
+    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount});
 });
 router.post('/librarian/BorrowingCard/edit/:id',async function (req, res) {
     var id = +req.params.id;

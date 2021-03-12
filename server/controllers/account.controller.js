@@ -50,7 +50,7 @@ module.exports = {
 		if (list.length != 0) {
 			var text = `Tài khoản đã tồn tại, vui lòng nhập tài khoản khác!`
 			res.json({
-				error:text
+				message:text
 			})
 		}
 		//insert
@@ -113,7 +113,8 @@ module.exports = {
 		req.session.authUser.role_id = 6;
 		var accountEntity = {
 			id: req.session.authUser.id,
-			role_id: 6//change role into awaiting for approval
+			role_id: 6,//change role into awaiting for approval
+			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await Account.update(accountEntity);
 		res.redirect('/');
@@ -165,7 +166,6 @@ module.exports = {
 				if (acc[0]["role_id"] == 5) {
 					const card = await readerCard.loadByUserID(acc[0]["id"]);
 					//const TH = moment(card[0]["expirated_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
-					console.log(card[0]["expirated_date"]);
 					let cardDate = new Date(card[0]["expirated_date"]);
 					var currentDate = new Date(dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()));
 					if (currentDate > cardDate) {

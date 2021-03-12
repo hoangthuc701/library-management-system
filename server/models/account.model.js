@@ -28,7 +28,7 @@ module.exports = {
         return db.del(TBL_ACCOUNT, condition);
     },
     awaiting: function(offset){
-        return db.load(`select a.*, i.content_register from ${TBL_ACCOUNT} a, infor_register_reader i where a.id = i.account_id and a.role_id = 6 LIMIT 10 OFFSET ${offset}`);
+        return db.load(`select a.*, i.content_register from ${TBL_ACCOUNT} a, infor_register_reader i where a.id = i.account_id and a.role_id = 6 order by UNIX_TIMESTAMP(a.updated_at) LIMIT 10 OFFSET ${offset}`);
     },
     quantityAwaiting: () =>{
         return db.load(`select count(*) as quantity from ${TBL_ACCOUNT} where role_id = 6`);
@@ -43,7 +43,7 @@ module.exports = {
         return db.load(`select count(*) as quantity from ${TBL_ACCOUNT}`);
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT * FROM ${TBL_ACCOUNT} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT * FROM ${TBL_ACCOUNT} order by UNIX_TIMESTAMP(created_at) DESC LIMIT 10 OFFSET ${offset}`)
     },
     LoadInfor_register: (userID) =>{
         return db.load(`SELECT * FROM infor_register_reader where account_id = ${userID}`)

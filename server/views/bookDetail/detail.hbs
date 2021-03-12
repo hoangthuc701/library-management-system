@@ -1,101 +1,48 @@
+
 {{#section 'title'}}
-{{this._book.TieuDe}}
+{{this._book.name}}
 {{/section}}
 
 {{#section 'js'}}
 <script src="../../public/js/book.js"></script>
-
 {{/section}}
 
 
 
-<div class="container">
-    <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1">
-        <div class="f2-s-1 p-r-30 m-tb-6">
-            <a href="/" class="breadcrumb-item f1-s-3 cl9">
-                Trang chủ
-            </a>
-
-            <a href="/category/{{this._book.category_id}}" class="breadcrumb-item f1-s-3 cl9">
-                {{this._relatedBook.0.catname}}
-            </a>
-            <span class="breadcrumb-item f1-s-3 cl9">
-                {{this._book.name}}
-            </span>
-        </div>
-    </div>
-</div>
 <!-- Content -->
-<section class="bg0 p-b-140">
-    {{!-- <div class="bg-img1 size-a-18 how-overlay1"
-        style="background-image: url(../../public/bookTitleImage/{{this._book.image}});"> --}}
-        {{!-- <div class="container h-full flex-col-e-c p-b-58">
-            <a href="/category/{{this._relatedBook.0.catname}}"
-                class="f1-s-10 cl0 hov-cl10 trans-03 text-uppercase txt-center m-b-33">
-                {{this._relatedBook.0.catname}}
-            </a>
-
-            <h3 class="f1-l-5 cl0 p-b-16 txt-center respon2">
-                {{this._book.TieuDe}}
-            </h3>
-
-            <div class="flex-wr-c-s">
-                <span class="f1-s-3 cl8 m-rl-7 txt-center ">
-                    <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03 text-white">
-                        {{this._book.author}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+    <div class="container" style= "background-color:#ffe4b3;">
+        <div class="row" style = "background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1" style = "background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Trang chủ 
                     </a>
 
-                    <span class="m-rl-3">-</span>
-
-                    <span class = "text-white">
-                        {{formatDate this._book.created_at}}
+                    <a href="/category/{{this._book.category_id}}" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        {{this._book.catname}}
+                    </a>
+                    <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        {{this._book.name}}
                     </span>
-                </span>
-
-                <span class="f1-s-3 cl8 m-rl-7 txt-center text-white">
-                    {{this._book.view}} <i class="fa fa-eye" aria-hidden="true"></i>
-                </span>
-
-                <a href="javascript:;" class="f1-s-3 cl8 m-rl-7 txt-center hov-cl10 trans-03 text-white" id="head-quantity">
-                    {{this.quantity.0.SoLuong}} <i class="fa fa-comment" aria-hidden="true"></i>
-                </a>
+                </div>
             </div>
         </div>
-    </div> --}}
-
-    <div class="container">
         <div class="row">
             <div class="col-md-10 col-lg-8 p-b-50">
                 <div class="p-r-10 p-r-0-sr991">
                     <div class="p-b-70">
-                        <p class="p-b-50 mt-5">
+                        <p class="p-b-50 mt-5" style= "word-break: break-all;">
                             &emsp;<i class="fa fa-pencil fa-flip-horizontal" aria-hidden="true"></i>
                             {{this._book.description}}
                         </p>
                         <div class="col-md-6 p-rl-1 p-b-2">
+                            
                             <div class="bg-img1 size-a-3 how1 pos-relative"
                                 style="background-image: url(../../public/bookTitleImage/{{this._book.image}});">
-                                <div class="d-flex justify-content-between" style="margin-left: 120%;">
-                                    {{#when lcAuthUser.role_id 'eq' 5}}
-                                    <a href="/user/shoppingCart/addcart/{{this._book.id}}" class="btn btn-danger">
-                                        <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
-                                        Thêm vào danh sách mượn
-                                    </a>
-                                    {{/when}}
-                                    {{#when lcAuthUser.role_id 'eq' 1}}
-                                        <a href="" class="btn btn-danger">
-                                            <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
-                                            Chỉ có độc giả mới có thể mượn sách
-                                        </a>
-                                    {{/when}}
-                                    {{#when lcAuthUser.role_id 'eq' 6}}
-                                        <a href="" class="btn btn-danger">
-                                            <i class="fa fa-shopping-cart" style="font-size:24px" aria-hidden="true"></i>
-                                            Thẻ độc giả chưa được duyệt
-                                        </a>
-                                    {{/when}}
-                                </div>
+                                
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
+
                                     <a href="/category/{{this._book.category_id}}"
                                         class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
                                         {{this._relatedBook.0.catname}}
@@ -111,96 +58,108 @@
 
                                         <span class="text-white">
                                             {{formatDate this._book.created_at}}
+                                        </span><br>
+                                        <span class="text-white">
+                                            {{this._book.view}} lượt xem
                                         </span>
                                     </span>
-                                    
+                                    {{#when lcAuthUser.role_id 'eq' 5}}
+                            <a href="/user/shoppingCart/addcart/{{this._book.id}}" class="btn btn-success m-t-5"
+                            style="background-image:url('../../public/bookTitleImage/wood-card.jpg');">
+                                <i class="fa fa-hand-o-right " style="font-size:20px" aria-hidden="true"></i>
+                                Mượn sách
+                            </a>
+                            {{/when}}
                                 </div>
+
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <!-- list of comments -->
+                    <!-- list of comments -->
                     <div class="pb-5">
                         <h4 class="f1-l-4 cl3 p-b-12">
-                            <i class="fa fa-comments fa-lg" aria-hidden="true"></i> Comment
+                            <i class="fa fa-comment fa-lg" aria-hidden="true"></i> Bình luận
                             <small id="tail-quantity">({{this.quantity.0.SoLuong}})</small>
                         </h4>
                     </div>
-                    <section class="bg0">
+                    
+                    <div>
+                        <h4 class="f1-l-4 cl3 p-b-12">
+                            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>Bạn cảm thấy sách này như thế nào ?
+                        </h4>
+
+                        {{#unless lcIsAuthenticated}}
+                        <p class="f1-s-13 cl8 p-b-40 font-italic">
+                            <span class="text-danger">Bạn phải đăng nhập để có thể bình luận</span> 
+                        </p>
+                        {{/unless}}
+                        {{#if lcIsAuthenticated}}
+                        <div>
+                            <input type="hidden" id="book-comment-id" value="{{this._book.id}}">
+                            <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14" id="msg" name="comment"
+                                placeholder="Để lại ý kiến của bạn tại đây..." style="background-color: #cc9966; color:white;"></textarea>
+                            
+                            <button id="btn-send-msg" class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-b-10">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                Gửi
+                            </button>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <section class="bg0" style="background-image:url(../../public/bookTitleImage/wood-footer.jpg);">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="p-r-10 p-r-0-sr991">
-                                        <div class="m-t--40" id="users-comments">
-                                            {{#each this._comments}}
-                                            <div class="flex-wr-sb-s p-t-15 p-b-15 how-bor2">
-                                                <div class="cl8 w-100">
-                                                    <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
-                                                        {{username}}
-                                                    </a>
-
-                                                    <span class="f1-s-3 m-rl-3">
-                                                        -
-                                                    </span>
-
-                                                    <span class="f1-s-3">
-                                                        <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
-                                                        {{formatDate Created}}
-                                                    </span>
-                                                </div>
-
-                                                <p class="f1-s-1 cl6 p-t-13">
-                                                    {{comment}}
-                                                </p>
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                        <div class="flex-wr-c-c m-rl--7 p-t-15 float-right" id="comments-area">
+                                    <div class="p-r-10 p-r-0-sr991" >
+                                        <div class="flex-wr m-rl--7 p-t-15 " id="comments-area">
                                             <input type="hidden" id="bookID" value="{{this._book.id}}">
-                                            <button class="flex-c-c page-link hov-btn2 trans-03 m-all-7"
-                                                {{#when this._pagi.0.value 'eq' -1}}style="display: none;"
+                                            <button class="page-link hov-btn2 trans-03 m-all-7"
+                                                {{#when this._pagi.0.value 'eq' -1}}style="background-image:url(../../public/bookTitleImage/wood-button.jpg);display: none;"
                                                 {{/when}}>1</button>
                                             {{#each this._pagi}}
                                             {{#when @index 'gt' 0}}{{#when value 'noteq' -1}}
                                             <button
-                                                class="flex-c-c page-link hov-btn2 trans-03 m-all-7">{{value}}</button>
+                                                class="page-link hov-btn2 trans-03 m-all-7" style ="background-image:url(../../public/bookTitleImage/wood-button.jpg)">{{value}}</button>
                                             {{else}}
-                                            <button class="flex-c-c page-link hov-btn2 trans-03 m-all-7"
-                                                style="display: none;"></button>
+                                            <button class="page-link hov-btn2 trans-03 m-all-7"
+                                                style="display: none;background-image:url(../../public/bookTitleImage/wood-button.jpg)"></button>
                                             {{/when}}{{/when}}
                                             {{/each}}
                                         </div>
+                                        <div class="m-t-30" id="users-comments" >
+                                            {{#each this._comments}}
+                                            <div class="flex-wr-sb-s p-t-15 p-b-20 how-bor2">
+                                                <div class="cl8 w-100 al-self-s">
+                                                    <a class="f1-s-4 cl8 hov-cl10 trans-03 " style="color: white; background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                                                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                                                        {{username}}
+                                                    </a>
+                                                    
+                                                    <span class="f1-s-3 m-rl-3">
+                                                        -
+                                                    </span>
+                                                    <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03 " style="color: white; background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                                                        <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                                                        {{formatDateTime Created}}
+                                                    </a>
+                                                    <p class="f1-s-1 cl6 p-t-20 p-b-20 p-l-20 flex-wr" style="color:darkslategrey; background-color:#f9f2ec;word-break:break-all">
+                                                        {{comment}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <div>
-                        <h4 class="f1-l-4 cl3 p-b-12">
-                            <i class="fa fa-commenting fa-lg" aria-hidden="true"></i> Để lại ý kiến của bạn
-                        </h4>
-
-                        {{#unless lcIsAuthenticated}}
-                        <p class="f1-s-13 cl8 p-b-40 font-italic">
-                            <span class="text-danger"><strong>*</strong></span> Bạn phải đăng nhập để sử dụng tính năng
-                            này.
-                        </p>
-                        {{/unless}}
-
-                        <div>
-                            <input type="hidden" id="book-comment-id" value="{{this._book.id}}">
-                            <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20"
-                                id="msg" name = "comment" placeholder="Để lại ý kiến của bạn tại đây..."></textarea>
-
-                            <button id="btn-send-msg"
-                                class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
-                                Gửi
-                            </button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             {{!-- related book --}}
@@ -209,26 +168,26 @@
                     <div class="p-b-30">
                         <div class="how2 how2-cl4 flex-s-c">
                             <h3 class="f1-m-2 cl3 tab01-title">
-                                <i class="fas fa-align-left" aria-hidden="true"></i> Các sách liên quan
+                                <i class="fa fa-book" aria-hidden="true"></i> Các sách liên quan
                             </h3>
                         </div>
 
                         <ul class="p-t-35">
                             {{#each this._relatedBook}}
                             <li class="flex-wr-sb-s p-b-30" title="{{description}}">
-                                <a href="/bookDetail/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03 _book">
+                                <a href="/bookDetail/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03">
                                     <img src="../../public/bookTitleImage/{{image}}" alt="IMG">
                                 </a>
 
                                 <div class="size-w-11">
                                     <h6 class="p-b-4">
-                                        <a href="/bookDetail/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03 _book">
+                                        <a href="/bookDetail/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03">
                                             {{name}}
                                         </a>
                                     </h6>
 
                                     <span class="cl8 txt-center p-b-24">
-                                        <a href="/category/{{ChuyenMucID}}"
+                                        <a href="/category/{{categoryID}}"
                                             class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
                                             {{catname}}
                                         </a>

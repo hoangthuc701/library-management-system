@@ -192,225 +192,241 @@
 </style>
 
 {{/section}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+  <div class="container" style="background-color:#ffe4b3;">
+    <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+      <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+        style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+        <div class="f2-s-1 p-r-30 m-tb-6">
+          <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+            Trang chủ
+          </a>
+          <a href="/home/profile" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+            Trang cá nhân
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="background-color:#ffe4b3;">
+    <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+      <div class="col-12">
+        <div class="card mt-3 mb-5">
+          <div class="card-body" style="background-color: #ffe6cc;">
+            <div class="card-title mb-4">
+              <div class="d-flex justify-content-start">
+              </div>
 
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="card-title mb-4">
-          <div class="d-flex justify-content-start">
-          </div>
+              <div class="row">
+                <div class="col-12">
 
-          <div class="row">
-            <div class="col-12">
+                  <div class="tab-content ml-1" id="myTabContent">
+                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                      aria-labelledby="basicInfo-tab">
 
-              <div class="tab-content ml-1" id="myTabContent">
-                <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                      <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                          <label style="font-weight:bold;">Tên tài khoản:</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                          {{lcAuthUser.username}}
 
-                  <div class="row">
-                    <div class="col-sm-3 col-md-2 col-5">
-                      <label style="font-weight:bold;">Tên tài khoản:</label>
-                    </div>
-                    <div class="col-md-8 col-6">
-                      {{lcAuthUser.username}}
+                        </div>
+                      </div>
+                      <hr />
 
-                    </div>
-                  </div>
-                  <hr />
+                      <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                          <label style="font-weight:bold;">Họ và tên:</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                          {{lcAuthUser.name}}
 
-                  <div class="row">
-                    <div class="col-sm-3 col-md-2 col-5">
-                      <label style="font-weight:bold;">Họ và tên:</label>
-                    </div>
-                    <div class="col-md-8 col-6">
-                      {{lcAuthUser.name}}
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                          <label style="font-weight:bold;">Email:</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                          {{lcAuthUser.email}}
 
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3 col-md-2 col-5">
-                      <label style="font-weight:bold;">Email:</label>
-                    </div>
-                    <div class="col-md-8 col-6">
-                      {{lcAuthUser.email}}
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                          <label style="font-weight:bold;">Số điện thoại</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                          {{lcAuthUser.phone}}
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                          <label style="font-weight:bold;">vai trò</label>
+                        </div>
+                        {{#when lcAuthUser.role_id 'eq' 1}}
+                        <div class="col-md-8 col-6">
+                          Người dùng
+                        </div>
+                        {{/when}}
+                        {{#when lcAuthUser.role_id 'eq' 2}}
+                        <div class="col-md-8 col-6">
+                          Admin
+                        </div>
+                        {{/when}}
+                        {{#when lcAuthUser.role_id 'eq' 3}}
+                        <div class="col-md-8 col-6">
+                          Thủ kho
+                        </div>
+                        {{/when}}
+                        {{#when lcAuthUser.role_id 'eq' 4}}
+                        <div class="col-md-8 col-6">
+                          Thủ thư
+                        </div>
+                        {{/when}}
+                        {{#when lcAuthUser.role_id 'eq' 5}}
+                        <div class="col-md-8 col-6">
+                          Độc giả
+                        </div>
+                        {{/when}}
+                        {{#when lcAuthUser.role_id 'eq' 6}}
+                        <div class="col-md-8 col-6">
+                          Thẻ độc giả đang chờ duyệt
+                        </div>
+                        {{/when}}
+                      </div>
+                      <hr />
+                      <div>
+                        {{#when lcAuthUser.role_id 'eq' 5}}
+                        <div class="card" style="background-color: #ffe6cc;">
 
+                          <table class="table mb-5" id="tableCategory">
+                            <thead>
+                              <tr
+                                style="color: cornsilk;background-image: url('../../public/bookTitleImage/wood-button.jpg');">
+                                <th scope="col" class="text-left" style="width: 10%; color:white">#</th>
+                                <th scope="col" class="text-left" style="color:white">Tên Phiếu
+                                  mượn</th>
+                                <th scope="col" class="text-left" style="color:white">Ngày mượn
+                                </th>
+                                <th scope="col" class="text-left" style="color:white">Thời hạn
+                                </th>
+                                <th scope="col" class="text-left" style="color:white">View
+                                  detail</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbodyCateParent" style="background-color:#d9b38c;">
+                              {{#each List}}
+                              <tr>
+                                <th scope="row" class="text-left" id="tdParentIndex{{this.0.id}}">
+                                  <p style="color: black;">{{this.0.id}}</p>
+                                </th>
+                                <td class="text-left">
+                                  <p style="color: black;">{{this.0.card_id}}</p>
+                                </td>
+                                <td class="text-left">
+                                  <p style="color: black;">{{this.0.borrowed_date}}</p>
+                                </td>
+                                <td class="text-left">
+                                  <p style="color: black;">{{this.0.returned_date}}</p>
+                                </td>
+                                <td class="text-left">
+                                  <button type="button" class="btn btn-primary" onclick="viewDetail({{this.0.id}})"><i
+                                      class="fa fa-eye" aria-hidden="true"></i></button>
+                                </td>
+                              </tr>
+
+                              <tr id="row{{this.0.id}}" style="display:none">
+                                <td style="background-color: #ffe6cc;"></td>
+                                <td colspan="3">
+                                  <table id="tableChild{{this.0.id}}" class="table table-hover">
+                                    <thead>
+                                      <tr style="background-color:#60401f;">
+                                        <th scope="col" class="text-left" style="width: 20%; color:white;">#</th>
+                                        <th scope="col" class="text-left" style="color:white;">Hình</th>
+                                        <th scope="col" style="width: 60%; color:white;" class="text-center">Sách</th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody id="tbodyCateChild{{this.1.id}}" style="background-color: #f3e6d8;">
+                                      {{#each this}}
+                                      {{#if (isNotEqual @index 0)}}
+                                      <tr class="childRow">
+                                        <td class="text-left">
+                                          <p style="color: black;">
+                                            {{borrowing_card_id}}</p>
+                                        </td>
+                                        <td>
+                                          <img class="card-img-top" src="../../../public/bookTitleImage/{{this.image}}"
+                                            style="width: 30px; height:50px" alt="Card image cap">
+                                        </td>
+                                        <td class="text-center">
+                                          <p style="color: black;">{{this.name}}</p>
+                                        </td>
+                                      </tr>
+                                      {{/if}}
+                                      {{/each}}
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              {{/each}}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      {{/when}}
                     </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3 col-md-2 col-5">
-                      <label style="font-weight:bold;">Số điện thoại</label>
-                    </div>
-                    <div class="col-md-8 col-6">
-                      {{lcAuthUser.phone}}
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3 col-md-2 col-5">
-                      <label style="font-weight:bold;">vai trò</label>
-                    </div>
-                    {{#when lcAuthUser.role_id 'eq' 1}}
-                    <div class="col-md-8 col-6">
-                      Người dùng
-                    </div>
-                    {{/when}}
-                    {{#when lcAuthUser.role_id 'eq' 2}}
-                    <div class="col-md-8 col-6">
-                      Admin
-                    </div>
-                    {{/when}}
-                    {{#when lcAuthUser.role_id 'eq' 3}}
-                    <div class="col-md-8 col-6">
-                      Thủ kho
-                    </div>
-                    {{/when}}
-                    {{#when lcAuthUser.role_id 'eq' 4}}
-                    <div class="col-md-8 col-6">
-                      Thủ thư
-                    </div>
-                    {{/when}}
                     {{#when lcAuthUser.role_id 'eq' 5}}
-                    <div class="col-md-8 col-6">
-                      Độc giả
-                    </div>
-                    {{/when}}
-                    {{#when lcAuthUser.role_id 'eq' 6}}
-                    <div class="col-md-8 col-6">
-                      Thẻ độc giả đang chờ duyệt
-                    </div>
-                    {{/when}}
-                  </div>
-                  <hr />
-                  <div>
-                    {{#when lcAuthUser.role_id 'eq' 5}}
+                    {{!-- Phiếu trả --}}
                     <div class="card">
-                      <div class="col-md-8 col-6">
-                        Danh sách phiếu mượn
+
+                      <div class="card-header d-flex justify-content-between" style="width: 100%;">
                       </div>
                       <table class="table table-hover" id="tableCategory">
                         <thead>
                           <tr style="background-color:cornflowerblue">
                             <th scope="col" class="text-left" style="width: 10%; color:black">#</th>
-                            <th scope="col" class="text-left" style="color:black">Tên Phiếu
-                              mượn</th>
-                            <th scope="col" class="text-left" style="color:black">Ngày mượn
-                            </th>
-                            <th scope="col" class="text-left" style="color:black">Thời hạn
-                            </th>
-                            <th scope="col" class="text-left" style="color:black">View
-                              detail</th>
+                            <th scope="col" class="text-left" style="color:black">Mã Phiếu mượn</th>
+                            <th scope="col" class="text-left" style="color:black">tiền phạt</th>
+                            <th scope="col" class="text-left" style="color:black">Ngày trả</th>
                           </tr>
                         </thead>
                         <tbody id="tbodyCateParent" style="background-color:lavender;">
-                          {{#each List}}
+                          {{#each ListReturning}}
                           <tr>
-                            <th scope="row" class="text-left" id="tdParentIndex{{this.0.id}}">
-                              <p style="color: black;">{{this.0.id}}</p>
+                            <th scope="row" class="text-left" id="tdParentIndex{{id}}">
+                              <p style="color:black">{{this.0.id}}</p>
                             </th>
                             <td class="text-left">
-                              <p style="color: black;">{{this.0.card_id}}</p>
+                              <p style="color: black;">{{this.0.borrowing_card_id}}</p>
                             </td>
                             <td class="text-left">
-                              <p style="color: black;">{{this.0.borrowed_date}}</p>
+                              <p style="color: black;">{{this.0.penalty_cost}}</p>
                             </td>
                             <td class="text-left">
-                              <p style="color: black;">{{this.0.returned_date}}</p>
-                            </td>
-                            <td class="text-left">
-                              <button type="button" class="btn btn-primary" onclick="viewDetail({{this.0.id}})"><i
-                                  class="fa fa-eye" aria-hidden="true"></i></button>
-                            </td>
-                          </tr>
-
-                          <tr id="row{{this.0.id}}" style="display:none">
-                            <td></td>
-                            <td colspan="3">
-                              <table id="tableChild{{this.0.id}}" class="table table-hover">
-                                <thead>
-                                  <tr style="background-color:lightgray">
-                                    <th scope="col" class="text-left" style="width: 20%">#</th>
-                                    <th scope="col" class="text-left">Hình</th>
-                                    <th scope="col" style="width: 60%;" class="text-center">Sách</th>
-                                  </tr>
-                                </thead>
-
-                                <tbody id="tbodyCateChild{{this.1.id}}">
-                                  {{#each this}}
-                                  {{#if (isNotEqual @index 0)}}
-                                  <tr id="row{{ChuyenMucCon}}" class="childRow">
-                                    <td class="text-left">
-                                      <p style="color: black;">
-                                        {{borrowing_card_id}}</p>
-                                    </td>
-                                    <td>
-                                      <img class="card-img-top" src="../../../public/bookTitleImage/{{this.image}}"
-                                        style="width: 30px; height:50px" alt="Card image cap">
-                                    </td>
-                                    <td class="text-center">
-                                      <p style="color: black;">{{this.name}}</p>
-                                    </td>
-                                  </tr>
-                                  {{/if}}
-                                  {{/each}}
-                                </tbody>
-                              </table>
+                              <p style="color: black;">{{this.0.returned_at}}</p>
                             </td>
                           </tr>
                           {{/each}}
                         </tbody>
                       </table>
                     </div>
+                    {{/when}}
                   </div>
-                  {{/when}}
-                </div>
-                {{#when lcAuthUser.role_id 'eq' 5}}
-                {{!-- Phiếu trả --}}
-                <div class="card">
-                  <div class="col-md-8 col-6">
-                    Danh sách phiếu mượn đã được trả
-                  </div>
-                  <div class="card-header d-flex justify-content-between" style="width: 100%;">
-                  </div>
-                  <table class="table table-hover" id="tableCategory">
-                    <thead>
-                      <tr style="background-color:cornflowerblue">
-                        <th scope="col" class="text-left" style="width: 10%; color:black">#</th>
-                        <th scope="col" class="text-left" style="color:black">Mã Phiếu mượn</th>
-                        <th scope="col" class="text-left" style="color:black">tiền phạt</th>
-                        <th scope="col" class="text-left" style="color:black">Ngày trả</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbodyCateParent" style="background-color:lavender;">
-                      {{#each ListReturning}}
-                      <tr>
-                        <th scope="row" class="text-left" id="tdParentIndex{{id}}">
-                          <p style="color:black">{{this.0.id}}</p>
-                        </th>
-                        <td class="text-left">
-                          <p style="color: black;">{{this.0.borrowing_card_id}}</p>
-                        </td>
-                        <td class="text-left">
-                          <p style="color: black;">{{this.0.penalty_cost}}</p>
-                        </td>
-                        <td class="text-left">
-                          <p style="color: black;">{{this.0.returned_at}}</p>
-                        </td>
-                      </tr>
-                      {{/each}}
-                    </tbody>
-                  </table>
-                </div>
-                {{/when}}
-              </div>
-              
-            </div>
 
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
+</section>

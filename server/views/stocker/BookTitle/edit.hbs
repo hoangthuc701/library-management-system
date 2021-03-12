@@ -1,51 +1,105 @@
-<div class="card">
-    <div class="card-header">
-        <h4>sửa sách</h4>
-    </div>
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-9">
-        <form method="POST" action="" enctype="multipart/form-data" style="width: 100%" id="form-confirm">
-            <div class="form-group">
-                <label for="Cname">tên sách</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Tên sách"
-                    value="{{this.ListBook.0.name}}">
+{{#section 'js'}}
+<script>
+    $(function () {
+        $('#urlImage').change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "jfif")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#showImg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+
+    });
+</script>
+{{/section}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+                style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Trang chủ
+                    </a>
+                    <a href="/stockkeeper/BookTitle?p=1" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Quản lý đầu sách
+                    </a>
+                    <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Sửa sách
+                    </span>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="Cauthor">Tác giả</label>
-                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả"
-                    value="{{this.ListBook.0.author}}">
-            </div>
-            <div class="form-group">
-                <label for="Cquantity">Số lượng</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder=""
-                    value="{{this.ListBook.0.quantity}}">
-            </div>
-            <div class="form-group">
-                <label for="Cdescription">Mô tả</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Mô tả"
-                    value="{{this.ListBook.0.description}}">
-            </div>
-            <div class="form-group">
-                <label for="Ccategory">Chuyên mục</label>
-                <select id="cbCategory" name="categoryID" class="form-control" onchange="cbRoleChange({{id}})">
-                    {{#each this.Listcate}}
-                    <option value="{{id}}" {{#when id 'eq' 1}}selected{{/when}}>{{name}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="txtImage">Ảnh đại diện bài viết:</label><br>
-                <img id="showImg" src="../../../public/bookTitleImage/{{this.ListBook.0.image}}" style="width:300px;height:300px;"><br>
-                <input type="file" name="urlImage" value="" id="urlImage"></input>
-            </div>
-            
-            <a class="btn btn-success" href="/stockkeeper/BookTitle?p=1" role="button" title="Back to List">
-                <i class="fa fa-backward" aria-hidden="true"></i>
-            </a>
-            <input type="submit" value="Submit" class="btn btn-primary" id="btn-confirm" >
-        </form>
         </div>
-        <div class="col-sm-2"></div>
     </div>
-</div>
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="col-12">
+                <div class="card mt-3 mb-3" style="background-color:#ffe4b3;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-9">
+                            <form method="POST" action="/stockkeeper/BookTitle/edit/{{this.ListBook.0.id}}" enctype="multipart/form-data" style="width: 100%"
+                                id="form-confirm">
+                                <div class="form-group">
+                                    <label for="Cname">tên sách</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Tên sách" maxlength="30"
+                                        value="{{this.ListBook.0.name}}"
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cauthor">Tác giả</label>
+                                    <input type="text" class="form-control" id="author" name="author" maxlength="30"
+                                        placeholder="Tác giả" value="{{this.ListBook.0.author}}"
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cquantity">Số lượng</label>
+                                    <input type="number" class="form-control" min="1" max="100" id="quantity" name="quantity"
+                                        placeholder="" value="{{this.ListBook.0.quantity}}"
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cdescription">Mô tả</label>
+                                    <input type="text" class="form-control" id="description" name="description" maxlength="50"
+                                        placeholder="Mô tả" value="{{this.ListBook.0.description}}"
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Ccategory">Chuyên mục</label>
+                                    <select id="cbCategory" name="categoryID" class="form-control"
+                                        onchange="cbRoleChange({{id}})"
+                                        style="background-color: #993300; color: white;">
+                                        {{#each this.Listcate}}
+                                        <option value="{{id}}" {{#when id 'eq' 1}}selected{{/when}}>{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtImage">Ảnh đại diện bài viết:</label><br>
+                                    <img id="showImg" src="../../../public/bookTitleImage/{{this.ListBook.0.image}}"
+                                        style="width:300px;height:300px;"><br>
+                                    <input type="file" name="urlImage" value="" id="urlImage"></input>
+                                </div>
+
+                                <a class="btn btn-success" href="/stockkeeper/BookTitle?p=1" role="button"
+                                    title="Back to List"
+                                    style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                </a>
+                                <input type="submit" value="Cập nhật" class="btn btn-primary" id="btn-confirm"
+                                style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                            </form>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

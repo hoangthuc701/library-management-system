@@ -22,7 +22,6 @@ module.exports = {
 				list[i].push(brDetail);
 			});
 		};
-		console.log(list[0][2]);
 		newLocal = 'admin/BorrowingCard/list';
 		res.render(newLocal, {
 			List: list, quantity: quantity[0]["quantity"],

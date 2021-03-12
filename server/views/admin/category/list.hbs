@@ -1,3 +1,6 @@
+{{#section 'title'}}
+Quản lý chuyên mục
+{{/section}}
 {{#section 'js'}}
 <script>
   function viewDetail(index) {
@@ -15,44 +18,15 @@
       return;
     }
     $.getJSON(`/admin/Category/add/validation?categoryname=${categoryName}`, (data) => {
-      if (data["result"] == 0) {
-        $.post(
-          "/admin/Category/add",
-          { name: categoryName },
-          function (data) {
-            let nextID = data["nextID"] - 1;
-            window.alert("Thêm thành công!")
-            var parentHTML = addParentHTML(nextID, categoryName);
-            $("#tbodyCateParent").append(parentHTML);
-            $("#tdParentIndex" + nextID).html(data["countParent"] - 1);
-          }
-        );
-      }
       if (data["result"] == 1) {
         alert("Đã tồn tại chuyên mục này, vui lòng nhập lại!");
       }
-    })
-  }
-  function delcate(id) {
-    var ids = $(`#txtid${id}`).val();
-    $.getJSON(`/admin/Category/del/validation?id=${ids}`, (data) => {
-      if (data["result"] == 0) {
-        $.get(
-          `/admin/Category/del/${ids}`,
-          function (data) {
-            let nextID = data["nextID"] - 1;
-            window.alert("Xóa thành công!")
-            var parentHTML = addParentHTML(nextID, categoryName);
-            $("#tbodyCateParent").append(parentHTML);
-            $("#tdParentIndex" + nextID).html(data["countParent"] - 1);
-          }
-        );
-      }
-      if (data["result"] == 1) {
-        alert("Chuyên mục đã được sử dụng không thể xóa!");
+      else{
+        window.location.assign(`/admin/Category/add?name=${categoryName}`);
       }
     })
   }
+  
 
 </script>
 {{/section}}
@@ -70,6 +44,7 @@
   </div>
   <div class="card-body">
     <div class="card-header d-flex justify-content-between">
+      
       <input id="txtCategoryName" placeholder="nhập tên chuyên mục"></input>
       <button class="btn btn-outline-success" role="button" onclick="addParent()">
         <i class="fa fa-plus" aria-hidden="true"></i>
@@ -96,19 +71,14 @@
                   <label>{{id}} </label>
                 </th>
                 <td class="text-center">
-                  <label>Sách {{name}} </label>
+                  <label>{{name}} </label>
                 </td>
                 <td class="text-center" colspan="2">
-                  <button type="button" class="btn btn-primary" onclick="viewDetail({{this.id}})"><i class="fa"
-                      aria-hidden="true"></i>Cập nhật chuyện mục</button>
-
-                  {{!-- <button class="btn btn-danger btn-sm" role="button" onclick="delcate({{id}})">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Xóa
-                  </button> --}}
+                  <button type="button" class="btn btn-primary btn-sm" onclick="viewDetail({{this.id}})"><i class="fa fa-pencil"
+                      aria-hidden="true"></i> Cập nhật</button>
                   <a href="/admin/Category/del/{{id}}" class="btn btn-danger btn-sm">
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    Xóa
+                     Xóa
                   </a>
                 </td>
               </div>
@@ -123,7 +93,7 @@
                     <form method="POST" action="/admin/Category/edit/{{id}}" style="width: 100%" id="form-confirm">
                       <input class="form-control" id="txtid{{id}}" name="id" value="{{id}}" hidden></input><br>
                       <label for="txtname{{id}}">Tên chuyên mục: </label>
-                      <input class="form-control" id="txtname{{id}}" name="name" value="{{name}}"></input><br>
+                      <input class="form-control" id="txtname{{id}}" name="name" value="{{name}}" required></input><br>
                       <input type="submit" value="Cập nhật" style="margin-top: 5px; width:15%" class="btn btn-primary"
                         id="btn-confirm">
                     </form>

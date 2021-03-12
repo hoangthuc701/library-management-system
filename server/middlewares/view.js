@@ -23,7 +23,7 @@ module.exports = function (app) {
         formatDate: function (value) {
           const sqlDate = new Date(value);
 
-          return moment(sqlDate).format("DD/MM");
+          return moment(sqlDate).format("DD/MM/YYYY");
         },
         formatDateTime: function (value) {
           const sqlDate = new Date(value);
@@ -46,6 +46,11 @@ module.exports = function (app) {
           if (result) return options.fn(this);
           return options.inverse(this);
         },
+        getcurrentDate: function(){
+          var value = new Date();
+      
+          return  moment(value).format("yyyy-MM-DD");
+        }
       },
     })
   );

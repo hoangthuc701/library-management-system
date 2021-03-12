@@ -1,3 +1,6 @@
+{{#section 'title'}}
+Quản lý tài khoản
+{{/section}}
 {{#section 'js'}}
 <script>
     function viewDetail(index) {
@@ -9,18 +12,6 @@
             document.getElementById(detailIndex).style.display = "";
     }
 
-    function cbRoleChange(id) {
-        $.post(
-            `/admin/Users/update`,
-            { id: id, roleID: document.getElementById("cbRole" + id).value },
-            function (data) {
-                $("#infoField" + id).empty();
-                var html = returnHtmlRole(data["List"]);
-                $("#infoField" + id).append(html);
-                window.alert("Sửa thành công!");
-            }
-        );
-    }
 </script>
 {{/section}}
 <div class="card">
@@ -79,22 +70,22 @@
                     <th></th>
                     <td colspan="2">
                 <div id="infoField{{id}}"
-                    style="margin-left: 10%;margin-right: 10%;margin-top: 1%; margin-bottom: 2%;border:1px solid purple;display:none;">
+                    style="margin-left: 10%;margin-right: 10%;margin-top: 1%; margin-bottom: 2%;border:1px solid black;display:none;">
                     <div class="form-group" style="margin: 2%;">
                         <form method="POST" action="/admin/account/edit/{{id}}" style="width: 100%" id="form-confirm">
                             <input class="form-control" id="txtid{{id}}" name="id" value="{{id}}" hidden></input><br>
                             <label for="txtusername{{id}}">Tên người dùng: </label>
                             <input class="form-control" id="txtusername{{id}}" name="username"
-                                value="{{username}}"></input><br>
-                            <label>mật khẩu:</label>
-                            <input class="form-control" id="txtpassword{{id}}" name="password" value=""></input><br>
+                                value="{{username}}" required></input><br>
+                            {{!-- <label>mật khẩu:</label>
+                            <input class="form-control" id="txtpassword{{id}}" name="password" value="" required></input><br> --}}
                             <label>Họ và Tên:</label>
-                            <input class="form-control" id="txtname{{id}}" name="name" value="{{name}}"></input><br>
+                            <input class="form-control" id="txtname{{id}}" name="name" value="{{name}}" required></input><br>
                             <label>email:</label>
                             <input class="form-control" type="email" id="txtemail{{id}}" name="email"
-                                value="{{email}}"></input><br>
+                                value="{{email}}" required></input><br>
                             <label>số điện thoại:</label>
-                            <input class="form-control" id="txtphone{{id}}" name="phone" value="{{phone}}"></input><br>
+                            <input class="form-control" id="txtphone{{id}}" name="phone" value="{{phone}}" required></input><br>
                             <label>Vai trò:</label>
                             <select id="cbRole{{id}}" name="roleID" class="form-control"
                                 onchange="cbRoleChange({{id}})">

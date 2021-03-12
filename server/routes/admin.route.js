@@ -116,7 +116,7 @@ router.post('/admin/account/edit/:id', async function (req, res) {
     var accountEntity = {
         id: req.body.id,
         username: req.body.username,
-        password: md5(req.body.password),
+        // password: md5(req.body.password),
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
@@ -156,7 +156,6 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
         if (req.file) {
             image = req.file.filename;
         }
-        console.log(req.file.filename);
         var book_titleEntity = {
             name: req.body.name,
             author: req.body.author,
@@ -173,12 +172,11 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     } 
 });
 
-router.get('/admin/BookTitle/edit/:id',async function (req, res) {
-    console.log(req.params.id);
-    var listBook = await BookTitle.loadByID(+req.params.id);
+router.get('/admin/BookTitle/edit',async function (req, res) {
+    var listBook = await BookTitle.loadByID(+req.query.id);
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/edit';
-    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout: 'addandedit' });
+    res.render(newLocal, { Listcate: listCategory, ListBook: listBook, layout:'adminPanel'});
 });
 router.post('/admin/BookTitle/edit/:id', upload.single('urlImage'), async function (req, res) {
     var BookID = +req.params.id;
@@ -249,10 +247,26 @@ router.post('/admin/BookTitle/search', async function (req, res) {
         pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'adminPanel'
     });
 });
+
+router.post('/admin/BookTitle/searchDate', async function (req, res) {
+    var list = [];
+    var p = 0;
+    req.body.date= moment(req.body.date, 'YYYY/MM/DD').format('YYYY/MM/DD');
+    req.body.todate= moment(req.body.todate, 'YYYY/MM/DD').format('YYYY/MM/DD');
+    console.log(req.body.date);
+    console.log(req.body.todate);
+    list = await BookTitle.searchDate(req.body.date, req.body.todate, p);
+    const newLocal = 'admin/BookTitle/list';
+    res.render(newLocal, {
+        List: list, quantity: list.length,
+        pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'adminPanel'
+    });
+});
 // ======================================= category
-router.post('/admin/Category/add', async function (req, res) {
+router.get('/admin/Category/add', async function (req, res) {
+    var name = req.query.name;
     var CategoryEntity = {
-        name: req.body.name,
+        name: name,
         created_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
         updated_at: ''
     }
@@ -315,13 +329,13 @@ router.post('/admin/BorrowingCard/add', async function (req, res) {
     await BorrowingCard.insert(Borrowing_cardEntity);
     res.redirect('/admin/BorrowingCard?p=1');
 });
-router.get('/admin/BorrowingCard/edit/:id', restrictAdmin,async function (req, res) {
-    var id = +req.params.id;
+router.get('/admin/BorrowingCard/edit', restrictAdmin,async function (req, res) {
+    var id = +req.query.id;
     var listAccount = await Account.load();
     var listBorrowing = await BorrowingCard.loadByID(id);
     listBorrowing[0]["returned_date"] = moment(listBorrowing[0]["returned_date"], 'YYYY/MM/DD').format('YYYY-MM-DD');
     const newLocal = 'admin/BorrowingCard/edit';
-    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'addandedit' });
+    res.render(newLocal, { Listborrowing: listBorrowing, ListAcc: listAccount, layout: 'adminPanel' });
 });
 router.post('/admin/BorrowingCard/edit/:id', async function (req, res) {
     var id = +req.params.id;

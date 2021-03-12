@@ -8,7 +8,7 @@ module.exports = {
         return db.load(`select * from ${TBL_TITLE}`);
     },
     loadByID: function (id) {
-        return db.load(`select * from ${TBL_TITLE} where id = ${id}`);
+        return db.load(`select b.*, c.name as catname from ${TBL_TITLE} b, category c where b.id = ${id} and b.category_id = c.id`);
     },
     loadName: function (name) {
         return db.load(`select * from ${TBL_TITLE} where name = '${name}'`)
@@ -49,10 +49,13 @@ module.exports = {
         return db.load(`select count(*) as quantity from ${TBL_TITLE} where category_id = ${id}`);
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT * FROM ${TBL_TITLE} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT * FROM ${TBL_TITLE} order by UNIX_TIMESTAMP(created_at) DESC LIMIT 10 OFFSET ${offset}`)
     },
     fulltextsearch: (keyword, offset) =>{
         return db.load(`select b.* from book_title b where match(b.name, b.author) against ('${keyword}') limit 10 offset ${offset}`)
+    },
+    searchDate: (date, todate, offset) =>{
+        return db.load(`select * from book_title where UNIX_TIMESTAMP(created_at) BETWEEN '${date}' and '${todate}' order by UNIX_TIMESTAMP(created_at) DESC limit 10 offset ${offset}`)
     },
     load5DependCategory: function (id, catID) {
         return db.load(queries.load5DependCategory(id, catID));

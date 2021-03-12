@@ -21,7 +21,7 @@ router.get("/bookDetail/:id", async (req, res) => {
     if (row[0]) {
         const [_relatedBook, _comments, quantity] = await Promise.all([
             book.load5DependCategory(id, row[0]["category_id"]),
-            comments.load5CommentsOffset(id, 0),
+            comments.load5Comments(id, 0),
             comments.getCommentsQuantity(id),
         ]);
     
@@ -38,7 +38,7 @@ router.get("/bookDetail/:id", async (req, res) => {
 router.get("/bookDetail", async (req, res) => {
     const [id, page] = [req.query.id, req.query.page];
     const [_comments, quantity] = await Promise.all([
-        comments.load5CommentsOffset(id, (page - 1) * 5),
+        comments.load5Comments(id, (page - 1) * 5),
         comments.getCommentsQuantity(id),
     ]);
 
@@ -49,20 +49,19 @@ router.get("/bookDetail", async (req, res) => {
 
 
 router.post("/book-comment", async (req, res) => {
-
+    var date = new Date();
     const entity = {
       Comment: req.body.Comment,
-      //AccountID: +req.session.authUser["id"],
-      AccountID: '1',
+      AccountID: +req.session.authUser["id"],
       BookID: req.body.BookID,
-      Created: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
+      Created: dateUtils.formatDateTimeSQL(date),
       
     };
-  
+    console.log(dateUtils.formatDateTimeSQL(date));
     await comments.addComment(entity);
   
     const [_comments, _quantity] = await Promise.all([
-      comments.load5CommentsOffset(+req.body.BookID, 0),
+      comments.load5Comments(+req.body.BookID, 0),
       comments.getCommentsQuantity(+req.body.BookID),
     ]);
     res.json({

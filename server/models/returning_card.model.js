@@ -37,6 +37,6 @@ module.exports = {
         return db.load(`select count(*) as quantity from ${TBL_RETURNING_CARD}`)
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT * FROM ${TBL_RETURNING_CARD} LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT * FROM ${TBL_RETURNING_CARD} order by UNIX_TIMESTAMP(created_at) DESC LIMIT 10 OFFSET ${offset}`)
     }
 }

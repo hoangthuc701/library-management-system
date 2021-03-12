@@ -37,7 +37,7 @@ module.exports = {
         return db.load(`select count(*) as quantity from ${TBL_BORROWING_CARD}`)
     },
     loadByOffset: (offset) =>{
-        return db.load(`SELECT b.*, a.username FROM ${TBL_BORROWING_CARD} b, account a where b.reader_id = a.id LIMIT 10 OFFSET ${offset}`)
+        return db.load(`SELECT b.*, a.username FROM ${TBL_BORROWING_CARD} b, account a where b.reader_id = a.id order by UNIX_TIMESTAMP(b.created_at) DESC LIMIT 10 OFFSET ${offset}`)
     },
     loadByAccountID: (id) =>{
         return db.load(`SELECT b.* FROM ${TBL_BORROWING_CARD} b where b.reader_id = ${id}`)

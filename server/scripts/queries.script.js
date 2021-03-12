@@ -1,6 +1,6 @@
 module.exports = {
     // COMMENTS
-    load5CommentsOffset: function (id, offset) {
+    load5Comments: function (id, offset) {
         return `
         select c.comment, c.Created, ac.username
         from comment c join account ac on ac.id = c.AccountID

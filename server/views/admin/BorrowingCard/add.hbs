@@ -42,8 +42,8 @@
             </div>
             <div class="form-group">
                 <label for="Cusername">Thời hạn</label>
-                <input type="date" class="form-control" id="returned_date" name="returned_date" placeholder=""
-                    value="">
+                <input type="date" class="form-control" id="returned_date" name="returned_date" placeholder="" min="{{getcurrentDate}}"
+                    value="" required>
             </div>
             <a class="btn btn-success" href="/admin/BorrowingCard?p=1" role="button" title="Back to List">
                 <i class="fa fa-backward" aria-hidden="true"></i>

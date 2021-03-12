@@ -1,3 +1,23 @@
+{{#section 'js'}}
+<script>
+    $(function () {
+        $('#urlImage').change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "jfif")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#showImg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+
+    });
+</script>
+{{/section}}
 <div class="card">
     <div class="card-header">
         <h4>sửa sách</h4>
@@ -5,26 +25,26 @@
     <div class="row" style="margin-top: 20px;">
         <div class="col-sm-1"></div>
         <div class="col-sm-9">
-        <form method="POST" action="" enctype="multipart/form-data" style="width: 100%" id="form-confirm">
+        <form method="POST" action="/admin/BookTitle/edit/{{this.ListBook.0.id}}" enctype="multipart/form-data" style="width: 100%" id="form-confirm">
             <div class="form-group">
                 <label for="Cname">tên sách</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Tên sách"
-                    value="{{this.ListBook.0.name}}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Tên sách" maxlength="30"
+                    value="{{this.ListBook.0.name}}" required>
             </div>
             <div class="form-group">
                 <label for="Cauthor">Tác giả</label>
-                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả"
-                    value="{{this.ListBook.0.author}}">
+                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả" maxlength="30"
+                    value="{{this.ListBook.0.author}}" required>
             </div>
             <div class="form-group">
                 <label for="Cquantity">Số lượng</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder=""
-                    value="{{this.ListBook.0.quantity}}">
+                <input type="number" class="form-control" min="1" max="100" id="quantity" name="quantity" placeholder=""
+                    value="{{this.ListBook.0.quantity}}" required>
             </div>
             <div class="form-group">
                 <label for="Cdescription">Mô tả</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Mô tả"
-                    value="{{this.ListBook.0.description}}">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Mô tả" maxlength="50"
+                    value="{{this.ListBook.0.description}}" required>
             </div>
             <div class="form-group">
                 <label for="Ccategory">Chuyên mục</label>

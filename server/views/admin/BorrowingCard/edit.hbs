@@ -12,7 +12,7 @@
     <div class="row" style="margin-top: 20px;">
         <div class="col-sm-1"></div>
         <div class="col-sm-9">
-        <form method="POST" action="" style="width: 100%" id="form-confirm">
+        <form method="POST" action="/admin/BorrowingCard/edit/{{this.Listborrowing.0.id}}" style="width: 100%" id="form-confirm">
             <div class="form-group">
                 <label for="Crole">Độc giả</label>
                 <select id="cbReader" name="reader_id" class="form-control" onchange="cbRoleChange({{id}})">
@@ -23,8 +23,8 @@
             </div>
             <div class="form-group">
                 <label for="Cusername">Thời hạn</label>
-                <input type="date" class="form-control" id="returned_date" name="returned_date" placeholder=""
-                    value="{{this.Listborrowing.0.returned_date}}">
+                <input type="date" class="form-control" id="returned_date" name="returned_date" placeholder="" min="{{getcurrentDate}}"
+                    value="{{this.Listborrowing.0.returned_date}}" required>
             </div>
             <a class="btn btn-success" href="/admin/BorrowingCard?p=1" role="button" title="Back to List">
                 <i class="fa fa-backward" aria-hidden="true"></i>

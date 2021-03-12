@@ -4,6 +4,7 @@ const dateUtils = require('../middlewares/dateUtils');
 const Account = require('../models/account.model');
 const accountModel = require('../models/account.model');
 const moment = require('moment');
+const { readerCard } = require('./account.controller');
 
 module.exports = {
 	getByOffset: async (req, res) => {
@@ -44,9 +45,11 @@ module.exports = {
 	
 			var expiredDate = new Date(dateUtils.getCurrentDateTime())
 			expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
-	
+			var datetimestamp = Date.now();
+			var fieldname = 'RDCA'
+    		var cardID = fieldname + '-' + datetimestamp;
 			var Reader_cardEntity = {
-				card_id: '',
+				card_id: cardID,
 				account_id: listAccount[0]["id"],
 				created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
 				expirated_date: expiredDate,
@@ -89,7 +92,6 @@ module.exports = {
 
 			var Reader_cardEntity = {
 				id : req.body.id,
-				card_id: '',
 				account_id: list[0]["id"],
 				expirated_date: req.body.expirated_date,
 			}
@@ -102,16 +104,22 @@ module.exports = {
 		//change user role into reader after librarian accepted
 		var accountEntity = {
 			id: userID,
-			role_id: 5
+			role_id: 5,
+			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		var listinfor_register = await Account.LoadInfor_register(userID);
 		await Account.deleteInfor_register(listinfor_register[0]["id"]);
 		await Account.update(accountEntity);
 		var expiredDate = new Date(dateUtils.getCurrentDateTime())
 		expiredDate.setDate(expiredDate.getDate() + 365);//expired day after 1 year from now
+
+		var datetimestamp = Date.now();
+		var fieldname = 'RDCA'
+    	var cardID = fieldname + '-' + datetimestamp;
 		//create new reader card
 		var Reader_cardEntity = {
             account_id: userID,
+			card_id: cardID,
             created_date: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime()),
             expirated_date: expiredDate,
 		}
@@ -125,7 +133,8 @@ module.exports = {
 		await Account.deleteInfor_register(listinfor_register[0]["id"]);
 		var accountEntity = {
 			id: userID,
-			role_id: 1
+			role_id: 1,
+			updated_at: dateUtils.formatDateTimeSQL(dateUtils.getCurrentDateTime())
 		}
 		await Account.update(accountEntity);
 		res.redirect('/librarian/awaiting');

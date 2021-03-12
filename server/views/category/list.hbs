@@ -9,23 +9,22 @@
             $.getJSON(`/category-load-more?id=${$("#categoryID").val()}&offset=${+$("#offset").val() + 1}`, (data) => {
                 if (data.length !== 0) {
                     data.forEach(val => {
-                        var fDate = formatDate(val['created_at']);
 
-                        const row = `
-              <div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2">
-                <a href="/bookDetail/${val['id']}" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25 _article">
+
+                        const row = `<div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2">
+                <a href="/bookDetail/${val['id']}" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
                   <img src="../../public/bookTitleImage/${val["image"]}" alt="IMG">
                 </a>
                 <div class="size-w-9 w-full-sr575 m-b-25">
                   <h5 class="p-b-12">
-                    <a href="/bookDetail/${val['id']}" class="f1-l-1 cl2 hov-cl10 trans-03 respon2 _article">
+                    <a href="/bookDetail/${val['id']}" class="f1-l-1 cl2 hov-cl10 trans-03 respon2">
                       ${val['name']}
                     </a>
                   </h5>
                   <div class="cl8 p-b-18">
                     <a href="javascript:;" class="f1-s-4 cl8 hov-cl10 trans-03">${val['author']}</a>
                     <span class="f1-s-3 m-rl-3">-</span>
-                    <span class="f1-s-3">${fDate}</span>
+                    <span class="f1-s-3"></span>
                   </div>
                   <p class="f1-s-1 cl6 p-b-24">${val['description']}</p>
                 </div>
@@ -48,27 +47,29 @@
 
 <!-- Breadcrumb -->
 <div class="container">
-    <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
-        <div class="f2-s-1 p-r-30 m-tb-6">
-            <a href="/" class="breadcrumb-item f1-s-3 cl9">
-                Trang chủ
-            </a>
-            <span class="breadcrumb-item f1-s-3 cl9">
-                {{this._categoryName.name}}
-            </span>
-        </div>
-    </div>
+
 </div>
-<section class="bg-light p-b-55">
-    <div class="container">
+<section class="bg-light p-b-55" style="background-image:url('../../public/bookTitleImage/wood-card.jpg');">
+    <div class="container" style= "background-color:#ffe4b3;">
+        <div class="row" style = "background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1" style = "background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                            Trang chủ
+                        </a>
+                        <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                            {{this._categoryName.name}}
+                        </span>
+                </div>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 p-b-80">
                 <div class="p-r-10 p-r-0-sr991">
                     <div class="m-t-40 p-b-40" id="books-area">
                         {{#each this._book}}
                         <div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2">
-                            <a href="/bookDetail/{{id}}"
-                                class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
+                            <a href="/bookDetail/{{id}}" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
                                 <img src="../../public/bookTitleImage/{{image}}" alt="IMG">
                             </a>
 
@@ -90,6 +91,9 @@
 
                                     <span class="f1-s-3">
                                         {{formatDate created_at}}
+                                    </span><br>
+                                    <span class="f1-s-4 cl8 hov-cl10 trans-03">
+                                        {{view}} lượt xem
                                     </span>
                                 </div>
 
@@ -101,16 +105,13 @@
                         {{/each}}
                     </div>
 
-                    <button class="flex-c-c size-a-13 bo-all-1 cl6 hov-btn1 trans-03"
-                        id="button-load-more">
+                    <button class="flex-c-c size-a-13 bo-all-1 cl6 hov-btn1 trans-03" id="button-load-more" style="background-image: url(../../public/bookTitleImage/wood-button.jpg); color:white">
                         <input type="hidden" id="offset" value="1">
                         <input type="hidden" id="categoryID" value="{{this._categoryName.id}}">
-                        Load more
+                        Thêm
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-{{> footer}}
