@@ -37,19 +37,6 @@
             showError('Độ dài của username phải lớn hơn 6.');
             return;
         }
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: $("input[name='username']").val(),
-                name: $("input[name='name']").val(),
-                email: $("input[name='email']").val(),
-                phone: $("input[name='phone']").val(),
-                password: $("input[name='password']").val()
-            }),
-        };
             
 
         if (!validateEmail(email)){
