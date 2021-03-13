@@ -26,6 +26,9 @@ module.exports = {
         const condition = { id }
         return db.del(TBL_RETURNING_CARD, condition);
     },
+    deleteByBorrowingCard: function (borrowing_card_id) {
+        return db.load(`delete from ${TBL_RETURNING_CARD} where borrowing_card_id = '${borrowing_card_id}'`);
+    },
 
     getNextAutoIncrement: () => {
         return db.load(`SELECT AUTO_INCREMENT

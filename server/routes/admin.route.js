@@ -363,6 +363,7 @@ router.get('/admin/BorrowingCard/del/:id', restrictAdmin,async function (req, re
             await BorrowingCardBook.delete(listBorrowingBook[i]["id"]);
         }
     }
+    await ReturningCard.deleteByBorrowingCard(listBorrowing[0]["card_id"]);
 	await BorrowingCard.delete(id);
     res.redirect('/admin/BorrowingCard?p=1');
 });
@@ -373,6 +374,30 @@ router.post('/admin/BorrowingCard/searchDate', async function (req, res) {
     req.body.date= moment(req.body.date, 'YYYY/MM/DD').format('YYYY/MM/DD');
     req.body.todate= moment(req.body.todate, 'YYYY/MM/DD').format('YYYY/MM/DD');
     var listBorrowingCard = await BorrowingCard.searchDate(req.body.date, req.body.todate, p);
+
+    for(var i = 0; i < listBorrowingCard.length; i++){
+        listBorrowingCard[i]["returned_date"] = moment(listBorrowingCard[i]["returned_date"], 'YYYY/MM/DD').format('YYYY/MM/DD');
+        listBorrowingCard[i]["borrowed_date"] = moment(listBorrowingCard[i]["borrowed_date"], 'YYYY/MM/DD HH:mm:SS').format('YYYY/MM/DD HH:mm:SS');
+    }
+    for (let i = 0; i < listBorrowingCard.length; i++) {
+        var listBorrowingCardBook = await BorrowingCardBook.loadByBorrowingCardID(listBorrowingCard[i]["card_id"]);
+        list.push([listBorrowingCard[i]]);
+        listBorrowingCardBook.forEach((brDetail) => {
+            list[i].push(brDetail);
+        });
+    };
+
+    const newLocal = 'admin/BorrowingCard/list';
+    res.render(newLocal, {
+        List: list, quantity: listBorrowingCard.length,
+        pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'adminPanel'
+    });
+});
+
+router.post('/admin/BorrowingCard/searchUser', async function (req, res) {
+    var list = [];
+    var p = 0;
+    var listBorrowingCard = await BorrowingCard.searchUser(req.body.search, p);
 
     for(var i = 0; i < listBorrowingCard.length; i++){
         listBorrowingCard[i]["returned_date"] = moment(listBorrowingCard[i]["returned_date"], 'YYYY/MM/DD').format('YYYY/MM/DD');

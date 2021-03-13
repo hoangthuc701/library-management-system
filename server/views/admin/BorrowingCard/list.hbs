@@ -31,26 +31,41 @@ Quản lý phiếu mượn
             {{/each}}
         </ul>
     </div>
-    <div class="col-md-10 col-lg-8">
-            <div class="p-l-10 p-rl-0-sr991">
-                <div class="flex-s-c">
-                    <form method="post" action="/admin/BorrowingCard/searchDate" id="search-date" class="form-inline"
-                        style="width: 100%">
-                        <label class=  "m-r-20" for="Cusername">Từ ngày</label>
-                        <input type="date" class="form-control m-r-20" id="date" name="date" placeholder=""
-                            style="width: 160px;" value="" required>
-                        <label class=  "m-r-20" for="Cusername">Đến ngày</label>
-                        <input type="date" class="form-control m-r-20" id="todate" name="todate" placeholder=""
-                            style="width: 160px;" value="" required>
-                        <label for="Cusername" style="color:white;">-</label>
-                        <button class="btn btn-success " role="button" type="submit" form="search-date">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                            Tìm
-                        </button>
-                    </form>
-                </div>
+    <div class="card-body m-t-20">
+      <div class="col-md-10 col-lg-4">
+        <div class="p-r-10 p-r-0-sr991">
+          <form class="dropdown mr-0" method="post" action="/admin/BorrowingCard/searchUser" id="search-box">
+            <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 m-r-0">
+              <input autocomplete="on" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" id="search"
+                placeholder="Tìm kiếm user...">
+              <button class="flex-c-c size-a-0 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
             </div>
+          </form>
         </div>
+      </div>
+      <div class="col-md-10 col-lg-8">
+        <div class="p-l-10 p-rl-0-sr991">
+          <div class="flex-s-c">
+            <form method="post" action="/admin/BorrowingCard/searchDate" id="search-date" class="form-inline"
+              style="width: 100%">
+              <label class="m-r-20" for="Cusername">Từ ngày</label>
+              <input type="date" class="form-control m-r-20" id="date" name="date" placeholder="" style="width: 160px;"
+                value="" required>
+              <label class="m-r-20" for="Cusername">Đến ngày</label>
+              <input type="date" class="form-control m-r-20" id="todate" name="todate" placeholder="" style="width: 160px;"
+                value="" required>
+              <label for="Cusername" style="color:white;">-</label>
+              <button class="btn btn-success " role="button" type="submit" form="search-date">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Tìm
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   <div class="card">
     
     <table class="table table-hover" id="tableCategory">

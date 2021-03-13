@@ -45,5 +45,8 @@ module.exports = {
     searchDate: (date, todate, offset) =>{
         return db.load(`select b.*, a.username from ${TBL_BORROWING_CARD} b, account a where b.reader_id = a.id and b.created_at BETWEEN '${date}' and '${todate}' order by b.created_at DESC limit 10 offset ${offset}`)
     },
+    searchUser: (search, offset) =>{
+        return db.load(`select b.*, a.username from ${TBL_BORROWING_CARD} b, account a where b.reader_id = a.id AND a.username LIKE '%${search}%' limit 10 offset ${offset}`);
+    },
 }
 
