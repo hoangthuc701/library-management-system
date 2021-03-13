@@ -236,13 +236,14 @@ router.get('/admin/BookTitle/del/:id', restrictAdmin,async function (req, res) {
     }    
 });
 
+
 router.post('/admin/BookTitle/search', restrictAdmin, async function (req, res) {
-    var list = []
+    var list = [];
     var p = 0;
     list = await BookTitle.fulltextsearch(req.body.search, p);
     const newLocal = 'admin/BookTitle/list';
     res.render(newLocal, {
-
+        urlKey: "search", keyword: req.body.search, 
         List: list, quantity: list.length,
         pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'adminPanel'
     });
