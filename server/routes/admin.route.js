@@ -172,7 +172,7 @@ router.post('/admin/BookTitle/add', upload.single('urlImage'), async function (r
     } 
 });
 
-router.get('/admin/BookTitle/edit',async function (req, res) {
+router.get('/admin/BookTitle/edit',restrictAdmin, async function (req, res) {
     var listBook = await BookTitle.loadByID(+req.query.id);
     var listCategory = await Category.load();
     const newLocal = 'admin/BookTitle/edit';
@@ -236,7 +236,7 @@ router.get('/admin/BookTitle/del/:id', restrictAdmin,async function (req, res) {
     }    
 });
 
-router.post('/admin/BookTitle/search', async function (req, res) {
+router.post('/admin/BookTitle/search', restrictAdmin, async function (req, res) {
     var list = []
     var p = 0;
     list = await BookTitle.fulltextsearch(req.body.search, p);
@@ -253,8 +253,6 @@ router.post('/admin/BookTitle/searchDate', async function (req, res) {
     var p = 0;
     req.body.date= moment(req.body.date, 'YYYY/MM/DD').format('YYYY/MM/DD');
     req.body.todate= moment(req.body.todate, 'YYYY/MM/DD').format('YYYY/MM/DD');
-    console.log(req.body.date);
-    console.log(req.body.todate);
     list = await BookTitle.searchDate(req.body.date, req.body.todate, p);
     const newLocal = 'admin/BookTitle/list';
     res.render(newLocal, {
@@ -263,7 +261,7 @@ router.post('/admin/BookTitle/searchDate', async function (req, res) {
     });
 });
 // ======================================= category
-router.get('/admin/Category/add', async function (req, res) {
+router.get('/admin/Category/add', restrictAdmin, async function (req, res) {
     var name = req.query.name;
     var CategoryEntity = {
         name: name,
@@ -273,7 +271,7 @@ router.get('/admin/Category/add', async function (req, res) {
     await Category.insert(CategoryEntity);
     res.redirect('/admin/category?p=1');
 });
-router.get('/admin/Category/add/validation', async function (req, res) {
+router.get('/admin/Category/add/validation', restrictAdmin, async function (req, res) {
     const name = req.query.categoryname;
     var list = await Category.loadName(name);
     var result = 0;
@@ -291,7 +289,7 @@ router.post('/admin/Category/edit/:id', async function (req, res) {
     await Category.update(CategoryEntity);
     res.redirect('/admin/category?p=1');
 });
-router.get('/admin/Category/del/validation', async function (req, res) {
+router.get('/admin/Category/del/validation', restrictAdmin, async function (req, res) {
     var id = req.query.id;
     var p = 1;
     var list = await BookTitle.loadByCategoryID(id, (p - 1) * 10);

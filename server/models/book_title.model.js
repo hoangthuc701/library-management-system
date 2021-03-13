@@ -55,7 +55,7 @@ module.exports = {
         return db.load(`select b.* from book_title b where match(b.name, b.author) against ('${keyword}') limit 10 offset ${offset}`)
     },
     searchDate: (date, todate, offset) =>{
-        return db.load(`select * from book_title where UNIX_TIMESTAMP(created_at) BETWEEN '${date}' and '${todate}' order by UNIX_TIMESTAMP(created_at) DESC limit 10 offset ${offset}`)
+        return db.load(`select * from book_title where created_at BETWEEN '${date}' and '${todate}' order by created_at DESC limit 10 offset ${offset}`)
     },
     load5DependCategory: function (id, catID) {
         return db.load(queries.load5DependCategory(id, catID));
