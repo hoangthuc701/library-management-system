@@ -58,7 +58,7 @@
             }),
         };
 
-       fetch(`http://localhost:8080/user/register`,
+       fetch(`https://g12-library-management.herokuapp.com/user/register`,
             requestOptions
         ).then(res=>res.json()).then(data=>{
             if (data.error){
@@ -90,7 +90,7 @@
             }),
         };
 
-       fetch(`http://localhost:8080/user/login`,
+       fetch(`https://g12-library-management.herokuapp.com/user/login`,
             requestOptions
         ).then(res=>res.json()).then(data=>{
             if (data.error){
