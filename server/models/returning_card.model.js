@@ -10,7 +10,7 @@ module.exports = {
         return db.load(`select * from ${TBL_RETURNING_CARD} where id = ${id}`);
     },
     loadByborrowingCardID: function (id) {
-        return db.load(`select * from ${TBL_RETURNING_CARD} where borrowing_card_id = '${id}'`);
+        return db.load(`select * from ${TBL_RETURNING_CARD} where borrowing_card_id = '${id}' order by UNIX_TIMESTAMP(created_at) DESC`);
     },
     insert: function (entity) {
         return db.add(TBL_RETURNING_CARD, entity);
