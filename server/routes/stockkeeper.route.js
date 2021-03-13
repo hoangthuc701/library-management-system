@@ -167,6 +167,19 @@ router.post('/stockkeeper/BookTitle/search', async function (req, res) {
     });
 });
 
+router.post('/stockkeeper/BookTitle/searchDate', async function (req, res) {
+    var list = [];
+    var p = 0;
+    req.body.date= moment(req.body.date, 'YYYY/MM/DD').format('YYYY/MM/DD');
+    req.body.todate= moment(req.body.todate, 'YYYY/MM/DD').format('YYYY/MM/DD');
+    list = await BookTitle.searchDate(req.body.date, req.body.todate, p);
+    const newLocal = 'stocker/BookTitle/list';
+    res.render(newLocal, {
+        List: list, quantity: list.length,
+        pagi: functUtils.rangeOfPagination(Math.ceil(list.length / 10), p), layout: 'stock'
+    });
+});
+
 const directory = '/public/bookTitleImage/';
 
 // router.get('/stockkeeper/BookTitles', bookTitleController.getByOffset);

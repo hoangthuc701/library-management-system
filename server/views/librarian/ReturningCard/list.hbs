@@ -76,7 +76,28 @@
                   Thêm phiếu trả
                 </button>
               </form>
+            </div>
+            <div class="col-md-10 col-lg-8 " style="margin-left: 40%;">
+              <div class="p-l-10 p-rl-0-sr991">
+                <div class="flex-s-c">
+                  <form method="post" action="/librarian/returningCard/searchDate" id="search-date" class="form-inline"
+                    style="width: 100%">
+                    <label class="m-r-20" for="Cusername">Từ ngày</label>
+                    <input type="date" class="form-control m-r-20" id="date" name="date" placeholder=""
+                      style="width: 165px; background-color: #993300; color: white;" required>
+                    <label class="m-r-20" for="Cusername">Đến ngày</label>
+                    <input type="date" class="form-control m-r-20" id="todate" name="todate" placeholder=""
+                      style="width: 165px; background-color: #993300; color: white;" required>
+                    <label for="Cusername" style="color:white;">-</label>
+                    <button class="btn btn-success " role="button" type="submit" form="search-date"
+                      style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                      Tìm
+                    </button>
+                  </form>
+                </div>
               </div>
+            </div>
             <table class="table" id="tableCategory">
               <thead>
                 <tr style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-button.jpg');">

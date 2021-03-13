@@ -41,6 +41,9 @@ module.exports = {
     },
     loadByAccountID: (id) =>{
         return db.load(`SELECT b.* FROM ${TBL_BORROWING_CARD} b where b.reader_id = ${id} order by UNIX_TIMESTAMP(b.created_at) DESC`)
-    }
+    },
+    searchDate: (date, todate, offset) =>{
+        return db.load(`select b.*, a.username from ${TBL_BORROWING_CARD} b, account a where b.reader_id = a.id and b.created_at BETWEEN '${date}' and '${todate}' order by b.created_at DESC limit 10 offset ${offset}`)
+    },
 }
 

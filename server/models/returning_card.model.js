@@ -38,5 +38,8 @@ module.exports = {
     },
     loadByOffset: (offset) =>{
         return db.load(`SELECT * FROM ${TBL_RETURNING_CARD} order by UNIX_TIMESTAMP(created_at) DESC LIMIT 10 OFFSET ${offset}`)
-    }
+    },
+    searchDate: (date, todate, offset) =>{
+        return db.load(`select * from ${TBL_RETURNING_CARD} where created_at BETWEEN '${date}' and '${todate}' order by created_at DESC limit 10 offset ${offset}`)
+    },
 }

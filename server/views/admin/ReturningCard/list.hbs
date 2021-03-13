@@ -184,14 +184,38 @@ Quản lý phiếu trả
         </ul>
     </div>
   <div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <form method="POST" action="/admin/returningCard/add" style="width: 100%" id="form-confirm">
-            <input id="txtBorrowingCardID" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn" required></input>
-            <button class="btn btn-outline-success" role="button" type="submit" form="form-confirm">
+    <div class="card-body m-t-20">
+      <div class="col-md-10 col-lg-4">
+        <div class="p-r-10 p-r-0-sr991">
+            <form method="POST" action="/admin/returningCard/add" style="width: 100%" id="form-confirm">
+              <input id="txtBorrowingCardID" name="borrowing_card_id" placeholder="Nhập mã phiếu mượn" required></input>
+              <button class="btn btn-outline-success" role="button" type="submit" form="form-confirm">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Thêm phiếu trả
-            </button>
-        </form>
+              </button>
+            </form>
+        </div>
+      </div>
+      <div class="col-md-10 col-lg-8">
+        <div class="p-l-10 p-rl-0-sr991">
+          <div class="flex-s-c">
+            <form method="post" action="/admin/returningCard/searchDate" id="search-date" class="form-inline"
+              style="width: 100%">
+              <label class="m-r-20" for="Cusername">Từ ngày</label>
+              <input type="date" class="form-control m-r-20" id="date" name="date" placeholder="" style="width: 160px;"
+                value="" required>
+              <label class="m-r-20" for="Cusername">Đến ngày</label>
+              <input type="date" class="form-control m-r-20" id="todate" name="todate" placeholder="" style="width: 160px;"
+                value="" required>
+              <label for="Cusername" style="color:white;">-</label>
+              <button class="btn btn-success " role="button" type="submit" form="search-date">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Tìm
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <table class="table table-hover" id="tableCategory">
       <thead>

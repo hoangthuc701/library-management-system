@@ -15,7 +15,6 @@ module.exports = {
             end = numOfPages - 1;
             start = end - 4;
         }
-        console.log("asdasdSA");
         return new Array(5).fill().map((d, i) => Object({ value: i + start + 1 }));
     }
 }

@@ -89,19 +89,20 @@
 
                     <!-- list of comments -->
 
-                    <div class="pb-5">
-                        <h4 class="f1-l-4 cl3 p-b-12">
-                            <i class="fa fa-comment fa-lg" aria-hidden="true"></i> Bình luận
+                    <div class="how2 how2-cl4 flex-s-c">
+                        <h4 class="f1-l-4 cl3 p-b-12 ">
+                            <i class="" aria-hidden="true"></i> Bình luận
                             <small id="tail-quantity">({{this.quantity.0.SoLuong}})</small>
                         </h4>
-                    </div>
+                    </div><br><br>
 
                     <div>
-                        <h4 class="f1-l-4 cl3 p-b-12">
+                        <div class="how2 how2-cl4 flex-s-c">
+                        <h4 class=" cl3 p-b-12">
                             <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>Bạn cảm thấy sách này như thế
                             nào ?
                         </h4>
-
+                        </div>
                         {{#unless lcIsAuthenticated}}
                         <p class="f1-s-13 cl8 p-b-40 font-italic">
                             <span class="text-danger">Bạn phải đăng nhập để có thể bình luận</span>
@@ -183,13 +184,13 @@
             <div class="col-md-10 col-lg-4 p-b-30">
                 <div class="p-l-10 p-rl-0-sr991 p-t-70">
                     <div class="p-b-30">
-                        <div class="how2 how2-cl4 flex-s-c">
-                            <h3 class="f1-m-2 cl3 tab01-title">
+                        <div class="how2 how2-cl4 flex-s-c" style="background-image:url(../../public/bookTitleImage/tempDetail1.jpg);">
+                            <h3 class="f1-m-2 cl3 tab01-title" style="color: whitesmoke;">
                                 <i class="fa fa-book" aria-hidden="true"></i> Các sách liên quan
                             </h3>
                         </div>
 
-                        <ul class="p-t-35">
+                        <ul class="p-t-35" style="background-color:#cc9966;">
                             {{#each this._relatedBook}}
                             <li class="flex-wr-sb-s p-b-30" title="{{description}}">
                                 <a href="/bookDetail/{{id}}" class="size-w-10 wrap-pic-w hov1 trans-03">
@@ -198,30 +199,30 @@
 
                                 <div class="size-w-11">
                                     <h6 class="p-b-4">
-                                        <a href="/bookDetail/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03">
+                                        <a href="/bookDetail/{{id}}" class="f1-s-5 cl3 hov-cl10 trans-03" style="color:black">
                                             {{name}}
                                         </a>
                                     </h6>
 
                                     <span class="cl8 txt-center p-b-24">
-                                        <a href="/category/{{categoryID}}"
+                                        <a href="/category/{{categoryID}}" style="color:black"
                                             class="f1-s-4 cl8 hov-cl10 trans-03 border border-dark rounded p-1">
                                             {{catname}}
                                         </a>
 
-                                        <span class="f1-s-3 m-rl-3">
+                                        <span class="f1-s-3 m-rl-3" style="color:black">
                                             -
                                         </span>
 
-                                        <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                        <a href="javascript:;" class="f1-s-6 cl8 hov-cl10 trans-03" style="color:black">
                                             {{author}}
                                         </a>
 
-                                        <span class="f1-s-3 m-rl-3">
+                                        <span class="f1-s-3 m-rl-3" style="color:black">
                                             -
                                         </span>
 
-                                        <span class="f1-s-3">
+                                        <span class="f1-s-3" style="color:black">
                                             {{formatDate created_at}}
                                         </span>
                                     </span>
