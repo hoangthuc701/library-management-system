@@ -108,10 +108,10 @@
 
 
 <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><strong>Đăng kí tài khoản</strong></h5>
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="modal-header" >
+                <h5 class="modal-title"><strong style="color:whitesmoke;">Đăng kí tài khoản</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -124,27 +124,27 @@
 
             <div class="modal-body">
                 <form id="form-register">
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="username" name="username" placeholder="Tên tài khoản*">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="username" name="username" placeholder="Tên tài khoản*" style="background-color: wheat; color:black;">
 
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="name" name="name" placeholder="Họ tên*">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="name" name="name" placeholder="Họ tên*" style="background-color: wheat; color:black;">
 
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="email"
-                        id="email" name="email" placeholder="Email*">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="email" autocomplete="off"
+                        id="email" name="email" placeholder="Email*" style="background-color: wheat; color:black;">
 
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="phone" name="phone" placeholder="phone number*">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="phone" name="phone" placeholder="phone number*" style="background-color: wheat; color:black;">
 
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="password"
-                        type="password" name="password" placeholder="Mật khẩu*">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="password" 
+                        type="password" name="password" placeholder="Mật khẩu*" style="background-color: wheat; color:black;">
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
-                        id="repassword" name="repassword" placeholder="Nhập lại*">
+                        id="repassword" name="repassword" placeholder="Nhập lại*" style="background-color: wheat; color:black;">
                 </form>
                 <div class="modal-footer">
                     <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc"
-                        onclick="handleRegister()">
+                        onclick="handleRegister()" style="background-image:url('../../public/bookTitleImage/wood-footer.jpg');">
                         Đăng kí
                     </button>
                 </div>
@@ -157,9 +157,9 @@
 <!-- form đăng nhập -->
 <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
             <div class="modal-header">
-                <h5 class="modal-title"><strong>Đăng nhập</strong></h5>
+                <h5 class="modal-title"><strong style="color: whitesmoke;">Đăng nhập</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -172,16 +172,16 @@
 
             <div class="modal-body">
                 <form id="form-login">
-                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text"
-                        id="_username" name="_username" placeholder="Tên người dùng*" required>
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="_username" name="_username" placeholder="Tên người dùng*" style="background-color: wheat; color:black;" required>
 
                     <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="_password"
-                        type="password" name="_password" placeholder="Mật khẩu*" required>
+                        type="password" name="_password" placeholder="Mật khẩu*" style="background-color: wheat; color:black;" required>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" onclick="handleLogin()"
-                    id="btn-login">
+                    id="btn-login" style="background-image:url('../../public/bookTitleImage/wood-footer.jpg');">
                     Đăng nhập
                 </button>
             </div>
