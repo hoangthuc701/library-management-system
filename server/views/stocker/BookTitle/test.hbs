@@ -1,0 +1,23 @@
+
+<html>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+        <script type='text/javascript'>
+         $(document).ready(function() {
+            //option A
+            $("form").submit(function(e){
+                alert('submit intercepted');
+                e.preventDefault(e);
+            });
+        });
+        </script>
+    </head>
+
+    <body>
+        <form action="http://google.com" method="GET">
+          Search <input type='text' name='q' />
+          <input type='submit'/>
+        </form>
+    </body>
+</html>

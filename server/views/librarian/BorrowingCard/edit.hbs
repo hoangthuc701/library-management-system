@@ -1,0 +1,66 @@
+{{#section 'js'}}
+<script>
+
+
+</script>
+{{/section}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+                style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Trang chủ
+                    </a>
+                    <a href="/librarian/borrowingCard?p=1" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Quản lý phiếu mượn
+                    </a>
+                    <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Sửa phiếu mượn
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="col-12">
+                <div class="card mt-3 mb-5" style="background-color:#ffe4b3;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-9">
+                            <form method="POST" action="/librarian/BorrowingCard/edit/{{this.Listborrowing.0.id}}" style="width: 100%" id="form-confirm">
+                                <div class="form-group">
+                                    <label for="Crole">Độc giả</label>
+                                    <select id="cbReader" name="reader_id" class="form-control"
+                                        onchange="cbRoleChange({{id}})" 
+                                        style="background-color: #993300; color: white;">
+                                        {{#each this.ListAcc}}
+                                        <option value="{{id}}" {{#when id 'eq' 1}}selected{{/when}}>{{username}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cusername">Thời hạn</label>
+                                    <input type="date" class="form-control" id="returned_date" name="returned_date" min="{{getcurrentDate}}"
+                                        placeholder="" value="{{this.Listborrowing.0.returned_date}}"
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <a class="btn btn-success" href="/librarian/BorrowingCard?p=1" role="button"
+                                    title="Back to List"
+                                    style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                </a>
+                                <input type="submit" value="Cập nhật" class="btn btn-primary" id="btn-confirm"
+                                style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                            </form>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

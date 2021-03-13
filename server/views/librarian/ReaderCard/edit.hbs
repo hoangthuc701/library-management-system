@@ -1,0 +1,66 @@
+{{#section 'js'}}
+<script>
+
+
+</script>
+{{/section}}
+
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+<input type="date" class="form-control" id="expirated_date" name="expirated_date" min="{{getcurrentDate}}"
+                                        placeholder="" value="{{this.List.0.expirated_date}}" style="background-color: #993300; color: white;">
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+                style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Trang chủ
+                    </a>
+                    <a href="/librarian/readerCard?p=1" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Quản lý độc giả
+                    </a>
+                    <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Sửa thẻ độc giả
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="col-12">
+                <div class="card mt-3 mb-5" style="background-color:#ffe4b3;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-9">
+                            <form method="POST" action="/librarian/readerCard/edit/{{this.List.0.id}}" style="width: 100%" id="form-confirm">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="id" name="id" placeholder=""
+                                        value="{{this.List.0.id}}" hidden>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cusername">username</label>
+                                    <input type="text" autocomplete="off" class="form-control" id="username" name="username" placeholder=""
+                                        value="{{this.List.0.username}}" required
+                                        style="background-color: #993300; color: white;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Cusername">Thời hạn</label>
+                                    <input type="date" class="form-control" id="expirated_date" name="expirated_date" min="{{getcurrentDate}}" required
+                                        placeholder="" value="{{this.List.0.expirated_date}}" style="background-color: #993300; color: white;">
+                                </div>
+                                <a class="btn btn-success" href="/librarian/readerCard?p=1" role="button"
+                                    title="Back to List" style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                </a>
+                                <input type="submit" value="Cập nhật" class="btn btn-primary" id="btn-confirm" 
+                                style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                            </form>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

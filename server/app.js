@@ -7,6 +7,11 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+require("./middlewares/session")(app);
+require("./middlewares/passport")(app);
+require("./middlewares/locals")(app);
+require("./middlewares/view")(app);
+require("./middlewares/default-setup.mdw")(app);
 
 // middleware
 if (process.env.NODE_ENV === 'production') {
@@ -22,7 +27,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use(require('./routes/home.route'));
+app.use(require('./routes/admin.route'));
+app.use(require('./routes/user.route'));
+app.use(require('./routes/librarian.route'));
+app.use(require('./routes/categories.route'));
+app.use(require('./routes/stockkeeper.route'));
 app.use(require('./routes/book.route'));
+
 
 // catch 404 and forward to error handler
 // eslint-disable-next-line no-unused-vars

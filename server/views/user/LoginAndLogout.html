@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" type="image/png" href="/public/images/icons/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="/public/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/fonts/iconic/css/material-design-iconic-font.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/vendor/animate/animate.css" />
+    <link rel="stylesheet" type="text/css" href="/public/vendor/css-hamburgers/hamburgers.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/vendor/animsition/css/animsition.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/util.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    <script src="/public/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/public/vendor/animsition/js/animsition.min.js"></script>
+    <script src="/public/vendor/bootstrap/js/popper.js"></script>
+    <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/style.js"></script>
+    <script>
+        $(function () {
+            $('#urlImage').change(function () {
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "jfif")) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#showImg').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- login -->
+    <form method = "post" action="https://g12-library-management.herokuapp.com/user/login"> 
+        <div class="form-group" >
+            <input type="text" class="form-control" id="username" name="username" placeholder="" value="">
+            <input type="password" class="form-control" id="password" name="password" placeholder="" value="">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <!-- register -->
+    <form method = "POST" action="https://g12-library-management.herokuapp.com/user/register"> 
+        <div class="form-group" >
+            <input type="text" class="form-control" id="username" name="username" placeholder="" value="">
+            <input type="password" class="form-control" id="password" name="password" placeholder="" value="">
+            <input type="text" class="form-control" id="name" name="name" placeholder="" value="">
+            <input type="email" class="form-control" id="email" name="email" placeholder="" value="">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <!-- logout -->
+    <form method = "get" action="https://g12-library-management.herokuapp.com/user/logout"> 
+        <div class="form-group" >
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+
+</html>

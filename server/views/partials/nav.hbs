@@ -1,0 +1,328 @@
+<!-- navigation -->
+<!-- form đăng ký tài khoản -->
+{{#section 'js'}}
+<script>
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+    function showError(text){
+        $('#alert').css("display",'block');
+        $('#alert').text(text); 
+    }
+
+    function showErrorLogin(text){
+        $('#alert-login').css("display",'block');
+        $('#alert-login').text(text); 
+    }
+    function handleRegister(){ 
+        const username=  $("input[name='username']").val();
+        const name =  $("input[name='name']").val();
+        const email= $("input[name='email']").val();
+        const phone= $("input[name='phone']").val();
+        const password = $("input[name='password']").val();
+        const repassword = $("input[name='repassword']").val();
+
+        if (!username || !name || !email || !phone || !password || !repassword){
+            showError('Vui lòng nhập đầy đủ tất cả các trường.');
+            return;
+        }
+        if (password != repassword){
+            showError('Mật khẩu không khớp với nhau.');
+            return;
+        }
+
+        if (username.length<6){
+            showError('Độ dài của username phải lớn hơn 6.');
+            return;
+        }
+            
+
+        if (!validateEmail(email)){
+            showError('Email không hợp lệ.');
+            return;
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                username,
+                name,
+                email,
+                phone,
+                password
+            }),
+        };
+
+       fetch(`https://g12-library-management.herokuapp.com/user/register`,
+            requestOptions
+        ).then(res=>res.json()).then(data=>{
+            if (data.error){
+                showError(data.error);
+            }
+            else {
+                showError(data.message);
+            }
+        }); 
+    }
+
+    function handleLogin(){
+        const _username=  $("input[name='_username']").val();
+        const _password = $("input[name='_password']").val();
+
+        if (!username || !password ){
+            showErrorLogin('Vui lòng nhập đầy đủ tất cả các trường.');
+            return;
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                _username,
+                _password
+            }),
+        };
+
+       fetch(`https://g12-library-management.herokuapp.com/user/login`,
+            requestOptions
+        ).then(res=>res.json()).then(data=>{
+            if (data.error){
+                showErrorLogin(data.error);
+            }
+            else {
+                document.location.href="/";
+            }
+        }); 
+    }
+</script>
+
+{{/section}}
+
+
+
+<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="modal-header" >
+                <h5 class="modal-title"><strong style="color:whitesmoke;">Đăng kí tài khoản</strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="pl-3 pr-3 pt-3">
+                <div class="alert alert-warning w-100 text-center" role="alert" id="alert" style="display: none;">
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form id="form-register">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="username" name="username" placeholder="Tên tài khoản*" style="background-color: wheat; color:black;">
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="name" name="name" placeholder="Họ tên*" style="background-color: wheat; color:black;">
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="email" autocomplete="off"
+                        id="email" name="email" placeholder="Email*" style="background-color: wheat; color:black;">
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="phone" name="phone" placeholder="phone number*" style="background-color: wheat; color:black;">
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="password" 
+                        type="password" name="password" placeholder="Mật khẩu*" style="background-color: wheat; color:black;">
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="password"
+                        id="repassword" name="repassword" placeholder="Nhập lại*" style="background-color: wheat; color:black;">
+                </form>
+                <div class="modal-footer">
+                    <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" id="cc"
+                        onclick="handleRegister()" style="background-image:url('../../public/bookTitleImage/wood-footer.jpg');">
+                        Đăng kí
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+
+<!-- form đăng nhập -->
+<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong style="color: whitesmoke;">Đăng nhập</strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="pl-3 pr-3 pt-3">
+                <div class="alert alert-warning w-100 text-center" role="alert" id="alert-login" style="display: none;">
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form id="form-login">
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" type="text" autocomplete="off"
+                        id="_username" name="_username" placeholder="Tên người dùng*" style="background-color: wheat; color:black;" required>
+
+                    <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20 mw-100" id="_password"
+                        type="password" name="_password" placeholder="Mật khẩu*" style="background-color: wheat; color:black;" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10" onclick="handleLogin()"
+                    id="btn-login" style="background-image:url('../../public/bookTitleImage/wood-footer.jpg');">
+                    Đăng nhập
+                </button>
+            </div>
+            {{!-- <div class="modal-footer">
+                <a href="/account/ConfirmEmail">Quên mật khẩu?</a>
+            </div> --}}
+        </div>
+    </div>
+</div>
+<!--  -->
+
+
+
+<header>
+    <div class="container-menu-desktop">
+        <div class="topbar "
+            style="height:70px;background-color:#996600;background-image: url('../../public/bookTitleImage/imagmain4.jpg');">
+            <div class="content-topbar container h-100">
+                <div class="left-topbar">
+                    <!-- nếu user chưa đăng nhập thì hiển thị cái này -->
+                    {{#unless this.lcIsAuthenticated}}
+                    <a href="javascript:;" class="left-topbar-item mr-3" data-toggle="modal"
+                        data-target="#modal-register" id="anchor-signup"
+                        style="color: cornsilk;background-image: url('../../public/bookTitleImage/wood-button.jpg');">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Đăng kí
+                    </a>
+
+                    <a href="javascript:;" class="left-topbar-item mr-3" data-toggle="modal" data-target="#modal-login"
+                        id="anchor-signin"
+                        style="color:white;background-image: url('../../public/bookTitleImage/wood-button.jpg');">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
+                    </a>
+                    {{/unless}}
+                </div>
+                <div class="right-topbar">
+                    {{#if this.lcIsAuthenticated}}
+                    <!-- kiểm tra nếu user đã đăng nhập thì hiển thị cái này -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle left-topbar-item" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="font-family: Roboto-Regular;background-image: url('../../public/bookTitleImage/wood-button.jpg');">
+                            <small><i class="fa fa-address-card" aria-hidden="true"></i> Xin chào,
+                                {{this.lcAuthUser.name}}!</small>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="z-index: 10;background-color: #b35900;"
+                            aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item left-topbar-item" href="/home/profile"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-address-book-o" aria-hidden="true"></i> <small>Trang cá nhân</small>
+                            </a>
+                            {{#when lcAuthUser.role_id 'eq' 1}}
+                            <!-- Khi vai trò là độc giả thì hiển thị cái này -->
+                            <a class="dropdown-item left-topbar-item" href="/user/inforRegister"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-registered" aria-hidden="true"></i> <small>Đăng ký thẻ độc giả</small>
+                            </a>
+                            {{/when}}
+
+
+                            <!-- Khi vai trò là thủ thư thì hiển thị cái này -->
+                            {{#when lcAuthUser.role_id 'eq' 4}}
+                            <a class="dropdown-item left-topbar-item" href="/librarian/readerCard"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-address-card-o" aria-hidden="true"></i> <small>Quản lý thẻ độc giả</small>
+                            </a>
+                            <a class="dropdown-item left-topbar-item" href="/librarian/awaiting"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i> <small>Chấp nhận độc giả</small>
+                            </a>
+                            <a class="dropdown-item left-topbar-item" href="/librarian/BorrowingCard?p=1"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> <small>Quản lý phiếu mượn</small>
+                            </a>
+                            <a class="dropdown-item left-topbar-item" href="/librarian/returningCard?p=1"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i> <small>Quản lý phiếu trả</small>
+                            </a>
+                            {{/when}}
+                            <!-- Khi vai trò là admin thì hiển thị cái này -->
+                            {{#when lcAuthUser.role_id 'eq' 2}}
+                            <a class="dropdown-item left-topbar-item" href="/admin" style="background-color: #b35900;">
+                                <i class="fa fa-user-secret" aria-hidden="true"></i> <small>Menu Admin</small>
+                            </a>
+                            {{/when}}
+                            <!-- Khi vai trò là thủ kho thì hiển thị cái này -->
+                            {{#when lcAuthUser.role_id 'eq' 3}}
+                            <a class="dropdown-item left-topbar-item" href="/stockkeeper/BookTitle?p=1"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-list-alt" aria-hidden="true"></i> <small>Quản lý danh sách
+                                    sách</small>
+                            </a>
+                            {{/when}}
+                            {{#when lcAuthUser.role_id 'eq' 5}}
+                            <a class="dropdown-item left-topbar-item" href="/user/shoppingCart/listCart" style="background-color: #b35900;">
+                                <i class="fa fa-address-book-o" aria-hidden="true"></i> <small>Danh sách mượn sách</small>
+                                <span class="badge badge-primary float-right">{{this.lcCart.totals}}</span>
+                            </a>
+                            {{/when}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item left-topbar-item" href="/user/logout"
+                                style="background-color: #b35900;">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> <small>Đăng xuất</small>
+                            </a>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="wrap-main-nav" style="z-index: 5;">
+            <div class="main-nav" style="background-image: url('../../public/bookTitleImage/wood-nav.jfif');">
+                <nav class="menu-desktop">
+                    <ul class="main-menu">
+                        <div id="_home">
+                            <a href="/" style="color: black"><i class="fa fa-university fa-2x"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                        <li class="mega-menu-item">
+                            <a><i class="fa fa-th" aria-hidden="true" style=""></i></a>
+
+                            <div class="sub-mega-menu" style="background-color: #e64d00;">
+
+                                {{#each lcCats}}
+                                <a class="nav-link bg-light flex-column nav-pills" href="/category/{{this.id}}"
+                                    role="tab" style="background-image:url('../../public/bookTitleImage/category.jfif'); margin-left:2px ; margin-right:1px ; color:white">{{this.name}}</a>
+                                {{/each}}
+                            </div>
+                        </li>
+                        <form class="dropdown mr-0" method="post" action="/user/search" id="search-box">
+                            <div class="">
+                                <input autocomplete="off" class="form-control" type="search"
+                                    name="search" id="search" style="background-color: #993300; color:white">
+                                <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03 bg11" type="submit">
+                                    <i class="zmdi zmdi-search" style="color:white ;"></i>
+                                </button>
+                            </div>
+                        </form>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

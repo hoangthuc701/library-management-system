@@ -1,0 +1,219 @@
+{{#section 'js'}}
+<script>
+  function viewDetail(index) {
+    var detailIndex = "row" + index;
+    var rowDetail = document.getElementById(detailIndex)
+    if (rowDetail.style.display == "")
+      document.getElementById(detailIndex).style.display = "none";
+    else if (rowDetail.style.display == "none")
+      document.getElementById(detailIndex).style.display = "";
+  }
+</script>
+{{/section}}
+{{#section 'css'}}
+<style>
+  .pagination {
+    display: inline-block;
+
+  }
+
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: lavender;
+  }
+
+  .pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+</style>
+
+{{/section}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+  <div class="container" style="background-color:#ffe4b3;">
+    <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+      <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+        style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+        <div class="f2-s-1 p-r-30 m-tb-6">
+          <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+            Trang chủ
+          </a>
+          <a href="/librarian/BorrowingCard?p=1" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+            Quản lý phiếu mượn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="background-color:#ffe4b3;">
+    <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+      <div class="col-12" style="background-color:#ffe4b3;">
+        <div class="card mt-3 mb-5" style="background-color:#ffe4b3;">
+
+          <div class="card-header">
+            <h4>Danh sách phiếu mượn</h4>
+            <div class="card-header d-flex justify-content-between">
+              <a href="/librarian/BorrowingCard/add" class="btn btn-outline-success">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Thêm phiếu mượn
+              </a>
+            </div>
+            <ul class="pagination">
+              {{#each this.pagi}}
+              {{#when value 'noteq'-1}}
+              <li><a href="/librarian/BorrowingCard?p={{value}}"
+                  style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">{{value}}</a>
+              </li>
+              {{/when}}
+              {{/each}}
+            </ul>
+          </div>
+          <div class="card" style="background-color:#ffe4b3;">
+            <div class="card-body m-t-20">
+              <div class="col-md-10 col-lg-4">
+                <div class="p-r-10 p-r-0-sr991">
+                  <form class="dropdown mr-0" method="post" action="/librarian/BorrowingCard/searchUser" id="search-box">
+                    <div class="size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6 m-r-0">
+                      <input autocomplete="off" class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" id="search"
+                        placeholder="Tìm kiếm..." style="background-color: #993300; color: white;" required>
+                      <button class="flex-c-c size-a-0 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit" hidden>
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-10 col-lg-8 " style="margin-left: 40%;">
+                <div class="p-l-10 p-rl-0-sr991">
+                  <div class="flex-s-c">
+                    <form method="post" action="/librarian/BorrowingCard/searchDate" id="search-date" class="form-inline"
+                      style="width: 100%">
+                      <label class="m-r-20" for="Cusername">Từ ngày</label>
+                      <input type="date" class="form-control m-r-20" id="date" name="date" placeholder=""
+                        style="width: 165px; background-color: #993300; color: white;" required>
+                      <label class="m-r-20" for="Cusername">Đến ngày</label>
+                      <input type="date" class="form-control m-r-20" id="todate" name="todate" placeholder=""
+                        style="width: 165px; background-color: #993300; color: white;" required>
+                      <label for="Cusername" style="color:white;">-</label>
+                      <button class="btn btn-success " role="button" type="submit" form="search-date"
+                        style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Tìm
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <table class="table" id="tableCategory">
+              <thead>
+                <tr
+                  style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-button.jpg');">
+                  <th scope="col" class="text-left" style="width: 10%; color:whitesmoke">#</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">Tên Phiếu mượn</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">Độc giả</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">Ngày mượn</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">Ngày trả</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">View detail</th>
+                  <th scope="col" class="text-left" style="color:whitesmoke">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyCateParent" style="background-color:#d9b38c;">
+                {{#each List}}
+                <tr>
+                  <th scope="row" class="text-left" id="tdParentIndex{{this.0.id}}">
+                    <p style="color: black;">{{this.0.id}}</p>
+                  </th>
+                  <td class="text-left">
+                    <p style="color: black;">{{this.0.card_id}}</p>
+                  </td>
+                  <td class="text-left">
+                    <p style="color: black;">{{this.0.username}}</p>
+                  </td>
+                  <td class="text-left">
+                    <p style="color: black;">{{this.0.borrowed_date}}</p>
+                  </td>
+                  <td class="text-left">
+                    <p style="color: black;">{{this.0.returned_date}}</p>
+                  </td>
+                  <td class="text-left">
+                    <button type="button" class="btn btn-primary" onclick="viewDetail({{this.0.id}})"><i
+                        class="fa fa-eye" aria-hidden="true"></i></button>
+                  </td>
+                  <td class="text-left">
+                    <a href="/librarian/BorrowingCard/edit?id={{this.0.id}}" class="btn btn-primary btn-sm">
+                      <i class="fa fa-pencil" aria-hidden="true">sửa</i>
+                    </a>
+                    <a href="/librarian/BorrowingCard/del/{{this.0.id}}" class="btn btn-danger btn-sm">
+                      <i class="fa fa-trash" aria-hidden="true">Xóa</i>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr id="row{{this.0.id}}" style="display:none">
+                  <td style="background-color:#ffe4b3;"></td>
+                  <td colspan="5">
+                    <form method="POST" action="/librarian/borrowingCardBook/add" style="width: 100%"
+                      id="form-confirm{{this.0.id}}" class="form-inline">
+                      <div class="form-group mb-2">
+                        <input id="txtBorrowingCardID{{this.0.id}}" name="borrowing_card_id" value="{{this.0.card_id}}"
+                          hidden></input>
+                        <input id="txtBookID{{this.0.id}}"
+                          style="background-color: #993300; color: white; border-width: 5px;height:25px" name="book_id"
+                          placeholder="nhập id sách" required></input>
+                      </div>
+                      <button class="btn btn-success btn-sm mb-2 ml-2" style="background-color: #804000; color:white"
+                        role="button" type="submit" form="form-confirm{{this.0.id}}">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Thêm mới
+                      </button>
+                    </form>
+                    <table id="tableChild{{this.0.id}}" class="table table-hover">
+                      <thead>
+                        <tr style="background-color:#60401f;">
+                          <th scope="col" class="text-left" style="width: 20%; color:whitesmoke;">#</th>
+                          <th scope="col" class="text-center" style="color:whitesmoke;">Hình ảnh</th>
+                          <th scope="col" style="width: 60%;color:whitesmoke;" class="text-center">Sách</th>
+                          <th scope="col" class="text-center" style="color:whitesmoke">Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbodyCateChild{{this.1.id}}" style="background-color: #f3e6d8;">
+                        {{#each this}}
+                        {{#if (isNotEqual @index 0)}}
+                        <tr id="row{{ChuyenMucCon}}" class="childRow">
+                          <td class="text-left">
+                            <p style="color: black;">{{borrowing_card_id}}</p>
+                          </td>
+                          <td class="text-center">
+                            <img class="card-img-top" src="../../../public/bookTitleImage/{{this.image}}"
+                              style="width: 30px; height:50px" alt="Card image cap">
+                          </td>
+                          <td class="text-center">
+                            <p style="color: black;">{{this.name}}</p>
+                          </td>
+                          <td class="text-center">
+                            <a href="/librarian/borrowingCardBook/del/{{this.id}}" class="btn btn-danger btn-sm">
+                              <i class="fa fa-trash" aria-hidden="true">Xóa</i>
+                            </a>
+                          </td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

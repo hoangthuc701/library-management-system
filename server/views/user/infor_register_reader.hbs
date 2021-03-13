@@ -1,0 +1,49 @@
+{{#section 'js'}}
+<script>
+
+</script>
+{{/section}}
+<section style="background-color: #804000;background-image: url('../../public/bookTitleImage/wood-card.jpg');">
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8 bg1"
+                style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+                <div class="f2-s-1 p-r-30 m-tb-6">
+                    <a href="/" class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Trang chủ
+                    </a>
+                    <span class="breadcrumb-item f1-s-3 cl9" style="color:whitesmoke;">
+                        Đăng ký độc giả
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color:#ffe4b3;">
+        <div class="row" style="background-image:url('../../public/bookTitleImage/wood-button.jpg');">
+            <div class="col-12">
+                <div class="card mt-3 mb-5" style="background-color:#ffe4b3;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-9">
+                            <form method="POST" action="/user/registerReaderCard" style="width: 100%" id="form-confirm">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="content_register"
+                                        name="content_register" placeholder="Nguyễn Văn A. KHTN" value=""
+                                        style="background-color: #993300; color: white;" required>
+                                </div>
+                                <a class="btn btn-success" href="/" role="button" title="Back to List"
+                                style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                </a>
+                                <input type="submit" value="Submit" class="btn btn-primary" id="btn-confirm" 
+                                style="background-image:url('../../public/bookTitleImage/wood-footer.jpg'); color:whitesmoke">
+                            </form>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
